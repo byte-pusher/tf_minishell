@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 16:36:09 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 17:48:56 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,46 @@ int	ft_get_chartype(char *s, int *i)
 	if (s[*i] == ' ')
 		return (WHITE_SPACE);
 	return (COMMAND);
+}
+
+void	ft_handle_squote(t_data *data, int *i, int type)
+{
+	int		start;
+	int		end;
+	t_token	*new_token;
+
+	start = *i;
+	new_token = ft_lstnew(&data->tokens);
+	new_token->type = type;
+	while (data->input[*i] != '\0')
+	{
+		(*i)++;
+		end = *i;
+		if (data->input[*i] == '\'')
+			break ;
+	}
+	end++;
+	new_token->name = ft_substr(data->input, start, end - start);
+	ft_lstadd_back(&data->tokens, new_token);
+}
+
+void	ft_handle_dquote(t_data *data, int *i, int type)
+{
+	int		start;
+	int		end;
+	t_token	*new_token;
+
+	start = *i;
+	new_token = ft_lstnew(&data->tokens);
+	new_token->type = type;
+	while (data->input[*i] != '\0')
+	{
+		(*i)++;
+		end = *i;
+		if (data->input[*i] == '\"')
+			break ;
+	}
+	end++;
+	new_token->name = ft_substr(data->input, start, end - start);
+	ft_lstadd_back(&data->tokens, new_token);
 }

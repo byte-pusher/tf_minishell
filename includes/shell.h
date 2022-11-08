@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 16:51:11 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 17:44:41 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct s_data
 void	ft_lexer(t_data *data);
 bool	ft_is_space(char c);
 int		ft_get_chartype(char *s, int *i);
+void	ft_handle_squote(t_data *data, int *i, int type);
+void	ft_handle_dquote(t_data *data, int *i, int type);
 
 /* ************************************************************************** */
 /* UTILS																	  */
