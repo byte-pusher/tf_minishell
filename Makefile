@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/07 21:19:06 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/08 12:44:26 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME  = minishell
 CC    = gcc
 FLAGS = -Wall -Werror -Wextra
 SRCS  = main.c \
-		lexer.c \
-		ft_substr.c
+		./lexer/lexer.c ./lexer/lexer_utils.c \
+		./libft/ft_substr.c ./libft/lst_utils.c \
 
 OBJS = $(SRCS:c=o)
 

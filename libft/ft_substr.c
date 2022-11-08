@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:09:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/07 21:21:15 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 12:42:03 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/shell.h"
+#include "../includes/shell.h"
 
 int	ft_strlen(const char *s)
 {
