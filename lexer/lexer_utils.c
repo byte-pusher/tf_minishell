@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 14:30:06 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 14:35:11 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,13 @@ int	ft_get_chartype(char *s, int *i)
 	if (s[*i] == '>')
 	{
 		if (s[*i + 1] == '>')
-		{
-			(*i)++;
 			return (GREATGREAT);
-		}
 		return (GREAT);
 	}
 	if (s[*i] == '<')
 	{
 		if (s[*i + 1] == '<')
-		{
-			(*i)++;
 			return (LESSLESS);
-		}
 		return (LESS);
 	}
 	if (s[*i] == '\'')

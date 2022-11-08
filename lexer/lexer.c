@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 14:29:53 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 15:39:27 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_handle_cmd(t_data *data, int *i, int type)
 		(*i)++;
 		end = *i;
 	}
+	(*i)--;
 	new_token->name = ft_substr(data->input, start, end - start);
 	ft_lstadd_back(&data->tokens, new_token);
 }
@@ -48,10 +49,11 @@ void	ft_handle_quotes(t_data *data)
 
 }
 
-void	ft_handle_heredoc(t_data *data)
+void	ft_handle_heredoc(t_data *data, int *i)
 {
 	t_token *new_token;
 
+	(*i)++;
 	new_token = ft_lstnew(&data->tokens);
 	new_token->type = LESSLESS;
 	new_token->name = malloc(3);
@@ -61,10 +63,11 @@ void	ft_handle_heredoc(t_data *data)
 	ft_lstadd_back(&data->tokens, new_token);
 }
 
-void	ft_handle_append(t_data *data)
+void	ft_handle_append(t_data *data, int *i)
 {
 	t_token *new_token;
 
+	(*i)++;
 	new_token = ft_lstnew(&data->tokens);
 	new_token->type = GREATGREAT;
 	new_token->name = malloc(3);
@@ -102,15 +105,13 @@ void	ft_lexer(t_data *data)
 		else if (type == GREAT || type == LESS)
 			ft_handle_redirections(data, type, data->input[i]);
 		else if (type == LESSLESS)
-			ft_handle_heredoc(data);
+			ft_handle_heredoc(data, &i);
 		else if (type == GREATGREAT)
-			ft_handle_append(data);
+			ft_handle_append(data, &i);
 		else if (type == SQUOTE || type == DQUOTE)
 			ft_handle_quotes(data);
 		else if (type == PIPE)
 			ft_handle_others(data, type, data->input[i]);
 		i++;
 	}
-	ft_print_list(&data->tokens);
 }
-// ls -a | wc -l
