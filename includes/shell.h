@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 18:13:38 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 21:27:40 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_data
 /* ************************************************************************** */
 /* LEXER																	  */
 /* ************************************************************************** */
-void	ft_lexer(t_data *data);
+int		ft_lexer(t_data *data);
 bool	ft_is_space(char c);
 int		ft_get_chartype(char *s, int *i);
 void	ft_handle_squote(t_data *data, int *i, int type);
@@ -76,8 +76,15 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 /* LIBFT */
 t_token	*ft_lstlast(t_token *lst);
 void	ft_lstadd_back(t_token **lst, t_token *new);
-t_token	*ft_lstnew(t_token **tokens);
+t_token	*ft_lstnew(t_token **lst);
 void	ft_print_list(t_token **lst);
+t_token	*ft_lstfirst(t_token **lst);
+
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+
+/* ************************************************************************** */
+/* PARSER																	  */
+/* ************************************************************************** */
+int	ft_parser(t_token **token);
 
 #endif

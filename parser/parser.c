@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 21:26:18 by gjupy            ###   ########.fr       */
+/*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
+/*   Updated: 2022/11/08 21:29:34 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/shell.h"
+#include "../includes/shell.h"
 
-int	main(void)
+int	ft_create_cmd_table(t_token **token)
 {
-	t_data	data;
-	int		exit;				// to store different error codes
+	return (0);
+}
 
-	data.tokens = NULL;
-	while (true)
-	{
-		data.input = readline(TESHNO);
-		add_history(data.input);
-		exit = ft_lexer(&data); // still need to handle malloc errors in ft_lexer
-		if (exit == 0)
-			ft_parser(&data.tokens);
-	}
-	clear_history();
-	return (EXIT_SUCCESS);
+int	ft_parser(t_token **token)
+{
+	if ((*token)->type == PIPE)
+		return (2); // error implementieren
+	ft_create_cmd_table(token);
+	return (0);
 }

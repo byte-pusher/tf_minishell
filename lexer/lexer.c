@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 18:14:17 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 21:31:46 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ void	ft_handle_others(t_data *data, int type, char c)
 	ft_lstadd_back(&data->tokens, new_token);
 }
 
-void	ft_lexer(t_data *data)
+int	ft_lexer(t_data *data)
 {
 	int	i;
 	int	type;
 
 	i = 0;
+	if (data->input[0] == '\0')
+		return (1);
 	while (data->input[i] != '\0')
 	{
 		while (ft_is_space(data->input[i]) == true)
@@ -92,5 +94,6 @@ void	ft_lexer(t_data *data)
 			ft_handle_others(data, type, data->input[i]);
 		i++;
 	}
+	return (0);
 	// ft_print_list(&data->tokens);
 }
