@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 17:44:41 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 18:13:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define PURPLE "\033[0;35m"
 # define RESET "\033[0m"
+# define COLOR_BOLD  "\e[1m"
+# define COLOR_OFF   "\e[m"
+# define TESHNO PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET
 
 # include <stdlib.h>
 # include <unistd.h>
