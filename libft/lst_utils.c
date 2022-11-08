@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 14:41:28 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 16:53:31 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_token	*ft_lstnew(t_token **tokens)
 
 	node = malloc(sizeof(t_token));
 	if (node == NULL)
-		exit(-1);					// create here exit_failure funciton to free the tokens list
+		exit(-1); // create here exit_failure funciton to free the tokens list
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 14:09:10 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/08 16:51:11 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
-	t_token *tokens;
-} t_data;
+	t_token	*tokens;
+}	t_data;
 
 /* ************************************************************************** */
 /* LEXER																	  */
