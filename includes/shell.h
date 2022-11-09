@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 21:27:40 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/09 16:49:09 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <stdbool.h>
 # include <errno.h>
 
+int	exit_status; // to store different error codes
+
 /* ************************************************************************** */
 /* STRUCTS																	  */
 /* ************************************************************************** */
@@ -43,6 +45,12 @@ enum e_TOKEN_TYPE
 	DQUOTE,
 	WHITE_SPACE,
 	COMMAND
+};
+
+enum e_ERROR_TYPE
+{
+	SUCCESS,
+	SYNTAX_ERR
 };
 
 typedef struct s_token
