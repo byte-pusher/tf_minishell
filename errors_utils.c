@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/09 17:06:40 by gjupy            ###   ########.fr       */
+/*   Created: 2022/11/09 17:21:13 by gjupy             #+#    #+#             */
+/*   Updated: 2022/11/09 18:58:00 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/shell.h"
 
-int	main(int argc, char **argv, char **env)
+void	ft_err_msg(char *token)
 {
-	t_data	data;
-
-	(void) argc;
-	(void) argv;
-	(void) env; // erstmal (void). danach muss env ja benutzt werden
-	exit_status = SUCCESS;
-	ft_init_teshno(&data);
-	return (EXIT_SUCCESS);
+	if (exit_status == SYNTAX_ERR)
+		printf("teshno: syntax error near unexpected token `%s'\n", token);
 }

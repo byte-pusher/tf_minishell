@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/09 16:40:15 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/09 16:50:39 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int	ft_lexer(t_data *data)
 			ft_handle_others(data, type, data->input[i]);
 		i++;
 	}
-	return (0);
+	return (SUCCESS);
 	// ft_print_list(&data->tokens);
 }

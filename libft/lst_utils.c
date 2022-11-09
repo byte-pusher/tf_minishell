@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 21:19:51 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/09 19:03:07 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,23 @@ t_token	*ft_lstfirst(t_token **lst)
 // 	*lst = NULL;
 // 	lst = NULL;
 // }
+
+void	ft_lst_clear(t_token **lst)
+{
+	t_token	*current;
+	t_token	*next;
+
+	current = *lst;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		free(current->name);
+		current = next;
+	}
+	*lst = NULL;
+	lst = NULL;
+}
 
 void	ft_print_list(t_token **lst)
 {

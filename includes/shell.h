@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/09 16:49:09 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/09 20:04:56 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ typedef struct s_data
 {
 	char	*input;
 	t_token	*tokens;
+	t_token *cmd_table;
 }	t_data;
+
+
+int	ft_init_teshno(t_data *data);
 
 /* ************************************************************************** */
 /* LEXER																	  */
@@ -87,8 +91,13 @@ void	ft_lstadd_back(t_token **lst, t_token *new);
 t_token	*ft_lstnew(t_token **lst);
 void	ft_print_list(t_token **lst);
 t_token	*ft_lstfirst(t_token **lst);
+void	ft_lst_clear(t_token **lst);
 
+void	ft_putstr_fd(char *s, int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+
+/* ERRORS */
+void	ft_err_msg(char *token);
 
 /* ************************************************************************** */
 /* PARSER																	  */
