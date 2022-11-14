@@ -6,7 +6,7 @@
 #    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/14 11:52:33 by rkoop            ###   ########.fr        #
+#    Updated: 2022/11/14 14:02:06 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) lib
-	@make lib
 	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 	@echo "\n$(GREEN) >> minishell created.\n $(EOL)"
 	
