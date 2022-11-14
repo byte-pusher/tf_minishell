@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   counter_fts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:50:16 by rkoop            ###   ########.fr       */
+/*   Created: 2022/05/03 11:39:54 by rkoop             #+#    #+#             */
+/*   Updated: 2022/05/06 15:09:36 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
-#include "../libft/libft.h"
-
-void	ft_parser_errors(t_token **token)
+int	count_digits(int n)
 {
-	if ((*token)->type == PIPE)
+	int	count;
+
+	count = 0;
+	if (n == 0)
+		count++;
+	while (n != 0)
 	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
+		n = n / 10;
+		count++;
 	}
+	return (count);
 }
 
-int	ft_create_cmd_table(t_token **token)
+int	count_digits_u(unsigned int n)
 {
-	// while ()
-	return (SUCCESS);
-}
+	unsigned int	count;
 
-int	ft_parser(t_token **token)
-{
-	ft_parser_errors(token);
-	ft_create_cmd_table(token);
-	ms_lst_clear(token);
-	return (SUCCESS);
+	count = 0;
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		n = n / 10;
+		count++;
+	}
+	return (count);
 }

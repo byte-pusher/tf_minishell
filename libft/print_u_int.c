@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   print_u_int.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:50:16 by rkoop            ###   ########.fr       */
+/*   Created: 2022/05/02 15:12:14 by rkoop             #+#    #+#             */
+/*   Updated: 2022/08/13 12:22:15 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
-#include "../libft/libft.h"
+#include"libft.h"
 
-void	ft_parser_errors(t_token **token)
+static void	ft_putnbr_u(unsigned int n, int fd)
 {
-	if ((*token)->type == PIPE)
+	long long int	t;
+
+	t = n;
+	if (t > 9)
 	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
+		ft_putnbr_u((t / 10), fd);
+		ft_putchar_fd((t % 10 + '0'), fd);
 	}
+	else
+		ft_putchar_fd((t + '0'), fd);
 }
 
-int	ft_create_cmd_table(t_token **token)
+int	print_u_int(unsigned int arg)
 {
-	// while ()
-	return (SUCCESS);
-}
-
-int	ft_parser(t_token **token)
-{
-	ft_parser_errors(token);
-	ft_create_cmd_table(token);
-	ms_lst_clear(token);
-	return (SUCCESS);
+	ft_putnbr_u(arg, 1);
+	return (count_digits_u(arg));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/09 20:04:56 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/14 10:46:37 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define COLOR_OFF   "\e[m"
 # define TESHNO PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET
 
+# include "../libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -29,7 +30,7 @@
 # include <stdbool.h>
 # include <errno.h>
 
-int	exit_status; // to store different error codes
+int		exit_status; // to store different error codes
 
 /* ************************************************************************** */
 /* STRUCTS																	  */
@@ -66,11 +67,10 @@ typedef struct s_data
 {
 	char	*input;
 	t_token	*tokens;
-	t_token *cmd_table;
+	t_token	*cmd_table;
 }	t_data;
 
-
-int	ft_init_teshno(t_data *data);
+int		ft_init_teshno(t_data *data);
 
 /* ************************************************************************** */
 /* LEXER																	  */
@@ -85,16 +85,14 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 /* UTILS																	  */
 /* ************************************************************************** */
 
-/* LIBFT */
-t_token	*ft_lstlast(t_token *lst);
-void	ft_lstadd_back(t_token **lst, t_token *new);
-t_token	*ft_lstnew(t_token **lst);
-void	ft_print_list(t_token **lst);
-t_token	*ft_lstfirst(t_token **lst);
-void	ft_lst_clear(t_token **lst);
+/* LIBFTLIKE */
+t_token	*ms_lstlast(t_token *lst);
+void	ms_lstadd_back(t_token **lst, t_token *new);
+t_token	*ms_lstnew(t_token **lst);
+void	ms_print_list(t_token **lst);
+t_token	*ms_lstfirst(t_token **lst);
+void	ms_lst_clear(t_token **lst);
 
-void	ft_putstr_fd(char *s, int fd);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 /* ERRORS */
 void	ft_err_msg(char *token);
@@ -102,6 +100,6 @@ void	ft_err_msg(char *token);
 /* ************************************************************************** */
 /* PARSER																	  */
 /* ************************************************************************** */
-int	ft_parser(t_token **token);
+int		ft_parser(t_token **token);
 
 #endif

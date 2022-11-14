@@ -3,35 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/09 17:36:17 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/14 14:02:06 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME  = minishell
 CC    = gcc
 FLAGS = -Wall -Werror -Wextra
+GREEN = \033[1;32m
+RED = \033[1;31m
+YEL = \033[1;33m
+EOL = \033[0m
+
+LIBFTDIR ?= ./libft
+LIBFT ?= $(LIBFTDIR)/libft.a
+
 SRCS  = main.c \
 		init.c \
-		./libft/ft_substr.c ./libft/lst_utils.c ./libft/ft_putstr_fd.c \
-		./lexer/lexer.c ./lexer/lexer_utils.c \
-		./parser/parser.c \
-		./errors_utils.c
+		errors_utils.c \
+		parser/parser.c \
+		lexer/lexer.c lexer/lexer_utils.c lexer/lst_utils.c
+ 
+OBJ_DIR = ./objs/
+OBJFILES := $(SRCS:.c=.o)
+OBJS := $(addprefix $(OBJ_DIR), $(OBJFILES))
 
-OBJS = $(SRCS:c=o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(OBJ_DIR)%.o: %.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJS) lib
 	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	@echo "\n$(GREEN) >> minishell created.\n $(EOL)"
+	
+lib:
+	@make -C libft
+	@echo "\n$(YEL) >> LIBFT created. $(EOL)"
 
 clean:
-	rm -f $(OBJS) $(OBJS_B)
+	@make clean -C libft
+	@rm -f $(OBJS) 
+	@echo "\n$(YEL) 🗑 >> clean executed. \n $(EOL)"
 
-fclean: clean
-	rm -f $(NAME)
+fclean: 
+	@make fclean -C libft
+	@rm -f $(OBJS) $(NAME)
+	@echo "\n$(YEL) 🗑 >> fclean executed. \n $(EOL)"
 
 re: fclean $(NAME)
 

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/08 17:48:56 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/14 11:36:25 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+#include "../libft/libft.h"
 
 bool	ft_is_space(char c)
 {
@@ -51,7 +52,7 @@ void	ft_handle_squote(t_data *data, int *i, int type)
 	t_token	*new_token;
 
 	start = *i;
-	new_token = ft_lstnew(&data->tokens);
+	new_token = ms_lstnew(&data->tokens);
 	new_token->type = type;
 	while (data->input[*i] != '\0')
 	{
@@ -62,7 +63,7 @@ void	ft_handle_squote(t_data *data, int *i, int type)
 	}
 	end++;
 	new_token->name = ft_substr(data->input, start, end - start);
-	ft_lstadd_back(&data->tokens, new_token);
+	ms_lstadd_back(&data->tokens, new_token);
 }
 
 void	ft_handle_dquote(t_data *data, int *i, int type)
@@ -72,7 +73,7 @@ void	ft_handle_dquote(t_data *data, int *i, int type)
 	t_token	*new_token;
 
 	start = *i;
-	new_token = ft_lstnew(&data->tokens);
+	new_token = ms_lstnew(&data->tokens);
 	new_token->type = type;
 	while (data->input[*i] != '\0')
 	{
@@ -83,5 +84,5 @@ void	ft_handle_dquote(t_data *data, int *i, int type)
 	}
 	end++;
 	new_token->name = ft_substr(data->input, start, end - start);
-	ft_lstadd_back(&data->tokens, new_token);
+	ms_lstadd_back(&data->tokens, new_token);
 }
