@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:50:16 by rkoop            ###   ########.fr       */
+/*   Created: 2022/04/05 17:11:38 by rkoop             #+#    #+#             */
+/*   Updated: 2022/04/17 18:29:31 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
-#include "../libft/libft.h"
+#include"libft.h"
 
-void	ft_parser_errors(t_token **token)
+void	*ft_calloc(unsigned int count, size_t size)
 {
-	if ((*token)->type == PIPE)
-	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
-	}
-}
+	unsigned int	area;
+	char			*rtr_ptr;
 
-int	ft_create_cmd_table(t_token **token)
-{
-	// while ()
-	return (SUCCESS);
-}
-
-int	ft_parser(t_token **token)
-{
-	ft_parser_errors(token);
-	ft_create_cmd_table(token);
-	ms_lst_clear(token);
-	return (SUCCESS);
+	if (size && SIZE_MAX / size < count)
+		return (NULL);
+	area = count * size;
+	rtr_ptr = malloc(area);
+	if (rtr_ptr == NULL)
+		return (NULL);
+	ft_bzero(rtr_ptr, area);
+	return ((void *)rtr_ptr);
 }

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/09 16:50:39 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/14 10:49:07 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+#include "../libft/libft.h"
 
 void	ft_handle_cmd(t_data *data, int *i, int type)
 {
@@ -19,7 +20,7 @@ void	ft_handle_cmd(t_data *data, int *i, int type)
 	t_token	*new_token;
 
 	start = *i;
-	new_token = ft_lstnew(&data->tokens);
+	new_token = ms_lstnew(&data->tokens);
 	new_token->type = type;
 	while (data->input[*i] != '\0'
 		&& ft_get_chartype(data->input, i) == COMMAND)
@@ -29,7 +30,7 @@ void	ft_handle_cmd(t_data *data, int *i, int type)
 	}
 	(*i)--;
 	new_token->name = ft_substr(data->input, start, end - start);
-	ft_lstadd_back(&data->tokens, new_token);
+	ms_lstadd_back(&data->tokens, new_token);
 }
 
 void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
@@ -38,7 +39,7 @@ void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
 	char	c;
 
 	(*i)++;
-	new_token = ft_lstnew(&data->tokens);
+	new_token = ms_lstnew(&data->tokens);
 	new_token->type = type;
 	new_token->name = malloc(3);
 	if (type == LESSLESS)
@@ -48,7 +49,7 @@ void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
 	new_token->name[0] = c;
 	new_token->name[1] = c;
 	new_token->name[2] = '\0';
-	ft_lstadd_back(&data->tokens, new_token);
+	ms_lstadd_back(&data->tokens, new_token);
 }
 
 void	ft_handle_quotes(t_data *data, int *i, int type)
@@ -63,12 +64,12 @@ void	ft_handle_others(t_data *data, int type, char c)
 {
 	t_token	*new_token;
 
-	new_token = ft_lstnew(&data->tokens);
+	new_token = ms_lstnew(&data->tokens);
 	new_token->type = type;
 	new_token->name = malloc(2);
 	new_token->name[0] = c;
 	new_token->name[1] = '\0';
-	ft_lstadd_back(&data->tokens, new_token);
+	ms_lstadd_back(&data->tokens, new_token);
 }
 
 int	ft_lexer(t_data *data)
@@ -93,5 +94,5 @@ int	ft_lexer(t_data *data)
 		i++;
 	}
 	return (SUCCESS);
-	// ft_print_list(&data->tokens);
+	// ms_print_list(&data->tokens);
 }

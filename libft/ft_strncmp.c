@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:50:16 by rkoop            ###   ########.fr       */
+/*   Created: 2022/03/25 12:27:18 by rkoop             #+#    #+#             */
+/*   Updated: 2022/04/17 17:07:59 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
-#include "../libft/libft.h"
+#include"libft.h"
 
-void	ft_parser_errors(t_token **token)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if ((*token)->type == PIPE)
-	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
-	}
-}
+	unsigned int	i;
 
-int	ft_create_cmd_table(t_token **token)
-{
-	// while ()
-	return (SUCCESS);
-}
-
-int	ft_parser(t_token **token)
-{
-	ft_parser_errors(token);
-	ft_create_cmd_table(token);
-	ms_lst_clear(token);
-	return (SUCCESS);
+	i = 0;
+	if (n == 0)
+		return (0);
+	while ((s1[i] == s2[i]) && (i < n - 1) && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

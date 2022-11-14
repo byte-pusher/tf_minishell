@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:50:16 by rkoop            ###   ########.fr       */
+/*   Created: 2022/03/28 14:37:33 by rkoop             #+#    #+#             */
+/*   Updated: 2022/04/17 20:07:20 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
-#include "../libft/libft.h"
+#include"libft.h"
 
-void	ft_parser_errors(t_token **token)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	if ((*token)->type == PIPE)
+	unsigned char	*h_dst;
+	unsigned char	*h_src;
+	unsigned int	i;
+
+	i = 0;
+	h_dst = (unsigned char *)dst;
+	h_src = (unsigned char *)src;
+	if (!h_dst || !h_src || len == 0)
+		return (dst);
+	if (h_dst >= h_src)
 	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
+		while (len > 0)
+		{
+			h_dst[len - 1] = h_src[len - 1];
+			len--;
+		}
 	}
-}
-
-int	ft_create_cmd_table(t_token **token)
-{
-	// while ()
-	return (SUCCESS);
-}
-
-int	ft_parser(t_token **token)
-{
-	ft_parser_errors(token);
-	ft_create_cmd_table(token);
-	ms_lst_clear(token);
-	return (SUCCESS);
+	else
+		ft_memcpy(h_dst, h_src, len);
+	return (dst);
 }

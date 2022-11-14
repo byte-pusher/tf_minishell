@@ -1,37 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   print_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:50:16 by rkoop            ###   ########.fr       */
+/*   Created: 2022/05/02 14:14:04 by rkoop             #+#    #+#             */
+/*   Updated: 2022/08/13 12:21:55 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
-#include "../libft/libft.h"
+#include"libft.h"
 
-void	ft_parser_errors(t_token **token)
+int	print_char(int arg)
 {
-	if ((*token)->type == PIPE)
-	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
-	}
-}
-
-int	ft_create_cmd_table(t_token **token)
-{
-	// while ()
-	return (SUCCESS);
-}
-
-int	ft_parser(t_token **token)
-{
-	ft_parser_errors(token);
-	ft_create_cmd_table(token);
-	ms_lst_clear(token);
-	return (SUCCESS);
+	ft_putchar_fd(arg, 1);
+	return (1);
 }

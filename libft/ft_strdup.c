@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:50:16 by rkoop            ###   ########.fr       */
+/*   Created: 2022/04/05 18:32:56 by rkoop             #+#    #+#             */
+/*   Updated: 2022/04/17 15:36:34 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
-#include "../libft/libft.h"
+#include"libft.h"
 
-void	ft_parser_errors(t_token **token)
+char	*ft_strdup(const char *s1)
 {
-	if ((*token)->type == PIPE)
+	size_t				i;
+	unsigned int		area;
+	char				*dst;
+
+	i = 0;
+	area = (ft_strlen(s1) + 1) * sizeof(char);
+	dst = malloc(area);
+	if (dst == NULL)
+		return (NULL);
+	while (s1[i] && s1[i] != '\0' && i <= ft_strlen(s1))
 	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
+		dst[i] = s1[i];
+		i++;
 	}
-}
-
-int	ft_create_cmd_table(t_token **token)
-{
-	// while ()
-	return (SUCCESS);
-}
-
-int	ft_parser(t_token **token)
-{
-	ft_parser_errors(token);
-	ft_create_cmd_table(token);
-	ms_lst_clear(token);
-	return (SUCCESS);
+	dst[i] = '\0';
+	return (dst);
 }

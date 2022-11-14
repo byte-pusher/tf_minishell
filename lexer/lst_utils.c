@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/09 19:03:07 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/14 10:52:14 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+#include "../libft/libft.h"
 
-t_token	*ft_lstlast(t_token *lst)
+t_token	*ms_lstlast(t_token *lst)
 {
 	t_token	*p;
 
@@ -24,7 +25,7 @@ t_token	*ft_lstlast(t_token *lst)
 	return (p);
 }
 
-void	ft_lstadd_back(t_token **lst, t_token *new)
+void	ms_lstadd_back(t_token **lst, t_token *new)
 {
 	t_token	*p;
 
@@ -34,14 +35,14 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 			*lst = new;
 		else
 		{
-			p = ft_lstlast(*(lst));
+			p = ms_lstlast(*(lst));
 			p->next = new;
 			new->prev = p;
 		}
 	}
 }
 
-t_token	*ft_lstnew(t_token **lst)
+t_token	*ms_lstnew(t_token **lst)
 {
 	t_token	*node;
 
@@ -53,7 +54,7 @@ t_token	*ft_lstnew(t_token **lst)
 	return (node);
 }
 
-t_token	*ft_lstfirst(t_token **lst)
+t_token	*ms_lstfirst(t_token **lst)
 {
 	t_token	*current;
 	t_token	*prev;
@@ -86,7 +87,7 @@ t_token	*ft_lstfirst(t_token **lst)
 // 	lst = NULL;
 // }
 
-void	ft_lst_clear(t_token **lst)
+void	ms_lst_clear(t_token **lst)
 {
 	t_token	*current;
 	t_token	*next;
@@ -103,7 +104,7 @@ void	ft_lst_clear(t_token **lst)
 	lst = NULL;
 }
 
-void	ft_print_list(t_token **lst)
+void	ms_print_list(t_token **lst)
 {
 	t_token	*current;
 	t_token	*next;
