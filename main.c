@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/15 13:00:13 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:23:12 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	signal_handler(int signum, siginfo_t *processinfo, void *context)
 	// ◦ ctrl-C displays a new prompt on a new line.
 	if (signum == SIGINT)
 	{
-		//ft_printf("\n");
+		printf("\n");
 		readline(TESHNO);
 	}
 	// ◦ ctrl-\ does nothing.

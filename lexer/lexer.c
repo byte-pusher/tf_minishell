@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/15 13:00:35 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:39:09 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int	ft_lexer(t_data *data)
 			ft_handle_others(data, type, data->input[i]);
 		i++;
 	}
-	return (SUCCESS);
 	// ms_print_list(&data->tokens);
+	return (SUCCESS);
 }
