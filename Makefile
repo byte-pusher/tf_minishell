@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
+#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/15 12:55:23 by rkoop            ###   ########.fr        #
+#    Updated: 2022/11/15 22:39:15 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME  = minishell
 CC    = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 GREEN = \033[1;32m
 RED = \033[1;31m
 YEL = \033[1;33m

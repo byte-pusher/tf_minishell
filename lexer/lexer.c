@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/15 13:39:09 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/15 22:28:40 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	ft_handle_cmd(t_data *data, int *i, int type)
 	(*i)--;
 	new_token->name = ft_substr(data->input, start, end - start);
 	ms_lstadd_back(&data->tokens, new_token);
+	if (new_token->prev != NULL
+		&& (new_token->prev->type == GREAT
+			|| new_token->prev->type == GREATGREAT || new_token->prev->type == LESS 
+			|| new_token->prev->type == LESSLESS))
+		new_token->type = FILE_NAME;
 }
 
 void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
