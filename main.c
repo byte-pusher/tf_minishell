@@ -6,15 +6,16 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 15:49:45 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:00:13 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/shell.h"
 
-
-void	signal_handler(int signum)
+void	signal_handler(int signum, siginfo_t *processinfo, void *context)
 {
+	(void) processinfo;
+	(void) context;
 	// ◦ ctrl-C displays a new prompt on a new line.
 	if (signum == SIGINT)
 	{

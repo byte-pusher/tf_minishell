@@ -6,7 +6,7 @@
 #    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/14 14:42:44 by rkoop            ###   ########.fr        #
+#    Updated: 2022/11/15 12:55:23 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,4 +71,4 @@ git:
 	git commit -m "commit"
 	git push
 
-.PHONY: all clean fclean re git libft
+.PHONY: all clean fclean re git lib

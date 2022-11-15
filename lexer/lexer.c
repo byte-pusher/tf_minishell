@@ -6,12 +6,11 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:49:07 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:00:35 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
-#include "../libft/libft.h"
 
 void	ft_handle_cmd(t_data *data, int *i, int type)
 {
