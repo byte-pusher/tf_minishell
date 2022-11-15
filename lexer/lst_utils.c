@@ -6,12 +6,11 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:52:14 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:00:38 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
-#include "../libft/libft.h"
 
 t_token	*ms_lstlast(t_token *lst)
 {

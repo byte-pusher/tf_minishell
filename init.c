@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/09 19:34:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:27:26 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ int	ft_init_teshno(t_data *data)
 			exit_status = ft_parser(&data->tokens);
 		}
 	}
-	clear_history(); // fobidden fct?
+	clear_history(); // rl_clear_history verwenden
 }

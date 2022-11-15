@@ -6,12 +6,11 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 11:36:25 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/15 12:58:01 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
-#include "../libft/libft.h"
 
 bool	ft_is_space(char c)
 {

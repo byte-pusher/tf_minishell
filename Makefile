@@ -6,7 +6,7 @@
 #    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/14 14:02:06 by rkoop            ###   ########.fr        #
+#    Updated: 2022/11/15 12:55:23 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,12 @@ $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) lib
-	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 	@echo "\n$(GREEN) >> minishell created.\n $(EOL)"
 	
 lib:
 	@make -C libft
-	@echo "\n$(YEL) >> LIBFT created. $(EOL)"
+	@echo "\n$(YEL) >> LIBFT created. \n $(EOL)"
 
 clean:
 	@make clean -C libft
@@ -58,6 +58,11 @@ fclean:
 
 re: fclean $(NAME)
 
+test:
+	@make all
+	@echo "\n$(GREEN) >> run minishell.\n $(EOL)"
+	@./minishell
+
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)
 
@@ -66,4 +71,4 @@ git:
 	git commit -m "commit"
 	git push
 
-.PHONY: all clean fclean re git libft
+.PHONY: all clean fclean re git lib

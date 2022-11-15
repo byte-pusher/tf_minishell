@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 10:46:37 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/14 14:23:04 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <errno.h>
+# include <signal.h>
 
 int		exit_status; // to store different error codes
 
