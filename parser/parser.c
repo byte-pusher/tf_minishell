@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/16 17:24:50 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/16 18:06:46 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_create_cmd_args(t_data *data)
 	i = -1;
 	while (++i < data->cmd_line->nbr_of_cmds)
 	{
-		data->cmd_line->cmds[i].nbr_of_args = 0;
+		data->cmd_line->cmds[i].is_command = false;
 		if (current != NULL && current->type == PIPE)
 			current = current->next;
 		while (current != NULL && current->type != PIPE)
@@ -60,7 +60,7 @@ void	ft_create_cmd_args(t_data *data)
 				dprintf(2, "index: %d\n", i);
 				data->cmd_line->cmds[i].cmd_args = ft_split(current->name, ' ');
 				dprintf(2, "%s\n", data->cmd_line->cmds[0].cmd_args[0]);
-				data->cmd_line->cmds->nbr_of_args++;
+				data->cmd_line->cmds[i].is_command = true;
 			}
 			current = current->next;
 		}
@@ -74,26 +74,29 @@ int	ft_create_cmd_table(t_data *data)
 	return (SUCCESS);
 }
 
-void	free_strings(char ***s, int len)
+void	free_strings(char ***s)
 {
-	while (len >= 0)
+	int	i;
+
+	i = 0;
+	while ((*s)[i] != NULL)
 	{
-		dprintf(2, "%d\n", len);
-		free((*s)[len]);
-		len--;
+		free((*s)[i]);
+		i++;
 	}
-	dprintf(2, "jo\n");
 	free(*s);
 }
 
 void	ft_clear_cmd_table(t_cmd_line *cmd_line)
 {
-	int	i;
-	int	j;
+	// int	i;
 
-	i = -1;
+	// i = -1;
 	// while (++i < cmd_line->nbr_of_cmds)
-	// 	free_strings(&cmd_line->cmds[i].cmd_args, cmd_line->cmds[i].nbr_of_args);
+	// {
+	// 	if (cmd_line->cmds[i].is_command == true)
+	// 		free_strings(&cmd_line->cmds[i].cmd_args);
+	// }
 	free(cmd_line->cmds);
 }
 

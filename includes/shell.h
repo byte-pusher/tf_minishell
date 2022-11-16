@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/16 16:59:02 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/16 17:59:21 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_cmd
 {
 		int		nbr_of_args;
 		char	**cmd_args;
+		bool	is_command;
 		// char	**files_out;
 		// char	**files_in;
 }	t_cmd;
