@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/15 21:39:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:59:02 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ enum e_TOKEN_TYPE
 	DQUOTE,
 	WHITE_SPACE,
 	COMMAND,
+	GENERAL,
 	FILE_NAME
 };
 
