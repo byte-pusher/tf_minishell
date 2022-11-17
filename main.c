@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/15 13:23:12 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:15:07 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **env)
 	handling.sa_sigaction = signal_handler;
 	sigaction(SIGINT, &handling, NULL);
 	sigaction(SIGQUIT, &handling, NULL);
-	exit_status = SUCCESS;
-	ft_init_teshno(&data);
+	exit_status = ft_init_teshno(&data);
+	system("leaks minishell");
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/16 13:28:13 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 15:05:39 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_handle_squote(t_data *data, int *i, int type)
 	t_token	*new_token;
 
 	start = *i;
-	new_token = ms_lstnew(&data->tokens);
+	new_token = ft_lstnew_t(&data->tokens);
 	new_token->type = type;
 	while (data->input[*i] != '\0')
 	{
@@ -62,7 +62,7 @@ void	ft_handle_squote(t_data *data, int *i, int type)
 	}
 	end++;
 	new_token->name = ft_substr(data->input, start, end - start);
-	ms_lstadd_back(&data->tokens, new_token);
+	ft_lstadd_back_t(&data->tokens, new_token);
 }
 
 void	ft_handle_dquote(t_data *data, int *i, int type)
@@ -72,7 +72,7 @@ void	ft_handle_dquote(t_data *data, int *i, int type)
 	t_token	*new_token;
 
 	start = *i;
-	new_token = ms_lstnew(&data->tokens);
+	new_token = ft_lstnew_t(&data->tokens);
 	new_token->type = type;
 	while (data->input[*i] != '\0')
 	{
@@ -83,5 +83,5 @@ void	ft_handle_dquote(t_data *data, int *i, int type)
 	}
 	end++;
 	new_token->name = ft_substr(data->input, start, end - start);
-	ms_lstadd_back(&data->tokens, new_token);
+	ft_lstadd_back_t(&data->tokens, new_token);
 }

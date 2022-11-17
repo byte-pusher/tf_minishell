@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 14:24:29 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 16:32:05 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ typedef struct s_data
 int		ft_init_teshno(t_data *data);
 
 /* ************************************************************************** */
+/* FREE																		  */
+/* ************************************************************************** */
+void	ft_free_all(t_data *data);
+
+/* ************************************************************************** */
 /* LEXER																	  */
 /* ************************************************************************** */
 int		ft_lexer(t_data *data);
@@ -114,17 +119,17 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 /* ************************************************************************** */
 
 /* LIBFTLIKE */
-t_cmd_table	*lstnew_ct(t_cmd_table **lst);
-t_cmd_table	*lstfirst_ct(t_cmd_table **lst);
-t_cmd_table	*lstlast_ct(t_cmd_table *lst);
+t_cmd_table	*ft_lstnew_ct(t_cmd_table **lst);
+t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst);
+t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst);
 void		ft_lstclear_ct(t_cmd_table **lst);
-void		lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new);
-t_token		*ms_lstlast(t_token *lst);
-void		ms_lstadd_back(t_token **lst, t_token *new);
-t_token		*ms_lstnew(t_token **lst);
+void		ft_lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new);
+t_token		*ft_lstlast_t(t_token *lst);
+void		ft_lstadd_back_t(t_token **lst, t_token *new);
+t_token		*ft_lstnew_t(t_token **lst);
 void		ms_print_list(t_token **lst);
-t_token		*ms_lstfirst(t_token **lst);
-void		ms_lst_clear(t_token **lst);
+t_token		*ft_lstfirst_t(t_token **lst);
+void		ft_lst_clear_t(t_token **lst);
 
 /* ERRORS */
 void	ft_err_msg(char *token);

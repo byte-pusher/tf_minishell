@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 14:21:38 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:12:41 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,24 @@ void	ft_parser_errors(t_token **token)
 	}
 }
 
+void	new_cmd_table(t_cmd_table *cmd_table)
+{
+	t_cmd_table	*new_cmd_table;
+
+	new_cmd_table = ft_lstnew_ct(&cmd_table);
+	ft_lstadd_back_ct(&cmd_table, new_cmd_table);
+}
+
 void	ft_create_cmd_table_lst(t_data *data)
 {
 	t_token	*current;
 
-	lstadd_back_ct(&data->cmd_table, lstnew_ct(&data->cmd_table));
-	current = ms_lstfirst(&data->tokens);
+	ft_lstadd_back_ct(&data->cmd_table, ft_lstnew_ct(&data->cmd_table));
+	current = ft_lstfirst_t(&data->tokens);
 	while (current != NULL)
 	{
 		if (current->type == PIPE)
-			lstadd_back_ct(&data->cmd_table, lstnew_ct(&data->cmd_table));
+			ft_lstadd_back_ct(&data->cmd_table, ft_lstnew_ct(&data->cmd_table));
 		current = current->next;
 	}
 }
@@ -49,8 +57,8 @@ void	ft_create_cmd_table(t_data *data)
 	t_cmd_table	*current_ct; // ct = command table
 
 	ft_create_cmd_table_lst(data);
-	current_token = ms_lstfirst(&data->tokens);
-	current_ct = lstfirst_ct(&data->cmd_table);
+	current_token = ft_lstfirst_t(&data->tokens);
+	current_ct = ft_lstfirst_ct(&data->cmd_table);
 	while (current_token != NULL)
 	{
 		if (current_token->type == COMMAND)
@@ -80,7 +88,7 @@ void	ft_free_cmd_args(t_cmd_table *cmd_table)
 {
 	t_cmd_table *current;
 
-	current = lstfirst_ct(&cmd_table);
+	current = ft_lstfirst_ct(&cmd_table);
 	while (current != NULL)
 	{
 		if (current->is_command == true)
@@ -97,15 +105,16 @@ void	ft_clear_cmd_table(t_cmd_table *cmd_table)
 
 void	ft_free_all(t_data *data)
 {
-	ms_lst_clear(&data->tokens);
-	// ft_clear_cmd_table(data->cmd_table); // hier kriegen wir errors
+	ft_lst_clear_t(&data->tokens);
+	ft_clear_cmd_table(data->cmd_table);
+	free(data->input);
 }
 
 void	print_cmd_strings(t_cmd_table *cmd_table)
 {
 	t_cmd_table *current;
 
-	current = lstfirst_ct(&cmd_table);
+	current = ft_lstfirst_ct(&cmd_table);
 	while (current != NULL)
 	{
 		if (current->is_command == true)
@@ -127,6 +136,5 @@ int	ft_parser(t_data *data)
 	ft_parser_errors(&data->tokens);
 	ft_create_cmd_table(data);
 	print_cmd_strings(data->cmd_table);
-	ft_free_all(data);
 	return (SUCCESS);
 }

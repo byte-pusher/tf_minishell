@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 14:24:43 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 15:50:15 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	ft_handle_cmd(t_data *data, int *i, int type)
 {
 	t_token	*new_token;
 
-	new_token = ms_lstnew(&data->tokens);
-	ms_lstadd_back(&data->tokens, new_token);
+	new_token = ft_lstnew_t(&data->tokens);
+	ft_lstadd_back_t(&data->tokens, new_token);
 	if (ft_is_file_name(new_token) == true)
 		new_token->type = FILE_NAME;
 	else
@@ -70,7 +70,7 @@ void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
 	char	c;
 
 	(*i)++;
-	new_token = ms_lstnew(&data->tokens);
+	new_token = ft_lstnew_t(&data->tokens);
 	new_token->type = type;
 	new_token->name = malloc(3);
 	if (type == LESSLESS)
@@ -80,7 +80,7 @@ void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
 	new_token->name[0] = c;
 	new_token->name[1] = c;
 	new_token->name[2] = '\0';
-	ms_lstadd_back(&data->tokens, new_token);
+	ft_lstadd_back_t(&data->tokens, new_token);
 }
 
 void	ft_handle_quotes(t_data *data, int *i, int type)
@@ -95,14 +95,14 @@ void	ft_handle_others(t_data *data, int type, char c)
 {
 	t_token	*new_token;
 
-	new_token = ms_lstnew(&data->tokens);
+	new_token = ft_lstnew_t(&data->tokens);
 	new_token->type = type;
 	new_token->name = malloc(2);
 	if (new_token->name == NULL)
 		exit_status = MALLOC_ERR;
 	new_token->name[0] = c;
 	new_token->name[1] = '\0';
-	ms_lstadd_back(&data->tokens, new_token);
+	ft_lstadd_back_t(&data->tokens, new_token);
 }
 
 int	ft_lexer(t_data *data)

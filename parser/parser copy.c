@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser copy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/16 13:19:06 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 15:06:48 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_init_cmd_table(t_data *data)
 
 	data->cmd_line = malloc(sizeof(t_cmd_line));
 	data->cmd_line->nbr_of_cmds = 1;
-	current = ms_lstfirst(&data->tokens);
+	current = ft_lstfirst_t(&data->tokens);
 	while (current != NULL)
 	{
 		if (current->type == PIPE)
@@ -43,7 +43,7 @@ void	ft_create_cmd_args_1(t_data *data)
 	t_token	*current;
 	int		i;
 
-	current = ms_lstfirst(&data->tokens);
+	current = ft_lstfirst_t(&data->tokens);
 	i = -1;
 	while (++i < data->cmd_line->nbr_of_cmds)
 	{
@@ -77,7 +77,7 @@ void	ft_create_cmd_args_2(t_data *data)
 	int		i;
 	int		j;
 
-	current = ms_lstfirst(&data->tokens);
+	current = ft_lstfirst_t(&data->tokens);
 	i = -1;
 	while (++i < data->cmd_line->nbr_of_cmds)
 	{
@@ -144,7 +144,7 @@ void	ft_clear_cmd_table(t_data *data)
 
 void	ft_free_all(t_data *data)
 {
-	ms_lst_clear(&data->tokens);
+	ft_lst_clear_t(&data->tokens);
 	ft_clear_cmd_table(data);
 }
 

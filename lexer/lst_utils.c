@@ -6,13 +6,13 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 14:19:44 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 16:19:19 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-t_token	*ms_lstlast(t_token *lst)
+t_token	*ft_lstlast_t(t_token *lst)
 {
 	t_token	*p;
 
@@ -24,7 +24,7 @@ t_token	*ms_lstlast(t_token *lst)
 	return (p);
 }
 
-t_cmd_table	*lstlast_ct(t_cmd_table *lst)
+t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst)
 {
 	t_cmd_table	*p;
 
@@ -36,7 +36,7 @@ t_cmd_table	*lstlast_ct(t_cmd_table *lst)
 	return (p);
 }
 
-void	ms_lstadd_back(t_token **lst, t_token *new)
+void	ft_lstadd_back_t(t_token **lst, t_token *new)
 {
 	t_token	*p;
 
@@ -46,14 +46,14 @@ void	ms_lstadd_back(t_token **lst, t_token *new)
 			*lst = new;
 		else
 		{
-			p = ms_lstlast(*(lst));
+			p = ft_lstlast_t(*(lst));
 			p->next = new;
 			new->prev = p;
 		}
 	}
 }
 
-void	lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new)
+void	ft_lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new)
 {
 	t_cmd_table	*p;
 
@@ -63,14 +63,14 @@ void	lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new)
 			*lst = new;
 		else
 		{
-			p = lstlast_ct(*(lst));
+			p = ft_lstlast_ct(*(lst));
 			p->next = new;
 			new->prev = p;
 		}
 	}
 }
 
-t_token	*ms_lstnew(t_token **lst)
+t_token	*ft_lstnew_t(t_token **lst)
 {
 	t_token	*node;
 
@@ -82,7 +82,7 @@ t_token	*ms_lstnew(t_token **lst)
 	return (node);
 }
 
-t_cmd_table	*lstnew_ct(t_cmd_table **lst)
+t_cmd_table	*ft_lstnew_ct(t_cmd_table **lst)
 {
 	t_cmd_table	*node;
 
@@ -95,30 +95,18 @@ t_cmd_table	*lstnew_ct(t_cmd_table **lst)
 	return (node);
 }
 
-t_cmd_table	*lstfirst_ct(t_cmd_table **lst)
+t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst)
 {
-	t_cmd_table	*current;
-	t_cmd_table	*prev;
-
 	if (lst == NULL)
 		return (NULL);
-	current = *lst;
-	while (current->prev)
-		current = current->prev;
-	return (current);
+	return (*lst);
 }
 
-t_token	*ms_lstfirst(t_token **lst)
+t_token	*ft_lstfirst_t(t_token **lst)
 {
-	t_token	*current;
-	t_token	*prev;
-
 	if (lst == NULL)
 		return (NULL);
-	current = *lst;
-	while (current->prev)
-		current = current->prev;
-	return (current);
+	return (*lst);
 }
 
 // void	ft_free_list(t_token **lst, bool exit, bool exit_status)
@@ -141,7 +129,7 @@ t_token	*ms_lstfirst(t_token **lst)
 // 	lst = NULL;
 // }
 
-void	ms_lst_clear(t_token **lst)
+void	ft_lst_clear_t(t_token **lst)
 {
 	t_token	*current;
 	t_token	*next;
