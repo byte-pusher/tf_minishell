@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/16 18:06:46 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 14:21:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,56 +22,44 @@ void	ft_parser_errors(t_token **token)
 	}
 }
 
-void	ft_init_cmd_table(t_data *data)
+void	ft_create_cmd_table_lst(t_data *data)
 {
 	t_token	*current;
 
-	data->cmd_line = malloc(sizeof(t_cmd_line));
-	data->cmd_line->nbr_of_cmds = 1;
+	lstadd_back_ct(&data->cmd_table, lstnew_ct(&data->cmd_table));
 	current = ms_lstfirst(&data->tokens);
 	while (current != NULL)
 	{
 		if (current->type == PIPE)
-			data->cmd_line->nbr_of_cmds++;
-		current = current->next;	
+			lstadd_back_ct(&data->cmd_table, lstnew_ct(&data->cmd_table));
+		current = current->next;
 	}
-	data->cmd_line->cmds = malloc(sizeof(data->cmd_line->cmds) * data->cmd_line->nbr_of_cmds);
 }
 
-//get 2 d array of commands with their args
-void	ft_create_cmd_args(t_data *data)
+void	ft_command_parser(t_cmd_table *cmd_table, t_token *token)
 {
-	//create current
-	t_token	*current;
-	int		i;
+	cmd_table->cmd_args = ft_split(token->name, ' ');
+	cmd_table->is_command = true;
+	// execute commands (or at least check If executable)
+}
 
-	current = ms_lstfirst(&data->tokens);
-	//loop trough tokens
-	i = -1;
-	while (++i < data->cmd_line->nbr_of_cmds)
+void	ft_create_cmd_table(t_data *data)
+{
+	t_token		*current_token;
+	t_cmd_table	*current_ct; // ct = command table
+
+	ft_create_cmd_table_lst(data);
+	current_token = ms_lstfirst(&data->tokens);
+	current_ct = lstfirst_ct(&data->cmd_table);
+	while (current_token != NULL)
 	{
-		data->cmd_line->cmds[i].is_command = false;
-		if (current != NULL && current->type == PIPE)
-			current = current->next;
-		while (current != NULL && current->type != PIPE)
-		{
-			if (current->type == COMMAND)
-			{
-				dprintf(2, "index: %d\n", i);
-				data->cmd_line->cmds[i].cmd_args = ft_split(current->name, ' ');
-				dprintf(2, "%s\n", data->cmd_line->cmds[0].cmd_args[0]);
-				data->cmd_line->cmds[i].is_command = true;
-			}
-			current = current->next;
-		}
+		if (current_token->type == COMMAND)
+			ft_command_parser(current_ct, current_token);
+		// if (current_token->type == LESS)
+		if (current_token->type == PIPE)
+			current_ct = current_ct->next;
+		current_token = current_token->next;
 	}
-}
-
-int	ft_create_cmd_table(t_data *data)
-{
-	ft_init_cmd_table(data);
-	ft_create_cmd_args(data);
-	return (SUCCESS);
 }
 
 void	free_strings(char ***s)
@@ -84,33 +72,61 @@ void	free_strings(char ***s)
 		free((*s)[i]);
 		i++;
 	}
+	free((*s)[i]);
 	free(*s);
 }
 
-void	ft_clear_cmd_table(t_cmd_line *cmd_line)
+void	ft_free_cmd_args(t_cmd_table *cmd_table)
 {
-	// int	i;
+	t_cmd_table *current;
 
-	// i = -1;
-	// while (++i < cmd_line->nbr_of_cmds)
-	// {
-	// 	if (cmd_line->cmds[i].is_command == true)
-	// 		free_strings(&cmd_line->cmds[i].cmd_args);
-	// }
-	free(cmd_line->cmds);
+	current = lstfirst_ct(&cmd_table);
+	while (current != NULL)
+	{
+		if (current->is_command == true)
+			free_strings(&current->cmd_args);
+		current = current->next;
+	}
+}
+
+void	ft_clear_cmd_table(t_cmd_table *cmd_table)
+{
+	ft_free_cmd_args(cmd_table);
+	ft_lstclear_ct(&cmd_table);
 }
 
 void	ft_free_all(t_data *data)
 {
 	ms_lst_clear(&data->tokens);
-	ft_clear_cmd_table(data->cmd_line);
+	// ft_clear_cmd_table(data->cmd_table); // hier kriegen wir errors
+}
+
+void	print_cmd_strings(t_cmd_table *cmd_table)
+{
+	t_cmd_table *current;
+
+	current = lstfirst_ct(&cmd_table);
+	while (current != NULL)
+	{
+		if (current->is_command == true)
+		{
+			int i = 0;
+			while (current->cmd_args[i] != NULL)
+			{
+				printf("%s ", current->cmd_args[i]);
+				i++;
+			}
+			printf("\n");
+		}
+		current = current->next;
+	}
 }
 
 int	ft_parser(t_data *data)
 {
 	ft_parser_errors(&data->tokens);
 	ft_create_cmd_table(data);
-	// printf("%s\n", data->cmd_line->cmds[0].cmd_args[0]);
+	print_cmd_strings(data->cmd_table);
 	ft_free_all(data);
 	return (SUCCESS);
 }

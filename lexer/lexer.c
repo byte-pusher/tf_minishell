@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/16 16:35:58 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 14:24:43 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	ft_handle_others(t_data *data, int type, char c)
 	new_token = ms_lstnew(&data->tokens);
 	new_token->type = type;
 	new_token->name = malloc(2);
+	if (new_token->name == NULL)
+		exit_status = MALLOC_ERR;
 	new_token->name[0] = c;
 	new_token->name[1] = '\0';
 	ms_lstadd_back(&data->tokens, new_token);
