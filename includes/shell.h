@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 14:24:29 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:30:29 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ enum e_ERROR_TYPE
 {
 	SUCCESS,
 	SYNTAX_ERR,
-	MALLOC_ERR
+	MALLOC_ERR,
+	ABORT,
 };
 
 enum e_file

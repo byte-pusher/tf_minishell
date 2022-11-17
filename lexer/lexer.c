@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 14:24:43 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:45:01 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	ft_lexer(t_data *data)
 	int	type;
 
 	i = 0;
-	while (data->input[i] != '\0')
+	while (data->input[i] != '\0' && data->input[i] != NULL)
 	{
 		while (ft_is_space(data->input[i]) == true)
 			i++;
@@ -127,5 +127,8 @@ int	ft_lexer(t_data *data)
 		i++;
 	}
 	// ms_print_list(&data->tokens);
-	return (SUCCESS);
+	if (data->input[i] == NULL)
+		return(ABORT);
+	else
+		return (SUCCESS);
 }

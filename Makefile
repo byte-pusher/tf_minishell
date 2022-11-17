@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/15 22:39:15 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/17 17:36:02 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,23 +44,23 @@ $(NAME): $(OBJS) lib
 	
 lib:
 	@make -C libft
-	@echo "\n$(YEL) >> LIBFT created. \n $(EOL)"
+	@echo "\n$(YEL) >> LIBFT created.  $(EOL)"
 
 clean:
 	@make clean -C libft
 	@rm -f $(OBJS) 
-	@echo "\n$(YEL) 🗑 >> clean executed. \n $(EOL)"
+	@echo "\n$(YEL) 🗑 >> clean executed.  $(EOL)"
 
 fclean: 
 	@make fclean -C libft
 	@rm -f $(OBJS) $(NAME)
-	@echo "\n$(YEL) 🗑 >> fclean executed. \n $(EOL)"
+	@echo "\n$(YEL) 🗑 >> fclean executed.  $(EOL)"
 
 re: fclean $(NAME)
 
 test:
 	@make all
-	@echo "\n$(GREEN) >> run minishell.\n $(EOL)"
+	@echo "\n$(GREEN) >> run minishell. $(EOL)"
 	@./minishell
 
 inside: $(OBJS) $(LIBFT)

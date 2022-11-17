@@ -3,32 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/15 13:23:12 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:53:25 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/shell.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 void	signal_handler(int signum, siginfo_t *processinfo, void *context)
 {
 	(void) processinfo;
 	(void) context;
 	// ◦ ctrl-C displays a new prompt on a new line.
+	
 	if (signum == SIGINT)
 	{
 		printf("\n");
-		readline(TESHNO);
+		rl_on_new_line();
+    	//rl_replace_line("", 0);
+    	rl_redisplay();
+		
 	}
 	// ◦ ctrl-\ does nothing.
 	else if (signum == SIGQUIT)
 	{
-		//ft_printf("\n sig ctrl +  handled.");
+		write(1, "  \b\b", 4);
+		ft_printf("\n sig ctrl +  handled.");
 	}
 	// ◦ ctrl-D exits the shell.
-// no signal, sends EOF. detect it in line and exit
+	// no signal, sends EOF to stdin. detect it in lexer and exit
 	return ;
 }
 
