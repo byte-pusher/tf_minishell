@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/16 13:28:13 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/15 12:58:01 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_get_chartype(char *s, int *i)
 		return (DQUOTE);
 	if (s[*i] == ' ')
 		return (WHITE_SPACE);
-	return (GENERAL);
+	return (COMMAND);
 }
 
 void	ft_handle_squote(t_data *data, int *i, int type)

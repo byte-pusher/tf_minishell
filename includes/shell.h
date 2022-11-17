@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/14 14:23:04 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/17 14:24:29 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,22 @@ enum e_TOKEN_TYPE
 	SQUOTE,
 	DQUOTE,
 	WHITE_SPACE,
-	COMMAND
+	COMMAND,
+	GENERAL,
+	FILE_NAME
 };
 
 enum e_ERROR_TYPE
 {
 	SUCCESS,
-	SYNTAX_ERR
+	SYNTAX_ERR,
+	MALLOC_ERR
+};
+
+enum e_file
+{
+	in,
+	out
 };
 
 typedef struct s_token
@@ -64,11 +73,29 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+typedef struct s_redir
+{
+	int				type;
+	char			*file;
+	struct s_redir	*next;
+	struct s_redir	*prev;
+}	t_redir;
+
+typedef struct s_cmd_table
+{
+		char				**cmd_args;
+		bool				is_command;
+		t_redir				*redir;
+		struct s_cmd_table	*next;
+		struct s_cmd_table	*prev;
+}	t_cmd_table;
+
 typedef struct s_data
 {
-	char	*input;
-	t_token	*tokens;
-	t_token	*cmd_table;
+	char		*input;
+	int			nbr_of_cmds;
+	t_token		*tokens;
+	t_cmd_table	*cmd_table;
 }	t_data;
 
 int		ft_init_teshno(t_data *data);
@@ -87,13 +114,17 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 /* ************************************************************************** */
 
 /* LIBFTLIKE */
-t_token	*ms_lstlast(t_token *lst);
-void	ms_lstadd_back(t_token **lst, t_token *new);
-t_token	*ms_lstnew(t_token **lst);
-void	ms_print_list(t_token **lst);
-t_token	*ms_lstfirst(t_token **lst);
-void	ms_lst_clear(t_token **lst);
-
+t_cmd_table	*lstnew_ct(t_cmd_table **lst);
+t_cmd_table	*lstfirst_ct(t_cmd_table **lst);
+t_cmd_table	*lstlast_ct(t_cmd_table *lst);
+void		ft_lstclear_ct(t_cmd_table **lst);
+void		lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new);
+t_token		*ms_lstlast(t_token *lst);
+void		ms_lstadd_back(t_token **lst, t_token *new);
+t_token		*ms_lstnew(t_token **lst);
+void		ms_print_list(t_token **lst);
+t_token		*ms_lstfirst(t_token **lst);
+void		ms_lst_clear(t_token **lst);
 
 /* ERRORS */
 void	ft_err_msg(char *token);
@@ -101,6 +132,6 @@ void	ft_err_msg(char *token);
 /* ************************************************************************** */
 /* PARSER																	  */
 /* ************************************************************************** */
-int		ft_parser(t_token **token);
+int		ft_parser(t_data *data);
 
 #endif
