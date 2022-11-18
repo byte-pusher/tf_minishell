@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 16:19:19 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 19:47:58 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ t_token	*ft_lstlast_t(t_token *lst)
 t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst)
 {
 	t_cmd_table	*p;
+
+	if (lst == NULL)
+		return (NULL);
+	p = lst;
+	while (p->next)
+		p = p->next;
+	return (p);
+}
+
+t_redir	*ft_lstlast_rd(t_redir *lst)
+{
+	t_redir	*p;
 
 	if (lst == NULL)
 		return (NULL);
@@ -70,6 +82,23 @@ void	ft_lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new)
 	}
 }
 
+void	ft_lstadd_back_rd(t_redir **lst, t_redir *new)
+{
+	t_redir	*p;
+
+	if (lst && new)
+	{
+		if (*lst == NULL)
+			*lst = new;
+		else
+		{
+			p = ft_lstlast_rd(*(lst));
+			p->next = new;
+			new->prev = p;
+		}
+	}
+}
+
 t_token	*ft_lstnew_t(t_token **lst)
 {
 	t_token	*node;
@@ -77,6 +106,7 @@ t_token	*ft_lstnew_t(t_token **lst)
 	node = malloc(sizeof(t_token));
 	if (node == NULL)
 		exit(-1); // create here exit_failure funciton to free the tokens list
+	node->name = NULL;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
@@ -90,6 +120,21 @@ t_cmd_table	*ft_lstnew_ct(t_cmd_table **lst)
 	if (node == NULL)
 		exit(-1); // create here exit_failure funciton to free the tokens list
 	node->is_command = false;
+	node->is_redir = false;
+	node->redir = NULL;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
+}
+
+t_redir	*ft_lstnew_rd(t_redir **lst)
+{
+	t_redir	*node;
+
+	node = malloc(sizeof(t_redir));
+	if (node == NULL)
+		exit(-1); // create here exit_failure funciton to free the tokens list
+	node->file = NULL;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
@@ -103,6 +148,13 @@ t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst)
 }
 
 t_token	*ft_lstfirst_t(t_token **lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	return (*lst);
+}
+
+t_redir	*ft_lstfirst_rd(t_redir **lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -155,6 +207,24 @@ void	ft_lstclear_ct(t_cmd_table **lst)
 	while (current != NULL)
 	{
 		next = current->next;
+		free(current);
+		current = next;
+	}
+	*lst = NULL;
+	lst = NULL;
+}
+
+void	ft_lstclear_rd(t_redir **lst)
+{
+	t_redir	*current;
+	t_redir	*next;
+
+	current = *lst;
+	while (current != NULL)
+	{
+		next = current->next;
+		printf("file name: %s\n", current->file); // ich kriege leaks wenn mehrere redir in einem cmd
+		free(current->file);
 		free(current);
 		current = next;
 	}

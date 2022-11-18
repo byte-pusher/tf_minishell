@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 17:15:58 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 19:12:22 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	ft_init_teshno(t_data *data)
 			add_history(data->input);
 			exit_status = ft_lexer(data);				// still need to handle malloc errors in ft_lexer
 			exit_status = ft_parser(data);
+			ft_free_all(data);
 		}
-		ft_free_all(data);
 	}
 	clear_history(); // rl_clear_history verwenden
 	return (exit_status);

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 17:15:07 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 18:45:20 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	signal_handler(int signum, siginfo_t *processinfo, void *context)
 
 int	main(int argc, char **argv, char **env)
 {
-	t_data	data;
-	struct sigaction handling;
+	t_data				data;
+	struct sigaction	handling;
 
 	(void) argc;
 	(void) argv;

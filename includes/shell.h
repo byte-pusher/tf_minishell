@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 16:32:05 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:50:05 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_cmd_table
 {
 		char				**cmd_args;
 		bool				is_command;
+		bool				is_redir;
 		t_redir				*redir;
 		struct s_cmd_table	*next;
 		struct s_cmd_table	*prev;
@@ -124,12 +125,19 @@ t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst);
 t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst);
 void		ft_lstclear_ct(t_cmd_table **lst);
 void		ft_lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new);
+
 t_token		*ft_lstlast_t(t_token *lst);
 void		ft_lstadd_back_t(t_token **lst, t_token *new);
 t_token		*ft_lstnew_t(t_token **lst);
 void		ms_print_list(t_token **lst);
 t_token		*ft_lstfirst_t(t_token **lst);
 void		ft_lst_clear_t(t_token **lst);
+
+t_redir		*ft_lstlast_rd(t_redir *lst);
+void		ft_lstadd_back_rd(t_redir **lst, t_redir *new);
+t_redir		*ft_lstnew_rd(t_redir **lst);
+t_redir		*ft_lstfirst_rd(t_redir **lst);
+void		ft_lstclear_rd(t_redir **lst);
 
 /* ERRORS */
 void	ft_err_msg(char *token);
@@ -138,5 +146,6 @@ void	ft_err_msg(char *token);
 /* PARSER																	  */
 /* ************************************************************************** */
 int		ft_parser(t_data *data);
+bool	ft_is_redir(int type);
 
 #endif

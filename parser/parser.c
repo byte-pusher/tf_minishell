@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 17:12:41 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/17 19:49:36 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ void	ft_command_parser(t_cmd_table *cmd_table, t_token *token)
 	// execute commands (or at least check If executable)
 }
 
+void	ft_redir_parser(t_cmd_table *cmd_table, t_token *token)
+{
+	ft_lstadd_back_rd(&cmd_table->redir, ft_lstnew_rd(&cmd_table->redir));
+	cmd_table->redir->file = ft_strdup(token->next->name); // next is file_name
+	printf("file name: %s\n", cmd_table->redir->file);
+	cmd_table->redir->type = token->type;
+	cmd_table->is_redir = true;
+}
+
 void	ft_create_cmd_table(t_data *data)
 {
 	t_token		*current_token;
@@ -63,7 +72,8 @@ void	ft_create_cmd_table(t_data *data)
 	{
 		if (current_token->type == COMMAND)
 			ft_command_parser(current_ct, current_token);
-		// if (current_token->type == LESS)
+		if (ft_is_redir(current_token->type))
+			ft_redir_parser(current_ct, current_token);
 		if (current_token->type == PIPE)
 			current_ct = current_ct->next;
 		current_token = current_token->next;
@@ -97,9 +107,23 @@ void	ft_free_cmd_args(t_cmd_table *cmd_table)
 	}
 }
 
+void	ft_free_redir(t_cmd_table *cmd_table)
+{
+	t_cmd_table *current;
+
+	current = ft_lstfirst_ct(&cmd_table);
+	while (current != NULL)
+	{
+		if (current->is_redir == true)
+			ft_lstclear_rd(&current->redir);
+		current = current->next;
+	}
+}
+
 void	ft_clear_cmd_table(t_cmd_table *cmd_table)
 {
 	ft_free_cmd_args(cmd_table);
+	ft_free_redir(cmd_table);
 	ft_lstclear_ct(&cmd_table);
 }
 
