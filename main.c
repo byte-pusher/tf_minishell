@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 18:45:20 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 15:27:01 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGINT, &handling, NULL);
 	sigaction(SIGQUIT, &handling, NULL);
 	exit_status = ft_init_teshno(&data);
-	system("leaks minishell");
+	// system("leaks minishell");
 	return (EXIT_SUCCESS);
 }

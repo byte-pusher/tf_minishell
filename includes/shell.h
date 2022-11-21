@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 14:56:13 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 15:18:20 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ enum e_ERROR_TYPE
 {
 	SUCCESS,
 	SYNTAX_ERR,
-	MALLOC_ERR
+	MALLOC_ERR,
+	OPEN_FILE_ERR
 };
 
 enum e_file
@@ -66,9 +67,9 @@ enum e_file
 
 typedef struct s_token
 {
-	char			*name;
 	int				end;
 	int				type;
+	char			*name;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -76,6 +77,7 @@ typedef struct s_token
 typedef struct s_redir
 {
 	int				type;
+	int				fd;
 	char			*file;
 	struct s_redir	*head;
 	struct s_redir	*next;
@@ -142,7 +144,7 @@ t_redir		*ft_lstfirst_rd(t_redir **lst);
 void		ft_lstclear_rd(t_redir **lst);
 
 /* ERRORS */
-void	ft_err_msg(char *token);
+void	ft_err_msg(char *s);
 
 /* ************************************************************************** */
 /* PARSER																	  */
