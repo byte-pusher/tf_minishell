@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 18:42:39 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 19:09:32 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <signal.h>
+
+
+/* ************************************************************************** */
+/* READLINE MISSING PROTOTYPES												  */
+/* ************************************************************************** */
+void 		rl_replace_line(const char *text, int clear_undo);
+extern void rl_clear_history (void);
 
 int		exit_status; // to store different error codes
 
@@ -57,7 +64,8 @@ enum e_ERROR_TYPE
 	SYNTAX_ERR,
 	MALLOC_ERR,
 	OPEN_FILE_ERR,
-	CMD_NOT_FOUND
+	CMD_NOT_FOUND,
+	ABORT
 };
 
 enum e_file
@@ -123,6 +131,9 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 /* ************************************************************************** */
 /* UTILS																	  */
 /* ************************************************************************** */
+/* SIGNALS*/
+void	connect_signals();
+
 
 /* LIBFTLIKE */
 t_cmd_table	*ft_lstnew_ct(void);
