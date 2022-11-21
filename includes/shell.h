@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 15:18:11 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/21 19:09:32 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ enum e_ERROR_TYPE
 	SUCCESS,
 	SYNTAX_ERR,
 	MALLOC_ERR,
-	ABORT,
+	OPEN_FILE_ERR,
+	CMD_NOT_FOUND,
+	ABORT
 };
 
 enum e_file
@@ -74,9 +76,9 @@ enum e_file
 
 typedef struct s_token
 {
-	char			*name;
 	int				end;
 	int				type;
+	char			*name;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -84,7 +86,9 @@ typedef struct s_token
 typedef struct s_redir
 {
 	int				type;
+	int				fd;
 	char			*file;
+	struct s_redir	*head;
 	struct s_redir	*next;
 	struct s_redir	*prev;
 }	t_redir;
@@ -93,6 +97,7 @@ typedef struct s_cmd_table
 {
 		char				**cmd_args;
 		bool				is_command;
+		bool				is_redir;
 		t_redir				*redir;
 		struct s_cmd_table	*next;
 		struct s_cmd_table	*prev;
@@ -104,14 +109,20 @@ typedef struct s_data
 	int			nbr_of_cmds;
 	t_token		*tokens;
 	t_cmd_table	*cmd_table;
+	// char		**ms_env;
 }	t_data;
 
 int		ft_init_teshno(t_data *data);
 
 /* ************************************************************************** */
+/* FREE																		  */
+/* ************************************************************************** */
+void	ft_free_all(t_data *data);
+
+/* ************************************************************************** */
 /* LEXER																	  */
 /* ************************************************************************** */
-int		ft_lexer(t_data *data);
+void	ft_lexer(t_data *data);
 bool	ft_is_space(char c);
 int		ft_get_chartype(char *s, int *i);
 void	ft_handle_squote(t_data *data, int *i, int type);
@@ -125,24 +136,43 @@ void	connect_signals();
 
 
 /* LIBFTLIKE */
-t_cmd_table	*lstnew_ct(t_cmd_table **lst);
-t_cmd_table	*lstfirst_ct(t_cmd_table **lst);
-t_cmd_table	*lstlast_ct(t_cmd_table *lst);
+t_cmd_table	*ft_lstnew_ct(void);
+t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst);
+t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst);
 void		ft_lstclear_ct(t_cmd_table **lst);
-void		lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new);
-t_token		*ms_lstlast(t_token *lst);
-void		ms_lstadd_back(t_token **lst, t_token *new);
-t_token		*ms_lstnew(t_token **lst);
+void		ft_lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new);
+
+t_token		*ft_lstlast_t(t_token *lst);
+void		ft_lstadd_back_t(t_token **lst, t_token *new);
+t_token		*ft_lstnew_t(void);
 void		ms_print_list(t_token **lst);
-t_token		*ms_lstfirst(t_token **lst);
-void		ms_lst_clear(t_token **lst);
+t_token		*ft_lstfirst_t(t_token **lst);
+void		ft_lst_clear_t(t_token **lst);
+
+t_redir		*ft_lstlast_rd(t_redir *lst);
+void		ft_lstadd_back_rd(t_redir **lst, t_redir *new);
+t_redir		*ft_lstnew_rd(void);
+t_redir		*ft_lstfirst_rd(t_redir **lst);
+void		ft_lstclear_rd(t_redir **lst);
 
 /* ERRORS */
-void	ft_err_msg(char *token);
+void	ft_err_msg(char *s);
+void	ft_check_redir_err(t_token *token);
 
 /* ************************************************************************** */
 /* PARSER																	  */
 /* ************************************************************************** */
-int		ft_parser(t_data *data);
+void		ft_parser(t_data *data);
+
+/* UTILS */
+bool	ft_is_redir(int type);
+void	ft_create_cmd_table_lst(t_data *data);
+void	print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
+
+/* CMD_PARSER */
+void	ft_command_parser(t_cmd_table *cmd_table, t_token *token);
+
+/* REDIR_PARSER*/
+void	ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
 
 #endif

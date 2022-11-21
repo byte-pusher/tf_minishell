@@ -6,13 +6,13 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 14:19:44 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:52:16 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-t_token	*ms_lstlast(t_token *lst)
+t_token	*ft_lstlast_t(t_token *lst)
 {
 	t_token	*p;
 
@@ -24,7 +24,7 @@ t_token	*ms_lstlast(t_token *lst)
 	return (p);
 }
 
-t_cmd_table	*lstlast_ct(t_cmd_table *lst)
+t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst)
 {
 	t_cmd_table	*p;
 
@@ -36,7 +36,19 @@ t_cmd_table	*lstlast_ct(t_cmd_table *lst)
 	return (p);
 }
 
-void	ms_lstadd_back(t_token **lst, t_token *new)
+t_redir	*ft_lstlast_rd(t_redir *lst)
+{
+	t_redir	*p;
+
+	if (lst == NULL)
+		return (NULL);
+	p = lst;
+	while (p->next)
+		p = p->next;
+	return (p);
+}
+
+void	ft_lstadd_back_t(t_token **lst, t_token *new)
 {
 	t_token	*p;
 
@@ -46,14 +58,14 @@ void	ms_lstadd_back(t_token **lst, t_token *new)
 			*lst = new;
 		else
 		{
-			p = ms_lstlast(*(lst));
+			p = ft_lstlast_t(*(lst));
 			p->next = new;
 			new->prev = p;
 		}
 	}
 }
 
-void	lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new)
+void	ft_lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new)
 {
 	t_cmd_table	*p;
 
@@ -63,26 +75,47 @@ void	lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new)
 			*lst = new;
 		else
 		{
-			p = lstlast_ct(*(lst));
+			p = ft_lstlast_ct(*(lst));
 			p->next = new;
 			new->prev = p;
 		}
 	}
 }
 
-t_token	*ms_lstnew(t_token **lst)
+void	ft_lstadd_back_rd(t_redir **lst, t_redir *new)
+{
+	t_redir	*p;
+
+	if (lst && new)
+	{
+		if (*lst == NULL)
+		{
+			*lst = new;
+			(*lst)->head = new;
+		}
+		else
+		{
+			p = ft_lstlast_rd(*(lst));
+			p->next = new;
+			new->prev = p;
+		}
+	}
+}
+
+t_token	*ft_lstnew_t(void)
 {
 	t_token	*node;
 
 	node = malloc(sizeof(t_token));
 	if (node == NULL)
 		exit(-1); // create here exit_failure funciton to free the tokens list
+	node->name = NULL;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
 }
 
-t_cmd_table	*lstnew_ct(t_cmd_table **lst)
+t_cmd_table	*ft_lstnew_ct(void)
 {
 	t_cmd_table	*node;
 
@@ -90,35 +123,45 @@ t_cmd_table	*lstnew_ct(t_cmd_table **lst)
 	if (node == NULL)
 		exit(-1); // create here exit_failure funciton to free the tokens list
 	node->is_command = false;
+	node->is_redir = false;
+	node->redir = NULL;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
 }
 
-t_cmd_table	*lstfirst_ct(t_cmd_table **lst)
+t_redir	*ft_lstnew_rd(void)
 {
-	t_cmd_table	*current;
-	t_cmd_table	*prev;
+	t_redir	*node;
 
-	if (lst == NULL)
-		return (NULL);
-	current = *lst;
-	while (current->prev)
-		current = current->prev;
-	return (current);
+	node = malloc(sizeof(t_redir));
+	if (node == NULL)
+		exit(-1); // create here exit_failure funciton to free the tokens list
+	node->file = NULL;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }
 
-t_token	*ms_lstfirst(t_token **lst)
+t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst)
 {
-	t_token	*current;
-	t_token	*prev;
-
 	if (lst == NULL)
 		return (NULL);
-	current = *lst;
-	while (current->prev)
-		current = current->prev;
-	return (current);
+	return (*lst);
+}
+
+t_token	*ft_lstfirst_t(t_token **lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	return (*lst);
+}
+
+t_redir	*ft_lstfirst_rd(t_redir **lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	return (*lst);
 }
 
 // void	ft_free_list(t_token **lst, bool exit, bool exit_status)
@@ -141,7 +184,7 @@ t_token	*ms_lstfirst(t_token **lst)
 // 	lst = NULL;
 // }
 
-void	ms_lst_clear(t_token **lst)
+void	ft_lst_clear_t(t_token **lst)
 {
 	t_token	*current;
 	t_token	*next;
@@ -167,6 +210,24 @@ void	ft_lstclear_ct(t_cmd_table **lst)
 	while (current != NULL)
 	{
 		next = current->next;
+		free(current);
+		current = next;
+	}
+	*lst = NULL;
+	lst = NULL;
+}
+
+void	ft_lstclear_rd(t_redir **lst)
+{
+	t_redir	*current;
+	t_redir	*next;
+
+	current = (*lst)->head; // bei allen so machen (dann brauch ich die lstfirst fktionen nicht) oder auch nicht hehe
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->file);
+		// close(current->fd);
 		free(current);
 		current = next;
 	}
