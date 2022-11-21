@@ -1,34 +1,26 @@
 #include "includes/shell.h"
 
-void	signal_handler(int signum, siginfo_t *processinfo, void *context)
+void signal_handler(int signum)
 {
-	(void) processinfo;
-	(void) context;
 	// ◦ ctrl-C displays a new prompt on a new line.
-	
 	if (signum == SIGINT)
 	{
-    	rl_replace_line("", 0);
-        rl_on_new_line();
-        printf("\n");
-    	rl_redisplay();
-	}
-	// ◦ ctrl-\ does nothing.
-	else if (signum == SIGQUIT)
-	{
-		write(1, "  \b\b", 4);
-		ft_printf("\n sig ctrl +  handled.");
+		//printf("\n%s",rl_line_buffer);
+		rl_replace_line("", 0);
+		rl_redisplay();
+		write(2, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	// ◦ ctrl-D exits the shell.
 	// no signal, sends EOF to stdin. detect it in lexer and exit
-	return ;
+	return;
 }
 
-void	connect_signals()
+void connect_signals()
 {
-	struct sigaction handling;
-	
-	handling.sa_sigaction = signal_handler;
-    sigaction(SIGINT, &handling, NULL);
-	sigaction(SIGQUIT, &handling, NULL);
+	//connects to function signal_handler
+	signal(SIGINT, signal_handler);
+	//silences signal
+	signal(SIGQUIT, SIG_IGN);
 }
