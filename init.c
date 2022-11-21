@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 17:12:10 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:58:35 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	ft_init_teshno(t_data *data)
 		data->input = readline(TESHNO);
 		if (data->input  == NULL)
 			exit_status = ABORT;
-		if (data->input[0] != '\0' && data->input[0] != NULL)
+		if (data->input[0] != '\0' && data->input[0] != EOF)
 		{
-			add_history(data->input);
+			//add_history(data->input);
 			ft_lexer(data);
 			// still need to handle malloc errors in ft_lexer
 			exit_status = ft_parser(data);

@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 17:30:29 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:55:18 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 /* ************************************************************************** */
 /* SIGNALS*/
 void	signal_handler(int signum, siginfo_t *processinfo, void *context);
+void	connect_signals();
+void 	rl_replace_line(const char *text, int clear_undo);
 
 /* LIBFTLIKE */
 t_cmd_table	*lstnew_ct(t_cmd_table **lst);

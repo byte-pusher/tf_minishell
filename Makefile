@@ -6,7 +6,7 @@
 #    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/17 17:36:02 by rkoop            ###   ########.fr        #
+#    Updated: 2022/11/21 14:57:45 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,12 @@ EOL = \033[0m
 LIBFTDIR ?= ./libft
 LIBFT ?= $(LIBFTDIR)/libft.a
 
+LDFLAGS     = -L/Users/$(USER)/.brew/opt/readline/lib
+CPPFLAGS    = -I/Users/$(USER)/.brew/opt/readline/include
+
 SRCS  = main.c \
 		init.c \
+		signal.c \
 		errors_utils.c \
 		parser/parser.c \
 		lexer/lexer.c lexer/lexer_utils.c lexer/lst_utils.c
@@ -39,7 +43,7 @@ $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) lib
-	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	@$(CC) $(FLAGS) $(LDFLAGS) $(CPPFLAGS) $(OBJS) $(LIBFT) -lreadline  -o $(NAME)
 	@echo "\n$(GREEN) >> minishell created.\n $(EOL)"
 	
 lib:

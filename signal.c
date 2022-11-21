@@ -24,10 +24,11 @@ void	signal_handler(int signum, siginfo_t *processinfo, void *context)
 	return ;
 }
 
-int connect_signals()
+void	connect_signals()
 {
-    struct sigaction handling;
-    handling.sa_sigaction = signal_handler;
+	struct sigaction handling;
+	
+	handling.sa_sigaction = signal_handler;
     sigaction(SIGINT, &handling, NULL);
 	sigaction(SIGQUIT, &handling, NULL);
 }
