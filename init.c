@@ -25,7 +25,7 @@ int	ft_init_teshno(t_data *data)
 		if (data->input[0] != '\0' && data->input[0] != NULL)
 		{
 			add_history(data->input);
-			exit_status = ft_lexer(data);
+			ft_lexer(data);
 			// still need to handle malloc errors in ft_lexer
 			exit_status = ft_parser(data);
 			

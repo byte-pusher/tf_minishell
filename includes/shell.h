@@ -113,6 +113,8 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 /* ************************************************************************** */
 /* UTILS																	  */
 /* ************************************************************************** */
+/* SIGNALS*/
+void	signal_handler(int signum, siginfo_t *processinfo, void *context);
 
 /* LIBFTLIKE */
 t_cmd_table	*lstnew_ct(t_cmd_table **lst);
