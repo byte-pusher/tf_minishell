@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 19:47:58 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 13:36:41 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ void	ft_lstadd_back_rd(t_redir **lst, t_redir *new)
 	if (lst && new)
 	{
 		if (*lst == NULL)
+		{
 			*lst = new;
+			(*lst)->head = new;
+		}
 		else
 		{
 			p = ft_lstlast_rd(*(lst));
@@ -99,7 +102,7 @@ void	ft_lstadd_back_rd(t_redir **lst, t_redir *new)
 	}
 }
 
-t_token	*ft_lstnew_t(t_token **lst)
+t_token	*ft_lstnew_t(void)
 {
 	t_token	*node;
 
@@ -112,7 +115,7 @@ t_token	*ft_lstnew_t(t_token **lst)
 	return (node);
 }
 
-t_cmd_table	*ft_lstnew_ct(t_cmd_table **lst)
+t_cmd_table	*ft_lstnew_ct(void)
 {
 	t_cmd_table	*node;
 
@@ -127,7 +130,7 @@ t_cmd_table	*ft_lstnew_ct(t_cmd_table **lst)
 	return (node);
 }
 
-t_redir	*ft_lstnew_rd(t_redir **lst)
+t_redir	*ft_lstnew_rd(void)
 {
 	t_redir	*node;
 
@@ -219,11 +222,10 @@ void	ft_lstclear_rd(t_redir **lst)
 	t_redir	*current;
 	t_redir	*next;
 
-	current = *lst;
+	current = (*lst)->head; // bei allen so machen (dann brauch ich die lstfirst fktionen nicht) oder auch nicht hehe
 	while (current != NULL)
 	{
 		next = current->next;
-		printf("file name: %s\n", current->file); // ich kriege leaks wenn mehrere redir in einem cmd
 		free(current->file);
 		free(current);
 		current = next;

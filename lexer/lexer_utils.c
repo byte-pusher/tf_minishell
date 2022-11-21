@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 15:05:39 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 13:29:45 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_handle_squote(t_data *data, int *i, int type)
 	t_token	*new_token;
 
 	start = *i;
-	new_token = ft_lstnew_t(&data->tokens);
+	new_token = ft_lstnew_t();
 	new_token->type = type;
 	while (data->input[*i] != '\0')
 	{
@@ -72,7 +72,7 @@ void	ft_handle_dquote(t_data *data, int *i, int type)
 	t_token	*new_token;
 
 	start = *i;
-	new_token = ft_lstnew_t(&data->tokens);
+	new_token = ft_lstnew_t();
 	new_token->type = type;
 	while (data->input[*i] != '\0')
 	{

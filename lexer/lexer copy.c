@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 15:05:39 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 13:29:45 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_handle_cmd(t_data *data, int *i, int type)
 	t_token	*new_token;
 
 	start = *i;
-	new_token = ft_lstnew_t(&data->tokens);
+	new_token = ft_lstnew_t();
 	new_token->type = type;
 	while (data->input[*i] != '\0'
 		&& ft_get_chartype(data->input, i) == COMMAND)
@@ -43,7 +43,7 @@ void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
 	char	c;
 
 	(*i)++;
-	new_token = ft_lstnew_t(&data->tokens);
+	new_token = ft_lstnew_t();
 	new_token->type = type;
 	new_token->name = malloc(3);
 	if (type == LESSLESS)
@@ -68,7 +68,7 @@ void	ft_handle_others(t_data *data, int type, char c)
 {
 	t_token	*new_token;
 
-	new_token = ft_lstnew_t(&data->tokens);
+	new_token = ft_lstnew_t();
 	new_token->type = type;
 	new_token->name = malloc(2);
 	new_token->name[0] = c;

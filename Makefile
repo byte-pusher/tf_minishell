@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/17 17:35:05 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/21 13:49:44 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,9 @@ LIBFT ?= $(LIBFTDIR)/libft.a
 SRCS  = main.c \
 		init.c \
 		errors_utils.c \
-		parser/parser.c parser/parser_utils.c \
-		lexer/lexer.c lexer/lexer_utils.c lexer/lst_utils.c
+		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c \
+		lexer/lexer.c lexer/lexer_utils.c lexer/lst_utils.c \
+		free.c
  
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
