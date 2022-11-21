@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 13:36:41 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:52:16 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ void	ft_lstclear_rd(t_redir **lst)
 	{
 		next = current->next;
 		free(current->file);
+		// close(current->fd);
 		free(current);
 		current = next;
 	}

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 15:18:20 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 18:42:39 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ enum e_ERROR_TYPE
 	SUCCESS,
 	SYNTAX_ERR,
 	MALLOC_ERR,
-	OPEN_FILE_ERR
+	OPEN_FILE_ERR,
+	CMD_NOT_FOUND
 };
 
 enum e_file
@@ -113,7 +114,7 @@ void	ft_free_all(t_data *data);
 /* ************************************************************************** */
 /* LEXER																	  */
 /* ************************************************************************** */
-int		ft_lexer(t_data *data);
+void	ft_lexer(t_data *data);
 bool	ft_is_space(char c);
 int		ft_get_chartype(char *s, int *i);
 void	ft_handle_squote(t_data *data, int *i, int type);
@@ -145,11 +146,12 @@ void		ft_lstclear_rd(t_redir **lst);
 
 /* ERRORS */
 void	ft_err_msg(char *s);
+void	ft_check_redir_err(t_token *token);
 
 /* ************************************************************************** */
 /* PARSER																	  */
 /* ************************************************************************** */
-int		ft_parser(t_data *data);
+void		ft_parser(t_data *data);
 
 /* UTILS */
 bool	ft_is_redir(int type);

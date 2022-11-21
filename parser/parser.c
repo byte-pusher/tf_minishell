@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 15:03:11 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 18:46:02 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,19 @@
 
 void	ft_parser_errors(t_token **token)
 {
-	// hier maybe ein loop schreiben um nach Fehlern zu schauen
-	if ((*token)->type == PIPE) // or pipe in the last position
+	t_token	*current;
+
+	if ((*token)->type == PIPE) // handle pipe in the last position
 	{
 		exit_status = SYNTAX_ERR;
 		ft_err_msg((*token)->name);
+	}
+	current = *token;
+	while (current != NULL)
+	{
+		if (ft_is_redir(current->type) == true)
+			ft_check_redir_err(current);
+		current = current->next;
 	}
 }
 
@@ -42,12 +50,13 @@ void	ft_create_cmd_table(t_data *data)
 	}
 }
 
-int	ft_parser(t_data *data)
+void	ft_parser(t_data *data)
 {
 	ft_parser_errors(&data->tokens);
-	ft_create_cmd_table(data);
+	if (exit_status == SUCCESS)
+		ft_create_cmd_table(data);
 	// print_cmd_strings(data->cmd_table);
-	return (SUCCESS);
+	exit_status = SUCCESS;
 }
 
 // void	print_rd(t_data *data)

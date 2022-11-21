@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 13:00:09 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 18:38:02 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	ft_init_teshno(t_data *data)
 	{
 		ft_init_structs(data);
 		data->input = readline(TESHNO);
-		if (ft_strncmp(data->input, "exit", 4) == 0)
+		if (ft_strncmp(data->input, "exit", 4) == 0) // danach anders implementieren. ist ein built in
 			break ;
 		if (data->input[0] != '\0')
 		{
 			add_history(data->input);
-			exit_status = ft_lexer(data);				// still need to handle malloc errors in ft_lexer
-			exit_status = ft_parser(data);
+			ft_lexer(data);				// still need to handle malloc errors in ft_lexer
+			ft_parser(data);
 			ft_free_all(data);
 		}
 	}
