@@ -36,4 +36,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+#OTHER
+*.pdf
+
 # End 

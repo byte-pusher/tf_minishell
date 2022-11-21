@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/17 14:24:29 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 15:18:11 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <signal.h>
+
+
+/* ************************************************************************** */
+/* READLINE MISSING PROTOTYPES												  */
+/* ************************************************************************** */
+void 		rl_replace_line(const char *text, int clear_undo);
+extern void rl_clear_history (void);
 
 int		exit_status; // to store different error codes
 
@@ -55,7 +62,8 @@ enum e_ERROR_TYPE
 {
 	SUCCESS,
 	SYNTAX_ERR,
-	MALLOC_ERR
+	MALLOC_ERR,
+	ABORT,
 };
 
 enum e_file
@@ -112,6 +120,9 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 /* ************************************************************************** */
 /* UTILS																	  */
 /* ************************************************************************** */
+/* SIGNALS*/
+void	connect_signals();
+
 
 /* LIBFTLIKE */
 t_cmd_table	*lstnew_ct(t_cmd_table **lst);
