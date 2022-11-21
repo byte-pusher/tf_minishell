@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 13:49:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:56:13 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ int		ft_parser(t_data *data);
 /* UTILS */
 bool	ft_is_redir(int type);
 void	ft_create_cmd_table_lst(t_data *data);
+void	print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
 
 /* CMD_PARSER */
 void	ft_command_parser(t_cmd_table *cmd_table, t_token *token);

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 13:29:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:54:09 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ void	ft_cpy_string(t_data *data, t_token *new_token, int *i)
 	start = *i;
 	if (new_token->type == FILE_NAME)
 	{
-		while (data->input[*i] != '\0'
-			&& ft_get_chartype(data->input, i) == GENERAL)
+		while (data->input[*i] != '\0')
 		{
+			while (ft_is_space(data->input[*i]) == true)
+				(*i)++;
+			if (ft_get_chartype(data->input, i) != GENERAL)
+				break ;
 			(*i)++;
 			end = *i;
 		}

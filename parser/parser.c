@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 13:49:58 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:56:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	ft_parser(t_data *data)
 {
 	ft_parser_errors(&data->tokens);
 	ft_create_cmd_table(data);
+	print_cmd_strings(data->cmd_table);
 	return (SUCCESS);
 }
 
@@ -65,26 +66,5 @@ int	ft_parser(t_data *data)
 // 			}
 // 			current = current->next;
 // 		}
-// 	}
-// }
-
-// void	print_cmd_strings(t_cmd_table *cmd_table)
-// {
-// 	t_cmd_table *current;
-
-// 	current = ft_lstfirst_ct(&cmd_table);
-// 	while (current != NULL)
-// 	{
-// 		if (current->is_command == true)
-// 		{
-// 			int i = 0;
-// 			while (current->cmd_args[i] != NULL)
-// 			{
-// 				printf("%s ", current->cmd_args[i]);
-// 				i++;
-// 			}
-// 			printf("\n");
-// 		}
-// 		current = current->next;
 // 	}
 // }
