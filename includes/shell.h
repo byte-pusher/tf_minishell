@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 19:09:32 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 15:42:33 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,21 +103,32 @@ typedef struct s_cmd_table
 		struct s_cmd_table	*prev;
 }	t_cmd_table;
 
+typedef struct s_env
+{
+	char			*var;
+	bool			hidden;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_data
 {
-	char		*input;
 	int			nbr_of_cmds;
+	char		*input;
+	t_env		*env_tesh;
 	t_token		*tokens;
 	t_cmd_table	*cmd_table;
 	// char		**ms_env;
 }	t_data;
 
 int		ft_init_teshno(t_data *data);
+void	ft_get_env(char **env, t_env *env_tesh);
+void	print_env(t_env **lst);
 
 /* ************************************************************************** */
 /* FREE																		  */
 /* ************************************************************************** */
 void	ft_free_all(t_data *data);
+void	ft_free_strings(char ***s);
 
 /* ************************************************************************** */
 /* LEXER																	  */
@@ -154,6 +165,12 @@ void		ft_lstadd_back_rd(t_redir **lst, t_redir *new);
 t_redir		*ft_lstnew_rd(void);
 t_redir		*ft_lstfirst_rd(t_redir **lst);
 void		ft_lstclear_rd(t_redir **lst);
+
+t_env	*ft_lstlast_env(t_env *lst);
+void	ft_lstadd_back_env(t_env **lst, t_env *new);
+t_env	*ft_lstnew_env(void);
+t_env	*ft_lstfirst_env(t_env **lst);
+void	ft_lstclear_env(t_env **lst);
 
 /* ERRORS */
 void	ft_err_msg(char *s);

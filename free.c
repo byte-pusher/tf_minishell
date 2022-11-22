@@ -6,13 +6,13 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:42:34 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 13:43:43 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 22:51:09 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/shell.h"
 
-void	free_strings(char ***s)
+void	ft_free_strings(char ***s)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ void	ft_free_cmd_args(t_cmd_table *cmd_table)
 	while (current != NULL)
 	{
 		if (current->is_command == true)
-			free_strings(&current->cmd_args);
+			ft_free_strings(&current->cmd_args);
 		current = current->next;
 	}
 }

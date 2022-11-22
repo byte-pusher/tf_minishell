@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 16:52:16 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 22:54:01 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst)
 t_redir	*ft_lstlast_rd(t_redir *lst)
 {
 	t_redir	*p;
+
+	if (lst == NULL)
+		return (NULL);
+	p = lst;
+	while (p->next)
+		p = p->next;
+	return (p);
+}
+
+t_env	*ft_lstlast_env(t_env *lst)
+{
+	t_env	*p;
 
 	if (lst == NULL)
 		return (NULL);
@@ -102,6 +114,22 @@ void	ft_lstadd_back_rd(t_redir **lst, t_redir *new)
 	}
 }
 
+void	ft_lstadd_back_env(t_env **lst, t_env *new)
+{
+	t_env	*p;
+
+	if (lst && new)
+	{
+		if (*lst == NULL)
+			*lst = new;
+		else
+		{
+			p = ft_lstlast_env(*(lst));
+			p->next = new;
+		}
+	}
+}
+
 t_token	*ft_lstnew_t(void)
 {
 	t_token	*node;
@@ -143,6 +171,18 @@ t_redir	*ft_lstnew_rd(void)
 	return (node);
 }
 
+t_env	*ft_lstnew_env(void)
+{
+	t_env	*node;
+
+	node = malloc(sizeof(t_env));
+	if (node == NULL)
+		exit(-1); // create here exit_failure funciton to free the tokens list
+	node->var = NULL;
+	node->next = NULL;
+	return (node);
+}
+
 t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst)
 {
 	if (lst == NULL)
@@ -158,6 +198,13 @@ t_token	*ft_lstfirst_t(t_token **lst)
 }
 
 t_redir	*ft_lstfirst_rd(t_redir **lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	return (*lst);
+}
+
+t_env	*ft_lstfirst_env(t_env **lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -230,6 +277,22 @@ void	ft_lstclear_rd(t_redir **lst)
 		// close(current->fd);
 		free(current);
 		current = next;
+	}
+	*lst = NULL;
+	lst = NULL;
+}
+
+void	ft_lstclear_env(t_env **lst)
+{
+	t_env	*current;
+
+	current = *lst;
+	while (current != NULL)
+	{
+		printf("jo\n");
+		free(current->var);
+		free(current);
+		current = current->next;
 	}
 	*lst = NULL;
 	lst = NULL;

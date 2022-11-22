@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:46:26 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 18:37:02 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/21 21:33:44 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	open_file(t_redir *redir)
 		redir->fd = open(redir->file, O_RDONLY);
 	else if (redir->type == GREAT) // out
 		redir->fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	else if (redir->type == GREATGREAT || redir->type == LESSLESS) // append or heredoc
+	else if (redir->type == GREATGREAT || redir->type == LESSLESS)	// append or heredoc
 		redir->fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (redir->fd == -1)
 	{

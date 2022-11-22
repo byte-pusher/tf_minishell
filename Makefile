@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/21 19:13:45 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/21 22:21:48 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRCS  = main.c \
 		errors_utils.c \
 		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c \
 		lexer/lexer.c lexer/lexer_utils.c lexer/lst_utils.c \
-		free.c
+		free.c \
+		env/env.c
  
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
