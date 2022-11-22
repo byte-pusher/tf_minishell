@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 17:48:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 20:31:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	ft_parser_errors(t_token **token)
 {
 	t_token	*current;
 
-	if ((*token)->type == PIPE) // handle pipe in the last position
+	if ((*token)->type == PIPE || ft_lstlast_t(*token)->type == PIPE) // still needs to handle pipe in the last position
 	{
 		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
+		ft_err_msg("|");
 	}
 	current = *token;
 	while (current != NULL)

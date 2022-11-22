@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 17:52:41 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 21:13:39 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,15 @@ enum e_ERROR_TYPE
 	ABORT
 };
 
-enum e_file
+enum e_BUILTIN_TYPE
 {
-	in,
-	out
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT
 };
 
 typedef struct s_token
@@ -95,13 +100,15 @@ typedef struct s_redir
 
 typedef struct s_cmd_table
 {
-		char				**cmd_args;
-		char				*path_name;
-		bool				is_command;
-		bool				is_redir;
-		t_redir				*redir;
-		struct s_cmd_table	*next;
-		struct s_cmd_table	*prev;
+	int					builtin_type;
+	char				**cmd_args;
+	char				*path_name;
+	bool				is_command;
+	bool				is_redir;
+	bool				is_builtin;
+	t_redir				*redir;
+	struct s_cmd_table	*next;
+	struct s_cmd_table	*prev;
 }	t_cmd_table;
 
 typedef struct s_env
@@ -175,7 +182,6 @@ void	ft_lstclear_env(t_env **lst);
 
 /* ERRORS */
 void	ft_err_msg(char *s);
-void	ft_check_redir_err(t_token *token);
 
 /* ************************************************************************** */
 /* PARSER																	  */
@@ -186,11 +192,19 @@ void		ft_parser(t_data *data);
 bool	ft_is_redir(int type);
 void	ft_create_cmd_table_lst(t_data *data);
 void	print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
+void	ft_check_redir_err(t_token *token);
 
 /* CMD_PARSER */
 void	ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data);
 
 /* REDIR_PARSER*/
 void	ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
+
+/* ************************************************************************** */
+/* BUILTIN																	  */
+/* ************************************************************************** */
+bool	ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
+void	ft_exit(void);
+void	ft_env(t_env *env_tesh);
 
 #endif

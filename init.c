@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 18:40:11 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 20:36:16 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_init_teshno(t_data *data)
 		data->input = ft_strtrim(in, " ");
 		if (ft_strlen(data->input) == 4
 			&& ft_strncmp(data->input, "exit", 4) == 0) // danach anders implementieren. ist ein built in
-			exit(SUCCESS);
+			exit(SUCCESS); // wenn exit wirklich alles free dann passt so
 		if (data->input == NULL)
 			exit_status = ABORT;
 		if (data->input[0] != '\0' && data->input[0] != EOF)

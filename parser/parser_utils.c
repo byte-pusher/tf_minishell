@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:32:11 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 14:55:54 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 20:07:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ bool	ft_is_redir(int type)
 		|| type == LESSLESS)
 			return (true);
 	return (false);
+}
+
+void	ft_check_redir_err(t_token *token)
+{
+	if (token->next == NULL)
+	{
+		exit_status = SYNTAX_ERR;
+		ft_err_msg("newline");
+	}
+	else if (token->next->type == PIPE)
+	{
+		exit_status = SYNTAX_ERR;
+		ft_err_msg(token->next->name);
+	}
 }
 
 void	ft_create_cmd_table_lst(t_data *data)

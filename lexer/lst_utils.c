@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 18:16:31 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 20:58:18 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ t_cmd_table	*ft_lstnew_ct(void)
 		exit(-1); // create here exit_failure funciton to free the tokens list
 	node->is_command = false;
 	node->is_redir = false;
+	node->is_builtin = false;
 	node->redir = NULL;
 	node->path_name = NULL;
 	node->next = NULL;

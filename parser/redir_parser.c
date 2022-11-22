@@ -6,25 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:46:26 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 18:33:24 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 20:07:16 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
-
-void	ft_check_redir_err(t_token *token)
-{
-	if (token->next == NULL)
-	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg("newline");
-	}
-	else if (token->next->type == PIPE)
-	{
-		exit_status = SYNTAX_ERR;
-		ft_err_msg(token->next->name);
-	}
-}
 
 void	open_file(t_redir *redir)
 {
