@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 22:54:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 18:16:31 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ t_cmd_table	*ft_lstnew_ct(void)
 	node->is_command = false;
 	node->is_redir = false;
 	node->redir = NULL;
+	node->path_name = NULL;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
@@ -289,7 +290,6 @@ void	ft_lstclear_env(t_env **lst)
 	current = *lst;
 	while (current != NULL)
 	{
-		printf("jo\n");
 		free(current->var);
 		free(current);
 		current = current->next;

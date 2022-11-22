@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 15:46:31 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 18:40:11 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@ void	ft_init_structs(t_data *data)
 
 int	ft_init_teshno(t_data *data)
 {
+	char	*in;
+
 	while (true)
 	{
 		ft_init_structs(data);
-		data->input = readline(TESHNO);
-		if (ft_strncmp(data->input, "exit", 4) == 0) // danach anders implementieren. ist ein built in
-			break ;
+		in = readline(TESHNO);
+		data->input = ft_strtrim(in, " ");
+		if (ft_strlen(data->input) == 4
+			&& ft_strncmp(data->input, "exit", 4) == 0) // danach anders implementieren. ist ein built in
+			exit(SUCCESS);
 		if (data->input == NULL)
 			exit_status = ABORT;
 		if (data->input[0] != '\0' && data->input[0] != EOF)

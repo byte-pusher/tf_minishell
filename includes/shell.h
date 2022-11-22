@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 15:42:33 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 17:52:41 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_redir
 typedef struct s_cmd_table
 {
 		char				**cmd_args;
+		char				*path_name;
 		bool				is_command;
 		bool				is_redir;
 		t_redir				*redir;
@@ -121,7 +122,7 @@ typedef struct s_data
 }	t_data;
 
 int		ft_init_teshno(t_data *data);
-void	ft_get_env(char **env, t_env *env_tesh);
+void	ft_get_env(char **env, t_data *data);
 void	print_env(t_env **lst);
 
 /* ************************************************************************** */
@@ -187,7 +188,7 @@ void	ft_create_cmd_table_lst(t_data *data);
 void	print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
 
 /* CMD_PARSER */
-void	ft_command_parser(t_cmd_table *cmd_table, t_token *token);
+void	ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data);
 
 /* REDIR_PARSER*/
 void	ft_redir_parser(t_cmd_table *cmd_table, t_token **token);

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 19:03:10 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 17:48:45 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_create_cmd_table(t_data *data)
 	while (current_token != NULL)
 	{
 		if (current_token->type == COMMAND)
-			ft_command_parser(current_ct, current_token);
+			ft_command_parser(current_ct, current_token, data);
 		if (ft_is_redir(current_token->type))
 			ft_redir_parser(current_ct, &current_token);
 		if (current_token->type == PIPE)
