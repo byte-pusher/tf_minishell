@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 22:54:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/22 16:12:25 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,6 @@ void	ft_lstclear_env(t_env **lst)
 	current = *lst;
 	while (current != NULL)
 	{
-		printf("jo\n");
 		free(current->var);
 		free(current);
 		current = current->next;
