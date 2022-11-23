@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/21 22:21:48 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/23 18:34:42 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS  = main.c \
 		init.c \
 		signal.c \
 		errors_utils.c \
-		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c \
+		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c parser/parser_quotes.c \
 		lexer/lexer.c lexer/lexer_utils.c lexer/lst_utils.c \
 		free.c \
 		env/env.c
@@ -68,6 +68,7 @@ test:
 	@make all
 	@echo "\n$(GREEN) >> run minishell. $(EOL)"
 	@./minishell
+	rm minishell
 
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)

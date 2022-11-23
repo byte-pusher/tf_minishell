@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 16:14:04 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 19:11:54 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,17 @@ enum e_ERROR_TYPE
 	OPEN_FILE_ERR,
 	CMD_NOT_FOUND,
 	ABORT
+};
+
+enum e_QUOTE_STATUS
+{
+	NON,
+	OPEN,
+	SINGLE_OPEN,
+	DOUBLE_OPEN,
+	CLOSED,
+	SINGLE_CLOSED,
+	DOUBLE_CLOSED
 };
 
 enum e_file
@@ -180,6 +191,7 @@ void	ft_check_redir_err(t_token *token);
 /* PARSER																	  */
 /* ************************************************************************** */
 void		ft_parser(t_data *data);
+int			check_quotes(char *str);
 
 /* UTILS */
 bool	ft_is_redir(int type);

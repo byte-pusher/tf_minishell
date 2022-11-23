@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 16:13:46 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 18:58:01 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_init_teshno(t_data *data)
 	{
 		ft_init_structs(data);
 		data->input = readline(TESHNO);
+		check_quotes(data->input);
+		//dprintf(2, "QUOTE STATUS: %s", check_quotes(data->input));
 		if (ft_strncmp(data->input, "exit", 4) == 0) // danach anders implementieren. ist ein built in
 			break ;
 		if (data->input == NULL)
