@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:45:09 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 21:31:04 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 16:30:51 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**ft_find_path_line_and_split(t_env **env_tesh)
 	{
 		pathnames = ft_split(path, ':');
 		if (pathnames == NULL)
-			exit(-1); // malloc error
+			exit(ENOMEM);
 	}
 	return (pathnames);
 }
@@ -57,7 +57,7 @@ bool	ft_check_for_input_with_path(t_cmd_table *cmd_table, char **pathnames)
 		{
 			cmd_table->path_name = ft_strdup(cmd_table->cmd_args[0]);
 			if (cmd_table->path_name == NULL)
-				exit(-1); // wie handeln?
+				exit(ENOMEM);
 			return (true);
 		}
 	}
@@ -76,11 +76,11 @@ int	ft_get_cmd(t_cmd_table *cmd_table, char **pathnames)
 	{
 		tmp = ft_strjoin(pathnames[i], "/");
 		if (pathnames != NULL && tmp == NULL)
-			return (MALLOC_ERR);
+			exit(ENOMEM);
 		cmd_table->path_name = ft_strjoin(tmp, cmd_table->cmd_args[0]);
 		free(tmp);
 		if (pathnames != NULL && cmd_table->path_name == NULL)
-			return (MALLOC_ERR);
+			exit(ENOMEM);
 		if (access(cmd_table->path_name, F_OK) == 0)
 			return (SUCCESS);
 		free(cmd_table->path_name);
@@ -95,6 +95,8 @@ void	ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data)
 	char	**pathnames;
 
 	cmd_table->cmd_args = ft_split(token->name, ' '); // add \t to split
+	if (cmd_table->cmd_args == NULL)
+		exit(ENOMEM);
 	cmd_table->is_command = true;
 	if (ft_is_builtin(cmd_table, cmd_table->cmd_args[0]) == true)
 		exit_status = SUCCESS;

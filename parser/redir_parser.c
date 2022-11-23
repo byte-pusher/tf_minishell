@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:46:26 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 20:07:16 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 16:16:11 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_redir_parser(t_cmd_table *cmd_table, t_token **token)
 	new_redir->type = (*token)->type;
 	*token = (*token)->next;
 	new_redir->file = ft_strdup((*token)->name); // next is file_name
+	if (new_redir->file == NULL)
+		exit(ENOMEM);
 	open_file(new_redir);
 	cmd_table->is_redir = true;
 	ft_lstadd_back_rd(&cmd_table->redir, new_redir);

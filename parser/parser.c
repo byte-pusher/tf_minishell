@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 20:31:38 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 16:38:59 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_parser_errors(t_token **token)
 	{
 		if (ft_is_redir(current->type) == true)
 			ft_check_redir_err(current);
+		// check for open quotes
 		current = current->next;
 	}
 }

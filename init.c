@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 20:36:16 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 18:53:26 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,26 @@ int	ft_init_teshno(t_data *data)
 		ft_init_structs(data);
 		in = readline(TESHNO);
 		data->input = ft_strtrim(in, " ");
-		if (ft_strlen(data->input) == 4
-			&& ft_strncmp(data->input, "exit", 4) == 0) // danach anders implementieren. ist ein built in
-			exit(SUCCESS); // wenn exit wirklich alles free dann passt so
 		if (data->input == NULL)
-			exit_status = ABORT;
+			exit(ENOMEM);
+		if (ft_strlen(data->input) == 4
+			&& ft_strncmp(data->input, "exit", 4) == 0)
+			exit(SUCCESS);
 		if (data->input[0] != '\0' && data->input[0] != EOF)
 		{
 			add_history(data->input);
-			ft_lexer(data);				// still need to handle malloc errors in ft_lexer
+			ft_lexer(data);
 			ft_parser(data);
+			ft_executor(data);
 			ft_free_all(data);
 		}
 	}
+	// entweder freen oder einfach exit
+	// actually the OS reclaims the mem allocated in the program after exit
+	// downside: When you leave memory allocated at the end of the program you never know whether you have a leak
+	// so maybe it makes sense to exit only when we have a ENOMEM
 	ft_lstclear_env(&data->env_tesh);
+	free(data->input);
 	rl_clear_history();
 	return (exit_status);
 }

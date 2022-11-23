@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/22 20:38:15 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/23 23:30:20 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRCS  = main.c \
 		lexer/lexer.c lexer/lexer_utils.c lexer/lst_utils.c \
 		free.c \
 		env/env.c \
-		builtin/builtin.c
+		executor/executor.c \
+		builtin/builtin.c builtin/builtin_utils.c
  
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)

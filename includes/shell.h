@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 21:13:39 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/24 00:04:56 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ enum e_ERROR_TYPE
 {
 	SUCCESS,
 	SYNTAX_ERR,
-	MALLOC_ERR,
 	OPEN_FILE_ERR,
 	CMD_NOT_FOUND,
 	ABORT
@@ -122,6 +121,7 @@ typedef struct s_data
 {
 	int			nbr_of_cmds;
 	char		*input;
+	int			**pipes;
 	t_env		*env_tesh;
 	t_token		*tokens;
 	t_cmd_table	*cmd_table;
@@ -144,8 +144,6 @@ void	ft_free_strings(char ***s);
 void	ft_lexer(t_data *data);
 bool	ft_is_space(char c);
 int		ft_get_chartype(char *s, int *i);
-void	ft_handle_squote(t_data *data, int *i, int type);
-void	ft_handle_dquote(t_data *data, int *i, int type);
 
 /* ************************************************************************** */
 /* UTILS																	  */
@@ -206,5 +204,18 @@ void	ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
 bool	ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
 void	ft_exit(void);
 void	ft_env(t_env *env_tesh);
+void	ft_echo(char **cmd_args);
+
+/* UTILS */
+bool	ft_is_flag(char **cmd_args);
+void	ft_skip_flags(char **cmd_args, int *i);
+
+/* ************************************************************************** */
+/* EXECUTOR																	  */
+/* ************************************************************************** */
+void	ft_executor(t_data *data);
+
+void	create_pipes_arr(t_data *data);
+
 
 #endif

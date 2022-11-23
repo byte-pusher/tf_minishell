@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 20:58:18 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 16:12:22 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ t_token	*ft_lstnew_t(void)
 
 	node = malloc(sizeof(t_token));
 	if (node == NULL)
-		exit(-1); // create here exit_failure funciton to free the tokens list
+		exit(ENOMEM);
 	node->name = NULL;
 	node->next = NULL;
 	node->prev = NULL;
@@ -149,7 +149,7 @@ t_cmd_table	*ft_lstnew_ct(void)
 
 	node = malloc(sizeof(t_cmd_table));
 	if (node == NULL)
-		exit(-1); // create here exit_failure funciton to free the tokens list
+		exit(ENOMEM);
 	node->is_command = false;
 	node->is_redir = false;
 	node->is_builtin = false;
@@ -166,7 +166,7 @@ t_redir	*ft_lstnew_rd(void)
 
 	node = malloc(sizeof(t_redir));
 	if (node == NULL)
-		exit(-1); // create here exit_failure funciton to free the tokens list
+		exit(ENOMEM);
 	node->file = NULL;
 	node->next = NULL;
 	node->prev = NULL;
@@ -179,7 +179,7 @@ t_env	*ft_lstnew_env(void)
 
 	node = malloc(sizeof(t_env));
 	if (node == NULL)
-		exit(-1); // create here exit_failure funciton to free the tokens list
+		exit(ENOMEM);
 	node->var = NULL;
 	node->next = NULL;
 	return (node);

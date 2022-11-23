@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 19:07:25 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 17:56:29 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
 	new_token = ft_lstnew_t();
 	new_token->type = type;
 	new_token->name = malloc(3);
+	if (new_token->name == NULL)
+		exit(ENOMEM);
 	if (type == LESSLESS)
 		c = '<';
 	else if (type == GREATGREAT)
@@ -85,10 +87,30 @@ void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
 
 void	ft_handle_quotes(t_data *data, int *i, int type)
 {
+	int		start;
+	int		end;
+	char	c;
+	t_token	*new_token;
+
 	if (type == SQUOTE)
-		ft_handle_squote(data, i, type);
+		c = '\'';
 	else if (type == DQUOTE)
-		ft_handle_dquote(data, i, type);
+		c = '\"';
+	start = *i;
+	new_token = ft_lstnew_t();
+	new_token->type = type;
+	while (data->input[*i] != '\0')
+	{
+		(*i)++;
+		end = *i;
+		if (data->input[*i] == c)
+			break ;
+	}
+	end++;
+	new_token->name = ft_substr(data->input, start, end - start);
+	if (new_token->name == NULL)
+		exit(ENOMEM);
+	ft_lstadd_back_t(&data->tokens, new_token);
 }
 
 void	ft_handle_others(t_data *data, int type, char c)
@@ -99,7 +121,7 @@ void	ft_handle_others(t_data *data, int type, char c)
 	new_token->type = type;
 	new_token->name = malloc(2);
 	if (new_token->name == NULL)
-		exit_status = MALLOC_ERR;
+		exit(ENOMEM);
 	new_token->name[0] = c;
 	new_token->name[1] = '\0';
 	ft_lstadd_back_t(&data->tokens, new_token);
