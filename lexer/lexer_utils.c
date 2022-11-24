@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 13:29:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/24 17:10:29 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_handle_squote(t_data *data, int *i, int type)
 			break ;
 	}
 	end++;
-	new_token->name = ft_substr(data->input, start, end - start);
+	new_token->name = ft_substr(data->input, start + 1, end - start - 2);
 	ft_lstadd_back_t(&data->tokens, new_token);
 }
 
@@ -82,6 +82,6 @@ void	ft_handle_dquote(t_data *data, int *i, int type)
 			break ;
 	}
 	end++;
-	new_token->name = ft_substr(data->input, start, end - start);
+	new_token->name = ft_substr(data->input, start + 1, end - start - 2);
 	ft_lstadd_back_t(&data->tokens, new_token);
 }
