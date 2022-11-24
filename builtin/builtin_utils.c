@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:29:25 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 00:30:38 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/24 14:53:19 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,12 @@ bool	ft_is_flag(char **cmd_args)
 	if (cmd_args[1][1] != '\0' && cmd_args[1][0] == '-' 
 		&& cmd_args[1][1] == 'n')
 	{
-		if (ft_strlen(cmd_args[1]) > 2)
+		j = 2;
+		while (cmd_args[1][j])
 		{
-			j = 2;
-			while (cmd_args[1][j])
-			{
-				if (cmd_args[1][j] != 'n')
-					return (false);
-				j++;
-			}
+			if (cmd_args[1][j] != 'n')
+				return (false);
+			j++;
 		}
 	}
 	else
@@ -65,12 +62,12 @@ void	ft_skip_flags(char **cmd_args, int *i)
 	while (cmd_args[*i] != NULL)
 	{
 		if (cmd_args[*i][1] != '\0' && cmd_args[*i][0] == '-'
-			&& cmd_args[1][1] == 'n')
+			&& cmd_args[*i][1] == 'n')
 		{
 			j = 2;
-			while (cmd_args[1][j])
+			while (cmd_args[*i][j])
 			{
-				if (cmd_args[1][j] != 'n')
+				if (cmd_args[*i][j] != 'n')
 					return ;
 				j++;
 			}

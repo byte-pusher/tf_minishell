@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/23 23:30:20 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/24 14:36:50 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,9 +74,7 @@ test:
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)
 
-git:
-	git add .
-	git commit -m "commit"
-	git push
+valgrind: $(NAME)
+	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
-.PHONY: all clean fclean re git lib
+.PHONY: all clean fclean re git lib valgrind

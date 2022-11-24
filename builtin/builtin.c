@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:19 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 00:31:18 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/24 14:51:04 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	ft_echo(char **cmd_args)
 			ft_skip_flags(cmd_args, &i);
 		while (cmd_args[i] != NULL)
 		{
-			printf("%s ", cmd_args[i]);
+			printf("%s", cmd_args[i]);
+			if (cmd_args[i + 1] != NULL)
+				printf(" ");
 			i++;
 		}
 	}
-	else if (cmd_args[2] == NULL)
-		printf("%s", cmd_args[1]);
 	if (is_flag == false)
 		printf("\n");
 }
