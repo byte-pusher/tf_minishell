@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/25 14:36:22 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/25 16:28:53 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS  = main.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
-		executor/executor.c executor/executor_utils.c \
+		executor/executor.c executor/executor_utils.c executor/pipes.c \
 		builtin/builtin.c builtin/builtin_utils.c
  
 OBJ_DIR = ./objs/

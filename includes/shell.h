@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/25 14:32:38 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/25 16:45:18 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ typedef struct s_exec
 {
 	int	end[2];
 	int	here_fd[2];
-	int	**pipes;
 	int	nbr_of_pipes;
 	int	tmp_fd;
 	int	stin;
@@ -244,6 +243,6 @@ void		ft_executor(t_data *data);
 char		**ft_get_env_arr(t_env *env_tesh);
 bool		ft_check_single_builtin(t_cmd_table *cmd_table);
 bool		ft_check_single_cmd(t_cmd_table *cmd_table);
-
+t_exec		*ft_create_exec(void);
 
 #endif
