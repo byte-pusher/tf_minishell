@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:42:34 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/22 20:23:13 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/25 14:38:46 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/shell.h"
+#include "../../includes/shell.h"
 
 void	ft_free_strings(char ***s)
 {
@@ -63,9 +63,20 @@ void	ft_clear_cmd_table(t_cmd_table *cmd_table)
 	ft_lstclear_ct(&cmd_table);
 }
 
+void	ft_free_pipes(int ***arr, int len)
+{
+	while (len >= 0)
+	{
+		free((*arr)[len]);
+		len--;
+	}
+	free(*arr);
+}
+
 void	ft_free_all(t_data *data)
 {
 	ft_lst_clear_t(&data->tokens);
 	ft_clear_cmd_table(data->cmd_table);
+	free(data->exec);
 	free(data->input);
 }

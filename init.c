@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/23 18:53:26 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/25 14:40:48 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,26 @@ void	ft_init_structs(t_data *data)
 {
 	data->tokens = NULL;
 	data->cmd_table = NULL;
+	data->exec = NULL;
 	// was muss noch initialisiert werden?
+}
+
+void	ft_init_input(t_data *data)
+{
+	char	*in;
+
+	in = readline(TESHNO);
+	data->input = ft_strtrim(in, " ");
+	if (data->input == NULL)
+		exit(ENOMEM);
 }
 
 int	ft_init_teshno(t_data *data)
 {
-	char	*in;
-
 	while (true)
 	{
 		ft_init_structs(data);
-		in = readline(TESHNO);
-		data->input = ft_strtrim(in, " ");
-		if (data->input == NULL)
-			exit(ENOMEM);
+		ft_init_input(data);
 		if (ft_strlen(data->input) == 4
 			&& ft_strncmp(data->input, "exit", 4) == 0)
 			exit(SUCCESS);

@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:21:13 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/23 16:31:35 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/24 15:39:46 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/shell.h"
+#include "../../includes/shell.h"
 
 void	ft_cmd_err(char *s)
 {
@@ -34,6 +34,6 @@ void	ft_err_msg(char *s)
 		ft_synt_err(s);
 	else if (exit_status == OPEN_FILE_ERR)
 		perror(s);
-	else if(exit_status == CMD_NOT_FOUND)
+	else if (exit_status == CMD_NOT_FOUND)
 		ft_cmd_err(s);
 }

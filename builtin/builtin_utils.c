@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:29:25 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 14:53:19 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/25 14:14:13 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 bool	ft_is_builtin(t_cmd_table *cmd_table, char *builtin)
 {
-	if (ft_strlen(builtin) == 4 && (ft_strncmp(builtin, "echo", 4) == 0))
+	if (ft_strlen(builtin) == 4 && (ft_strncmp(builtin, "echo", 4) == 0)) // ECHO soll auch funktionieren
 		cmd_table->builtin_type = ECHO;
-	else if	(ft_strlen(builtin) == 2 && (ft_strncmp(builtin, "cd", 2) == 0))
+	else if (ft_strlen(builtin) == 2 && (ft_strncmp(builtin, "cd", 2) == 0))
 		cmd_table->builtin_type = CD;
-	else if (ft_strlen(builtin) == 3 && (ft_strncmp(builtin, "pwd", 3) == 0))
+	else if (ft_strlen(builtin) == 3 && (ft_strncmp(builtin, "pwd", 3) == 0)) // PWD soll auch funktionieren
 		cmd_table->builtin_type = PWD;
 	else if (ft_strlen(builtin) == 6 && (ft_strncmp(builtin, "export", 6) == 0))
 		cmd_table->builtin_type = EXPORT;
 	else if (ft_strlen(builtin) == 5 && (ft_strncmp(builtin, "unset", 5) == 0))
 		cmd_table->builtin_type = UNSET;
-	else if (ft_strlen(builtin) == 3 && (ft_strncmp(builtin, "env", 3) == 0))
+	else if (ft_strlen(builtin) == 3 && (ft_strncmp(builtin, "env", 3) == 0)) // ENV soll auch funktionieren
 		cmd_table->builtin_type = ENV;
-	else if (ft_strlen(builtin) == 4 && (ft_strncmp(builtin, "exit", 4) == 0))
+	else if (ft_strlen(builtin) == 4 && (ft_strncmp(builtin, "exit", 4) == 0)) 
 		cmd_table->builtin_type = EXIT;
 	else
 		return (false);
@@ -38,7 +38,7 @@ bool	ft_is_flag(char **cmd_args)
 {
 	int	j;
 
-	if (cmd_args[1][1] != '\0' && cmd_args[1][0] == '-' 
+	if (cmd_args[1][1] != '\0' && cmd_args[1][0] == '-'
 		&& cmd_args[1][1] == 'n')
 	{
 		j = 2;

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:19 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 14:51:04 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/24 14:54:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_echo(char **cmd_args)
 
 	i = 1;
 	is_flag = false;
-	// noch bugs bei echo -n + --n || --
 	if (cmd_args[1] != NULL)
 	{
 		is_flag = ft_is_flag(cmd_args);
