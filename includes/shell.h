@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/23 19:11:54 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/26 21:54:17 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ bool	ft_is_space(char c);
 int		ft_get_chartype(char *s, int *i);
 void	ft_handle_squote(t_data *data, int *i, int type);
 void	ft_handle_dquote(t_data *data, int *i, int type);
+void	expansion(t_data *data);
+char	*get_var(t_data *data, char *var);
 
 /* ************************************************************************** */
 /* UTILS																	  */
@@ -192,6 +194,7 @@ void	ft_check_redir_err(t_token *token);
 /* ************************************************************************** */
 void		ft_parser(t_data *data);
 int			check_quotes(char *str);
+
 
 /* UTILS */
 bool	ft_is_redir(int type);

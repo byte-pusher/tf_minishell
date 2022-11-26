@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 16:45:12 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/25 14:38:09 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ int	ft_init_teshno(t_data *data)
 			exit_status = ABORT;
 		if (data->input[0] != '\0' && data->input[0] != EOF)
 		{
+			//print_env(&data->env_tesh);
 			add_history(data->input);
 			ft_lexer(data);	
-			ms_print_list(&data->tokens);			// still need to handle malloc errors in ft_lexer
+			expansion(data);
+			//ms_print_list(&data->tokens);		// still need to handle malloc errors in ft_lexer
 			ft_parser(data);
 			ft_free_all(data);
 		}
