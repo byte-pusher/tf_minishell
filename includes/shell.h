@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/25 16:45:18 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/26 16:31:40 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,5 +244,9 @@ char		**ft_get_env_arr(t_env *env_tesh);
 bool		ft_check_single_builtin(t_cmd_table *cmd_table);
 bool		ft_check_single_cmd(t_cmd_table *cmd_table);
 t_exec		*ft_create_exec(void);
+
+/* ROUTES */
+void		ft_route_stdin(t_cmd_table *cmd_table, t_exec *exec);
+void		ft_route_stdout(t_cmd_table *cmd_table, t_exec *exec);
 
 #endif

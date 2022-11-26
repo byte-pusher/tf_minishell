@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/25 16:57:35 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/26 17:31:57 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,19 @@ void	ft_exec_builtin(t_cmd_table *cmd_table)
 		ft_echo(cmd_table->cmd_args);
 }
 
-void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
+void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
 {
 	char	**env_arr;
 
 	env_arr = ft_get_env_arr(env_tesh);
+	if (cmd_table->is_command == true && cmd_table->is_builtin == false)
+		exit_status = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr); // noch entscheiden wie ich mit den errors umgehe	
+	else
+		ft_exec_builtin(cmd_table);
+}
+
+void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
+{
 	exec->i++; // count processes initiated
 	if (pipe(exec->end) < 0)
 		exit (-1); // noch entscheiden wie ich mit den errors umgehe
@@ -31,9 +39,14 @@ void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 		exit (-1); // noch entscheiden wie ich mit den errors umgehe
 	else if (exec->pid == 0)
 	{
-		if (ft_check_single_cmd(cmd_table) == true)
-			exit_status = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr);
+		if (ft_check_single_cmd(cmd_table) == false)
+		{
+			ft_route_stdout(cmd_table, exec);
+			ft_route_stdin(cmd_table, exec);
+		}
+		ft_exec(cmd_table, env_tesh);
 	}
+	// pipe ends need to be closed in the main process
 	close(exec->end[READ]);
 	close(exec->end[WRITE]);
 }
@@ -43,7 +56,7 @@ void	ft_end_prcs(t_exec	*exec)
 	while (exec->i > 0)
 	{
 		waitpid(0, &exec->pid, 0);
-		if (WIFEXITED(exec->pid))
+		if (WIFEXITED(exec->pid) == true)
 			exit_status = WEXITSTATUS(exec->pid);
 		exec->i--;
 	}
