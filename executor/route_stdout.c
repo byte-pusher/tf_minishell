@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   route_stdout.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/26 17:41:25 by gjupy            ###   ########.fr       */
+/*   Created: 2022/11/26 16:32:23 by gjupy             #+#    #+#             */
+/*   Updated: 2022/11/26 16:52:24 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/shell.h"
+#include "../includes/shell.h"
 
-
-int	main(int argc, char **argv, char **env)
+void		ft_route_stdout(t_cmd_table *cmd_table, t_exec *exec)
 {
-	t_data	data;
-	
-	
-	(void) argc;
-	(void) argv;
-	data.env_tesh = NULL;
-	exit_status = SUCCESS;
-    connect_signals();
-	ft_get_env(env, &data);
-	ft_init_teshno(&data);
-	// system("leaks minishell");
-	return (exit_status);
+	dup2(exec->end[WRITE], STDOUT_FILENO);
+	close(exec->end[WRITE]);
 }

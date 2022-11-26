@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/21 22:21:48 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/26 16:46:03 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,13 @@ CPPFLAGS    = -I/Users/$(USER)/.brew/opt/readline/include
 SRCS  = main.c \
 		init.c \
 		signal.c \
-		errors_utils.c \
 		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c \
-		lexer/lexer.c lexer/lexer_utils.c lexer/lst_utils.c \
-		free.c \
-		env/env.c
+		lexer/lexer.c lexer/lexer_utils.c \
+		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
+		utils/errors/errors_utils.c utils/free/free.c \
+		env/env.c \
+		executor/executor.c executor/executor_utils.c executor/route_stdin.c executor/route_stdout.c \
+		builtin/builtin.c builtin/builtin_utils.c
  
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
@@ -72,9 +74,7 @@ test:
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)
 
-git:
-	git add .
-	git commit -m "commit"
-	git push
+valgrind: $(NAME)
+	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
-.PHONY: all clean fclean re git lib
+.PHONY: all clean fclean re git lib valgrind

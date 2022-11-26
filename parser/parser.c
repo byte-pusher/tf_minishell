@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/21 19:03:10 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/23 16:38:59 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ void	ft_parser_errors(t_token **token)
 {
 	t_token	*current;
 
-	if ((*token)->type == PIPE) // handle pipe in the last position
+	if ((*token)->type == PIPE || ft_lstlast_t(*token)->type == PIPE) // still needs to handle pipe in the last position
 	{
 		exit_status = SYNTAX_ERR;
-		ft_err_msg((*token)->name);
+		ft_err_msg("|");
 	}
 	current = *token;
 	while (current != NULL)
 	{
 		if (ft_is_redir(current->type) == true)
 			ft_check_redir_err(current);
+		// check for open quotes
 		current = current->next;
 	}
 }
@@ -41,7 +42,7 @@ void	ft_create_cmd_table(t_data *data)
 	while (current_token != NULL)
 	{
 		if (current_token->type == COMMAND)
-			ft_command_parser(current_ct, current_token);
+			ft_command_parser(current_ct, current_token, data);
 		if (ft_is_redir(current_token->type))
 			ft_redir_parser(current_ct, &current_token);
 		if (current_token->type == PIPE)
