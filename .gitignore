@@ -1,7 +1,12 @@
 
 ### C ###
 
-# MAC
+# MAC 
+
+#VSCODE
+.vscode/settings.json
+
+
 .DS_Store
 # Prerequisites
 

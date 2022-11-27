@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"ostream": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"shell.h": "c"
 	}
 }
