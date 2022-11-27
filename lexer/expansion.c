@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 
-//current problem: long expansion after short one in same cmd
+//current problem: long expansion after short one in same cmd & part vars recognized as full e.b. $HOM
 
 
 char	*get_var(t_data *data, char *var)
@@ -131,9 +131,7 @@ void	expansion(t_data *data)
 	while (current_token != NULL)
 	{
 		if (current_token->type == DQUOTE || current_token->type == COMMAND)
-		{
 			expand_tokens(data, current_token);
-		}
 		current_token = current_token->next;
 	}
 }
