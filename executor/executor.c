@@ -6,16 +6,17 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/26 17:31:57 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/28 14:06:08 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-void	ft_exec_builtin(t_cmd_table *cmd_table)
+int	ft_exec_builtin(t_cmd_table *cmd_table)
 {
 	if (cmd_table->builtin_type == ECHO)
 		ft_echo(cmd_table->cmd_args);
+	return (SUCCESS);
 }
 
 void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
@@ -26,33 +27,38 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
 	if (cmd_table->is_command == true && cmd_table->is_builtin == false)
 		exit_status = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr); // noch entscheiden wie ich mit den errors umgehe	
 	else
-		ft_exec_builtin(cmd_table);
+	{
+		exit_status = ft_exec_builtin(cmd_table);
+		exit (SUCCESS);
+	}
 }
 
 void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 {
-	exec->i++; // count processes initiated
-	if (pipe(exec->end) < 0)
-		exit (-1); // noch entscheiden wie ich mit den errors umgehe
-	exec->pid = fork();
-	if (exec->pid < 0)
-		exit (-1); // noch entscheiden wie ich mit den errors umgehe
-	else if (exec->pid == 0)
+	exec->i++;
+	pipe(exec->end); 	// noch entscheiden wie ich mit den errors umgehe
+	exec->pid = fork(); // noch entscheiden wie ich mit den errors umgehe
+	if (exec->pid == 0)
 	{
 		if (ft_check_single_cmd(cmd_table) == false)
 		{
-			ft_route_stdout(cmd_table, exec);
 			ft_route_stdin(cmd_table, exec);
+			ft_route_stdout(cmd_table, exec);
 		}
 		ft_exec(cmd_table, env_tesh);
 	}
+	close(exec->tmp_fd);
+	dup2(exec->end[READ], exec->tmp_fd);
 	// pipe ends need to be closed in the main process
-	close(exec->end[READ]);
-	close(exec->end[WRITE]);
+	close(exec->end[0]);
+	close(exec->end[1]);
 }
 
 void	ft_end_prcs(t_exec	*exec)
 {
+	close(exec->tmp_fd);
+	close(exec->stin);
+	close(exec->stout);
 	while (exec->i > 0)
 	{
 		waitpid(0, &exec->pid, 0);
@@ -69,7 +75,7 @@ void	ft_end_prcs(t_exec	*exec)
 void	ft_executor(t_data *data)
 {
 	t_cmd_table	*current;
-	t_exec	*exec;
+	t_exec		*exec;
 
 	current = ft_lstfirst_ct(&data->cmd_table);
 	if (ft_check_single_builtin(current) == true)

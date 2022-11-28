@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:29:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/25 16:45:03 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/28 14:05:32 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ t_exec	*ft_create_exec(void)
 	t_exec	*new_exec;
 
 	new_exec = malloc(sizeof(t_exec));
+	// count processes that were initiated
 	new_exec->i = 0;
+	new_exec->end[WRITE] = 0;
+	new_exec->end[READ] = 0;
+	new_exec->here_fd[WRITE] = 0;
+	new_exec->here_fd[READ] = 0;
+	// tmp_fd is always saving the STDIN/READ END of PIPE
+	new_exec->tmp_fd = dup(STDIN_FILENO);
+	// to where the STDIN should point at the end
+	new_exec->stin = dup(STDIN_FILENO);
+	// to where the STDOUT should point at the end
+	new_exec->stout = dup(STDOUT_FILENO);
 	return (new_exec);
 }
