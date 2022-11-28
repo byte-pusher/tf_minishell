@@ -3,38 +3,43 @@
 #include <stdio.h>
 
 // current problem: long expansion after short one in same cmd 
+//ideas: external function for var creaion from string
+//replacement of realloc necessary! 
+//check execution style of builtins and returns
+
+
 char *get_var(t_data *data, char *var)
 {
 	t_env	*current_env;
-	char 	*value;
+	size_t	len_current_env_var;
 	size_t 	len_var;
+	int		i;
 
-	len_var = ft_strlen(var);
 	current_env = data->env_tesh;
-	value = NULL;
+	len_current_env_var = 0;
+	len_var = ft_strlen(var);
+	i = 0;
 	
-	// $$ -> return??
-
-	// $? -> exit_status of last command
+	// $  -> stays as $
+	// $$ -> bash: return of current pid. 	NOT IN SUBJECT.
+	if (ft_strncmp("$", var, 1) == 0 && len_var == 1 || ft_strncmp("$$", var, 2) == 0 && len_var == 2)
+		return(var+1);
+	// $? -> exit_status of last command, from subject: "the exit status of the most recently executed foreground pipeline"
 	if (ft_strncmp("?", var + 1, get_var_len(current_env->var)) == 0)
 		return(ft_itoa(exit_status));
 	while (current_env != NULL)
 	{
+		len_current_env_var = get_var_len(current_env->var);
 		// check if given var is in current list elem->var. ! additional check for case, char *var is empty
-		if (ft_strncmp(current_env->var, var + 1, get_var_len(current_env->var)) == 0)
+		if (ft_strncmp(current_env->var, var + 1, len_current_env_var) == 0 && var[len_current_env_var + 1] == '\0')
 		{
-			dprintf(2, "\n current env var: %s", current_env->var);
-			dprintf(2, "\n var %s", var + 1);
-			value = malloc(sizeof(char) * ((ft_strlen(current_env->var) - len_var)));
-			if (value == NULL)
-				exit(ENOMEM);
-			// copy var string starting at strt to value
-			value = ft_substr(current_env->var, len_var, ft_strlen(current_env->var) - len_var);
-			break;
+			while(current_env->var[i] != '=')
+				i++;
+			return(current_env->var + ft_strlen(var));
 		}
 		current_env = current_env->next;
 	}
-	return (value);
+	return(NULL);
 }
 
 void insert_value(t_token *token, char *var, char *value, int start_index)
@@ -50,9 +55,11 @@ void insert_value(t_token *token, char *var, char *value, int start_index)
 	ft_str_remove(token->name, var);
 	// second: insert value
 	// allocate new string for concenated one
+
 	char *name_expanded = malloc(sizeof(char) * (len_token_name + len_value));
 	if (name_expanded == NULL)
 		exit(ENOMEM);
+	
 	// copy first strA until start to new strC, nullterminate
 	ft_strlcpy(name_expanded, token->name, start_index + 1);
 	// strlcat to copy strB
@@ -63,10 +70,6 @@ void insert_value(t_token *token, char *var, char *value, int start_index)
 	free(token->name);
 	token->name = name_expanded;
 }
-
-
-
-
 
 void expand_tokens(t_data *data, t_token *token)
 {
@@ -99,7 +102,6 @@ void expand_tokens(t_data *data, t_token *token)
 			if (var == NULL)
 				exit(ENOMEM);
 			start_index = start;
-			//do ine cternal function?
 			while (start < end)
 			{
 				var[j] = token->name[start];
@@ -110,10 +112,7 @@ void expand_tokens(t_data *data, t_token *token)
 			// look up variable in ENV
 			value = get_var(data, var);
 			if (value != NULL)
-			{
 				insert_value(token, var, value, start_index);
-				free(value);
-			}
 			else
 				ft_str_remove(token->name, var);
 			dprintf(2, "\n token name: %s", token->name);
