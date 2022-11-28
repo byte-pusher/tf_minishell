@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/26 17:55:22 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/28 12:06:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ typedef struct s_exec
 	int	tmp_fd;
 	int	stin;
 	int	stout;
+	int	fdin;
+	int	fdout;
 	int	file_fd;
 	int	cmd_count;
 	int	no_rights;
