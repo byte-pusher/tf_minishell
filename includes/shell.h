@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/27 18:03:50 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/28 14:59:31 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,9 @@ void	ft_handle_dquote(t_data *data, int *i, int type);
 void	expansion(t_data *data);
 char	*get_var(t_data *data, char *var);
 int 	get_var_len(char *env_var);
-void 	*ft_str_remove(char *str, const char *sub);
+void 	ft_str_remove(char *str, const char *sub);
+int		get_var_amount(char *token_name);
+void	free_var_arr(char **var_arr);
 
 
 /* ************************************************************************** */
