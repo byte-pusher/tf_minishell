@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/26 16:46:03 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/28 18:37:53 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS  = main.c \
 		init.c \
 		signal.c \
 		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c \
-		lexer/lexer.c lexer/lexer_utils.c \
+		lexer/lexer.c lexer/lexer_utils.c lexer/expansion.c lexer/expansion_utils.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
@@ -43,7 +43,9 @@ OBJS := $(addprefix $(OBJ_DIR), $(OBJFILES))
 all: $(NAME)
 
 $(OBJ_DIR)%.o: %.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(addprefix $(OBJ_DIR), builtin) $(addprefix $(OBJ_DIR), env) $(addprefix $(OBJ_DIR), executor) \
+	$(addprefix $(OBJ_DIR), lexer) $(addprefix $(OBJ_DIR), parser)
+	@mkdir -p $(addprefix $(OBJ_DIR), utils/lst) $(addprefix $(OBJ_DIR), utils/free) $(addprefix $(OBJ_DIR), utils/errors)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) lib
@@ -70,6 +72,7 @@ test:
 	@make all
 	@echo "\n$(GREEN) >> run minishell. $(EOL)"
 	@./minishell
+	@rm minishell
 
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/26 17:41:14 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/28 18:18:34 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	ft_init_teshno(t_data *data)
 		{
 			add_history(data->input);
 			ft_lexer(data);
+			expansion(data);
 			ft_parser(data);
 			ft_executor(data);
 			ft_free_all(data);
