@@ -33,7 +33,6 @@ char *get_var(t_data *data, char *var)
 		// check if given var is in current list elem->var. ! additional check for case, char *var is empty
 		if (ft_strncmp(current_env->var, var + 1, len_current_env_var) == 0 && var[len_current_env_var + 1] == '\0')
 		{
-			dprintf(2, "\n found");
 			while(current_env->var[i] != '=')
 				i++;
 			return(current_env->var + ft_strlen(var));
@@ -66,13 +65,16 @@ void insert_value(t_token *token, char *var, char *value, int start_index)
 	// strlcat to copy rest of strB (strcC, strA + x)
 	ft_strlcat(name_expanded, token->name + start_index, (len_token_name + len_value));
 	// free & replace token name with extended str
-	free(token->name);
-	token->name = name_expanded;
+	if (token->name != NULL)
+	{
+		free(token->name);
+		token->name = name_expanded;
+	}
+	
 }
 
 void expand_tokens(t_data *data, t_token *token)
 {
-	char *var;
 	char *value;
 	int i;
 	int j;
@@ -89,17 +91,45 @@ void expand_tokens(t_data *data, t_token *token)
 	value = NULL;
 	start_index = 0;
 	str_counter = 0;
-	var_arr =(char **)malloc(sizeof(char *) * get_var_amount(token->name));
+	var_arr =(char **)malloc(sizeof(char *) * (get_var_amount(token->name) + 1));
 
 	while (token->name[i] != '\0')
 	{
 		if (token->name[i] == '\'' && token->name[i + 1] == '$')
+		{
 			dprintf(2, "gotcha");
-		
-		
+			if (token->name[i] == '\'' && token->name[i + 1] == '$')
+				i++;
+			start = i;
+			while (token->name[i] != '\'')
+				i++;
+			end = i;
+			var_arr[str_counter] = malloc(sizeof(char) * (end - start));
+			if (var_arr[str_counter]  == NULL)
+				exit(ENOMEM);
+			start_index = start;
+			while (start < end)
+			{
+				var_arr[str_counter][j] = token->name[start];
+				j++;
+				start++;
+			}
+			var_arr[str_counter][j] = '\0';
+			j = 0;
+			// look up variable in ENV
+			value = get_var(data, var_arr[str_counter]);
+			if (value != NULL)
+				insert_value(token, var_arr[str_counter], value, start_index);
+			else
+				ft_str_remove(token->name, var_arr[str_counter] );
+			str_counter++;
+			dprintf(2, "\n token name: %s", token->name);
+			dprintf(2, "\n -----------\n");
+		}
+			
 		if (token->name[i] == '$')
 		{
-			str_counter++;
+			//str_counter++;
 			start = i;
 			while (token->name[i] != ' ' && token->name[i] != '\0')
 				i++;
@@ -107,7 +137,6 @@ void expand_tokens(t_data *data, t_token *token)
 			var_arr[str_counter] = malloc(sizeof(char) * (end - start));
 			if (var_arr[str_counter]  == NULL)
 				exit(ENOMEM);
-			//ft_memset(var, 0, (end-start));
 			start_index = start;
 			while (start < end)
 			{
@@ -123,11 +152,14 @@ void expand_tokens(t_data *data, t_token *token)
 				insert_value(token, var_arr[str_counter], value, start_index);
 			else
 				ft_str_remove(token->name, var_arr[str_counter] );
+			str_counter++;
 			dprintf(2, "\n token name: %s", token->name);
 			dprintf(2, "\n -----------\n");
 		}
 		i++;
 	}
+	dprintf(2, "%i\n", str_counter);
+	var_arr[str_counter] = NULL;
 	free_var_arr(var_arr);
 }
 

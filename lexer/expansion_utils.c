@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:02:09 by rkoop             #+#    #+#             */
-/*   Updated: 2022/11/28 14:59:13 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/28 17:07:31 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,6 @@ void	free_var_arr(char **var_arr)
 		free(var_arr[i]);
 		i++;
 	}
+	free(var_arr[i]);
+	free(var_arr);
 }
