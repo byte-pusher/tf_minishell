@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/26 16:46:03 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/28 19:08:08 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ SRCS  = main.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
-		executor/executor.c executor/executor_utils.c executor/route_stdin.c executor/route_stdout.c \
+		executor/executor.c executor/executor_utils.c \
+		executor/route_stdin.c executor/route_stdin_utils.c \
+		executor/route_stdout.c executor/route_stdout_utils.c \
 		builtin/builtin.c builtin/builtin_utils.c
  
 OBJ_DIR = ./objs/
@@ -43,7 +45,9 @@ OBJS := $(addprefix $(OBJ_DIR), $(OBJFILES))
 all: $(NAME)
 
 $(OBJ_DIR)%.o: %.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(addprefix $(OBJ_DIR), builtin) $(addprefix $(OBJ_DIR), env) $(addprefix $(OBJ_DIR), executor) \
+	$(addprefix $(OBJ_DIR), lexer) $(addprefix $(OBJ_DIR), parser)
+	@mkdir -p $(addprefix $(OBJ_DIR), utils/lst) $(addprefix $(OBJ_DIR), utils/free) $(addprefix $(OBJ_DIR), utils/errors)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) lib
@@ -70,6 +74,7 @@ test:
 	@make all
 	@echo "\n$(GREEN) >> run minishell. $(EOL)"
 	@./minishell
+	@rm minishell
 
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)

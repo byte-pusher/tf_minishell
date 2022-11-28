@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/23 16:38:59 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/28 16:11:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_parser_errors(t_token **token)
 	{
 		exit_status = SYNTAX_ERR;
 		ft_err_msg("|");
+		return ;
 	}
 	current = *token;
 	while (current != NULL)
@@ -57,7 +58,6 @@ void	ft_parser(t_data *data)
 	if (exit_status == SUCCESS)
 		ft_create_cmd_table(data);
 	// print_cmd_strings(data->cmd_table);
-	exit_status = SUCCESS;
 }
 
 // void	print_rd(t_data *data)

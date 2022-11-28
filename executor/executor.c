@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/28 14:06:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/28 19:10:44 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,17 @@ void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 	exec->pid = fork(); // noch entscheiden wie ich mit den errors umgehe
 	if (exec->pid == 0)
 	{
-		if (ft_check_single_cmd(cmd_table) == false)
+		if (ft_check_single_cmd(cmd_table) == true)
+			ft_exec(cmd_table, env_tesh);
+		else
 		{
 			ft_route_stdin(cmd_table, exec);
-			ft_route_stdout(cmd_table, exec);
+			if (exit_status != OPEN_FILE_ERR)
+				ft_route_stdout(cmd_table, exec);
+			if (exit_status != OPEN_FILE_ERR && cmd_table->is_command == true)
+				ft_exec(cmd_table, env_tesh);
+			exit(exit_status); // ändern zu system code
 		}
-		ft_exec(cmd_table, env_tesh);
 	}
 	close(exec->tmp_fd);
 	dup2(exec->end[READ], exec->tmp_fd);
@@ -86,12 +91,12 @@ void	ft_executor(t_data *data)
 	exec = ft_create_exec();
 	while (current != NULL)
 	{
-		if (current->is_command == false)
-		{
-			current = current->next;
-			continue ;
-		}
-		else
+		// if (current->is_command == false)
+		// {
+		// 	current = current->next;
+		// 	continue ;
+		// }
+		// else
 			ft_create_child_prc(current, data->env_tesh, exec);
 		if (exit_status < 0)
 			break ;
