@@ -33,6 +33,7 @@ char *get_var(t_data *data, char *var)
 		// check if given var is in current list elem->var. ! additional check for case, char *var is empty
 		if (ft_strncmp(current_env->var, var + 1, len_current_env_var) == 0 && var[len_current_env_var + 1] == '\0')
 		{
+			dprintf(2, "\n found");
 			while(current_env->var[i] != '=')
 				i++;
 			return(current_env->var + ft_strlen(var));
@@ -55,12 +56,10 @@ void insert_value(t_token *token, char *var, char *value, int start_index)
 	ft_str_remove(token->name, var);
 	// second: insert value
 	// allocate new string for concenated one
-
 	char *name_expanded = malloc(sizeof(char) * (len_token_name + len_value));
 	if (name_expanded == NULL)
 		exit(ENOMEM);
-	
-	// copy first strA until start to new strC, nullterminate
+	// copy first strA until start to new strC
 	ft_strlcpy(name_expanded, token->name, start_index + 1);
 	// strlcat to copy strB
 	ft_strlcat(name_expanded, value, (len_token_name + len_value));
@@ -80,6 +79,8 @@ void expand_tokens(t_data *data, t_token *token)
 	int start;
 	int end;
 	int start_index;
+	int	str_counter;
+	char *var_strs[3];
 
 	i = 0;
 	j = 0;
@@ -88,12 +89,17 @@ void expand_tokens(t_data *data, t_token *token)
 	var = NULL;
 	value = NULL;
 	start_index = 0;
+	str_counter = 0;
 	var = malloc(sizeof(char) * 5);
+	
 
 	while (token->name[i] != '\0')
 	{
 		if (token->name[i] == '$')
 		{
+			
+			
+			
 			start = i;
 			while (token->name[i] != ' ' && token->name[i] != '\0')
 				i++;
@@ -101,6 +107,7 @@ void expand_tokens(t_data *data, t_token *token)
 			var = (char *)realloc(var, sizeof(char) * (end - start));
 			if (var == NULL)
 				exit(ENOMEM);
+			//ft_memset(var, 0, (end-start));
 			start_index = start;
 			while (start < end)
 			{
@@ -108,6 +115,7 @@ void expand_tokens(t_data *data, t_token *token)
 				j++;
 				start++;
 			}
+			var[j] = '\0';
 			j = 0;
 			// look up variable in ENV
 			value = get_var(data, var);
@@ -117,7 +125,6 @@ void expand_tokens(t_data *data, t_token *token)
 				ft_str_remove(token->name, var);
 			dprintf(2, "\n token name: %s", token->name);
 			dprintf(2, "\n -----------\n");
-		
 		}
 		i++;
 	}
