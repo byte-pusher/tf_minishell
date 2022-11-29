@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/28 19:10:44 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/29 20:17:44 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 			ft_exec(cmd_table, env_tesh);
 		else
 		{
+			close(exec->end[READ]); // das hat cat|cat|ls gefixt
 			ft_route_stdin(cmd_table, exec);
 			if (exit_status != OPEN_FILE_ERR)
 				ft_route_stdout(cmd_table, exec);
@@ -52,17 +53,16 @@ void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 			exit(exit_status); // ändern zu system code
 		}
 	}
-	close(exec->tmp_fd);
+	// close(exec->tmp_fd);
 	dup2(exec->end[READ], exec->tmp_fd);
 	// pipe ends need to be closed in the main process
-	close(exec->end[0]);
-	close(exec->end[1]);
+	close(exec->end[READ]);
+	close(exec->end[WRITE]);
 }
 
 void	ft_end_prcs(t_exec	*exec)
 {
 	close(exec->tmp_fd);
-	close(exec->stin);
 	close(exec->stout);
 	while (exec->i > 0)
 	{
@@ -91,13 +91,7 @@ void	ft_executor(t_data *data)
 	exec = ft_create_exec();
 	while (current != NULL)
 	{
-		// if (current->is_command == false)
-		// {
-		// 	current = current->next;
-		// 	continue ;
-		// }
-		// else
-			ft_create_child_prc(current, data->env_tesh, exec);
+		ft_create_child_prc(current, data->env_tesh, exec);
 		if (exit_status < 0)
 			break ;
 		current = current->next;

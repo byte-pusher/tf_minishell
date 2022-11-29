@@ -1,77 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   route_stdin_utils.c                                :+:      :+:    :+:   */
+/*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 15:20:35 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 18:41:28 by gjupy            ###   ########.fr       */
+/*   Created: 2022/11/29 14:54:51 by gjupy             #+#    #+#             */
+/*   Updated: 2022/11/29 18:43:21 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-bool	ft_is_infile(t_redir **redir)
+// bool	ft_is_else_heredoc(t_redir **redir)
+// {
+	
+// }
+
+bool	ft_is_heredoc(t_redir **redir)
 {
 	t_redir	*current;
 
 	current = *redir;
 	while (current != NULL)
 	{
-		if (current->type == LESS)
+		if (current->type == LESSLESS)
 			return (true);
 		current = current->next;
 	}
 	return (false);
 }
 
-void	ft_close_infiles_err(t_redir *redir)
+int		ft_count_infiles(t_redir *redir)
 {
+	int		nbr_of_infiles;
 	t_redir	*current;
 
-	current = redir;
-	while (current != NULL)
-	{
-		if (current->type == LESS)
-			close(current->fd);
-		current = current->prev;
-	}
-}
-
-void	ft_close_infiles(t_cmd_table *cmd_table)
-{
-	t_redir	*current;
-
-	current = ft_lstfirst_rd(&cmd_table->redir);
-	while (current != NULL)
-	{
-		if (current->type == LESS)
-			close(current->fd);
-		current = current->next;
-	}
-}
-
-int	ft_open_infiles(t_redir *redir)
-{
-	int		ret;
-	t_redir *current;
-
+	nbr_of_infiles = 0;
 	current = ft_lstfirst_rd(&redir);
 	while (current != NULL)
 	{
-		if (current->type == LESS) // in
-		{
-			current->fd = open(current->file, O_RDONLY);
-			ret = current->fd;
-		}
-		if (current->fd == -1)
-		{
-			ft_close_infiles_err(current->prev);
-			exit_status = OPEN_FILE_ERR;
-			ft_err_msg(current->file);
-		}
+		if (current->type == LESS)
+			nbr_of_infiles++;
 		current = current->next;
 	}
-	return (ret);
+	return (nbr_of_infiles);
+}
+
+bool	ft_heredoc_after_infile(t_redir *redir)
+{
+	int		j;
+	int		nbr_of_infiles;
+	t_redir	*current;
+
+	nbr_of_infiles = ft_count_infiles(redir);
+	j = 0;
+	current = ft_lstfirst_rd(&redir);
+	while (current != NULL)
+	{
+		if (current->type == LESS)
+			j++;
+		if (j == nbr_of_infiles)
+		{
+			while (current != NULL)
+			{
+				if (current->type == LESSLESS)
+					return (true);
+				current = current->next;
+			}
+		}
+		if (current != NULL)
+			current = current->next;
+	}
+	return (false);
 }

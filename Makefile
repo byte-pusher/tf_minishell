@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/28 19:08:08 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/29 14:56:58 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS  = main.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
 		executor/executor.c executor/executor_utils.c \
+		executor/here_doc.c executor/here_doc_utils.c \
 		executor/route_stdin.c executor/route_stdin_utils.c \
 		executor/route_stdout.c executor/route_stdout_utils.c \
 		builtin/builtin.c builtin/builtin_utils.c

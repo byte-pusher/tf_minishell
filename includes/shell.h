@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/28 17:53:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/29 18:40:57 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,5 +259,9 @@ int			ft_get_last_outfile(t_cmd_table *cmd_table);
 void		ft_close_outfiles(t_cmd_table *cmd_table);
 int			ft_open_outfiles(t_redir *redir);
 bool		ft_is_outfile(t_redir **redir);
+
+void		ft_heredoc(t_redir *redir, t_exec *exec);
+bool		ft_is_heredoc(t_redir **redir);
+bool		ft_heredoc_after_infile(t_redir *redir);
 
 #endif

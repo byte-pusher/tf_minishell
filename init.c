@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/28 16:13:16 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/29 19:19:34 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_init_teshno(t_data *data)
 			add_history(data->input);
 			ft_lexer(data);
 			ft_parser(data);
-			if (exit_status == SUCCESS)
+			if (exit_status != SYNTAX_ERR)
 				ft_executor(data);
 			ft_free_all(data);
 		}

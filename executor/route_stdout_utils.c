@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:44:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/28 20:01:27 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/29 19:02:09 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,22 @@ int	ft_open_outfiles(t_redir *redir)
 	current = ft_lstfirst_rd(&redir);
 	while (current != NULL)
 	{
-		if (current->type == GREAT) // in
+		if (current->type == GREAT) // out
+		{
 			current->fd = open(current->file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			ret = current->fd;
+		}
 		else if (current->type == GREATGREAT)
+		{
 			current->fd = open(current->file, O_WRONLY | O_CREAT | O_APPEND, 0777);
+			ret = current->fd;
+		}
 		if (current->fd == -1)
 		{
 			ft_close_outfiles_err(current->prev);
 			exit_status = OPEN_FILE_ERR;
 			ft_err_msg(current->file);
 		}
-		ret = current->fd;
 		current = current->next;
 	}
 	return (ret);
