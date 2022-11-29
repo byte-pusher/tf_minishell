@@ -19,6 +19,16 @@ char *get_var(t_data *data, char *var)
 	len_current_env_var = 0;
 	len_var = ft_strlen(var);
 	i = 0;
+
+	//check nulltermination
+	while(var[i] != '\0')
+		i++;
+	if (var[i] == '\0')
+		dprintf(2, "\nterminated");
+
+
+
+	
 	
 	// $  -> stays as $
 	// $$ -> bash: return of current pid. 	NOT IN SUBJECT.
@@ -112,7 +122,7 @@ void expand_tokens(t_data *data, t_token *token)
 					i++;
 			}
 			end = i;
-			var_arr[str_counter] = malloc(sizeof(char) * (end - start));
+			var_arr[str_counter] = malloc(sizeof(char) * (end - start) + 1);
 			if (var_arr[str_counter]  == NULL)
 				exit(ENOMEM);
 			start_index = start;
