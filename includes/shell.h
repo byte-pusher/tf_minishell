@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/28 18:26:13 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/29 20:15:48 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_env
 	char			*var;
 	bool			hidden;
 	struct s_env	*next;
+	struct s_env	*prev;
 }	t_env;
 
 typedef struct s_exec
@@ -209,6 +210,7 @@ t_env		*ft_lstnew_env(void);
 t_env		*ft_lstfirst_env(t_env **lst);
 void		ft_lstclear_env(t_env **lst);
 int			ft_lstsize_env(t_env **lst);
+void		ft_lstdel_env(t_env *lst, t_env *node);
 
 /* ERRORS */
 void		ft_err_msg(char *s);
@@ -237,6 +239,8 @@ bool		ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
 void		ft_exit(void);
 void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
+void		ft_export(char **cmd_args, t_env *env_tesh);
+void		ft_unset(char **cmd_args, t_env *env_tesh);
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);

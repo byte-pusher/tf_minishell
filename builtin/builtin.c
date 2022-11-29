@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:19 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/28 14:03:05 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/29 20:01:32 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void	ft_echo(char **cmd_args)
 
 void	ft_env(t_env *env_tesh)
 {
-	print_env(&env_tesh);
+	if (env_tesh != NULL)
+		print_env(&env_tesh);
 }
