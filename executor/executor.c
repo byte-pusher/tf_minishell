@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 18:42:24 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 20:27:22 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 	close(exec->end[READ]);
 	close(exec->end[WRITE]);
 }
-// << end1 <in1 cat >ou1 | cat > out2 << end2 <in2
+
 void	ft_end_prcs(t_exec	*exec)
 {
 	close(exec->tmp_fd);
@@ -103,7 +103,6 @@ void	ft_executor(t_data *data)
 	}
 	exec = ft_create_exec();
 	ft_open_heredocs(exec, &data->cmd_table);
-	// dprintf(2, "%d\n", current->here_tmp_fd);
 	while (current != NULL)
 	{
 		ft_create_child_prc(current, data->env_tesh, exec);

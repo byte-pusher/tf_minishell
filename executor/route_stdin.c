@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:32:00 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 17:39:59 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 20:20:42 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_route_stdin(t_cmd_table *cmd_table, t_exec *exec)
 {
-	// test also ls nonexistentfile | <<1
 	if (cmd_table->is_redir == true && ft_is_heredoc(&cmd_table->redir) == true)
 		// ft_heredoc(cmd_table->redir, exec);
 	{
