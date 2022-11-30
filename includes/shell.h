@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 17:35:00 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 20:34:18 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,12 @@ void		ft_free_strings(char ***s);
 void		ft_lexer(t_data *data);
 bool		ft_is_space(char c);
 int			ft_get_chartype(char *s, int *i);
+void		expansion(t_data *data);
+char		*get_var(t_data *data, char *var);
+int 		get_var_len(char *env_var);
+void 		ft_str_remove(char *str, const char *sub);
+int			get_var_amount(char *token_name);
+void		free_var_arr(char **var_arr);
 
 /* ************************************************************************** */
 /* UTILS																	  */

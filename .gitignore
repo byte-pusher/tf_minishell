@@ -1,6 +1,12 @@
 
 ### C ###
 
+#Other
+*.pdf
+minishell
+Dockerfile
+supp
+
 # MAC
 .DS_Store
 # Prerequisites
