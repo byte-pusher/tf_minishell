@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 20:34:18 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:52:58 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@
 # include <errno.h>
 # include <signal.h>
 
-
 /* ************************************************************************** */
 /* READLINE MISSING PROTOTYPES												  */
 /* ************************************************************************** */
-void 		rl_replace_line(const char *text, int clear_undo);
-extern void rl_clear_history (void);
+void		rl_replace_line(const char *text, int clear_undo);
+extern void	rl_clear_history(void);
 
-int			exit_status; // to store different error codes
+int			g_exit_status;
 
 /* ************************************************************************** */
 /* STRUCTS																	  */
@@ -97,7 +96,6 @@ typedef struct s_token
 typedef struct s_redir
 {
 	int				type;
-	int				fd;
 	int				here_tmp_fd;
 	char			*file;
 	struct s_redir	*head;
@@ -151,7 +149,6 @@ typedef struct s_data
 	t_env		*env_tesh;
 	t_token		*tokens;
 	t_cmd_table	*cmd_table;
-	// char		**ms_env;
 }	t_data;
 
 int			ft_init_teshno(t_data *data);
@@ -172,8 +169,8 @@ bool		ft_is_space(char c);
 int			ft_get_chartype(char *s, int *i);
 void		expansion(t_data *data);
 char		*get_var(t_data *data, char *var);
-int 		get_var_len(char *env_var);
-void 		ft_str_remove(char *str, const char *sub);
+int			get_var_len(char *env_var);
+void		ft_str_remove(char *str, const char *sub);
 int			get_var_amount(char *token_name);
 void		free_var_arr(char **var_arr);
 
@@ -181,8 +178,7 @@ void		free_var_arr(char **var_arr);
 /* UTILS																	  */
 /* ************************************************************************** */
 /* SIGNALS*/
-void		connect_signals();
-
+void		connect_signals(void);
 
 /* LST */
 t_cmd_table	*ft_lstnew_ct(void);
@@ -190,7 +186,6 @@ t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst);
 t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst);
 void		ft_lstclear_ct(t_cmd_table **lst);
 void		ft_lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new);
-int			ft_lstsize_ct(t_cmd_table **lst);
 
 t_token		*ft_lstlast_t(t_token *lst);
 void		ft_lstadd_back_t(t_token **lst, t_token *new);
@@ -227,7 +222,8 @@ void		print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
 void		ft_check_redir_err(t_token *token);
 
 /* CMD_PARSER */
-void		ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data);
+void		ft_command_parser(t_cmd_table *cmd_table, t_token *token,
+				t_data *data);
 
 /* REDIR_PARSER*/
 void		ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
@@ -273,5 +269,6 @@ bool		ft_is_outfile(t_redir **redir);
 void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table);
 bool		ft_is_heredoc(t_redir **redir);
 bool		ft_heredoc_after_infile(t_redir *redir);
+void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table);
 
 #endif

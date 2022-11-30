@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:45:09 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 18:21:33 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:41:34 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ void	ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data)
 		exit(ENOMEM);
 	cmd_table->is_command = true;
 	if (ft_is_builtin(cmd_table, cmd_table->cmd_args[0]) == true)
-		exit_status = SUCCESS;
+		g_exit_status = SUCCESS;
 	else
 	{
 		pathnames = ft_find_path_line_and_split(&data->env_tesh);
-		exit_status = ft_get_cmd(cmd_table, pathnames);
+		g_exit_status = ft_get_cmd(cmd_table, pathnames);
 		if (pathnames != NULL)
 			ft_free_strings(&pathnames);
-		if (exit_status == CMD_NOT_FOUND)
+		if (g_exit_status == CMD_NOT_FOUND)
 			ft_err_msg(cmd_table->cmd_args[0]);
 	}
 }

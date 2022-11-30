@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 18:50:47 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:52:06 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_env	*ft_lstfirst_env(t_env **lst)
 	return (*lst);
 }
 
-// void	ft_free_list(t_token **lst, bool exit, bool exit_status)
+// void	ft_free_list(t_token **lst, bool exit, bool g_exit_status)
 // {
 // 	t_token	*current;
 // 	t_token	*next;
@@ -71,10 +71,10 @@ t_env	*ft_lstfirst_env(t_env **lst)
 // 		free(current);
 // 		current = next;
 // 	}
-// 	if (exit == true && exit_status == false)
-// 		ft_exit_print(exit_status, "Error\n", 2);
-// 	else if (exit == true && exit_status == true)
-// 		ft_exit_print(exit_status, "Error\n", 2);
+// 	if (exit == true && g_exit_status == false)
+// 		ft_exit_print(g_exit_status, "Error\n", 2);
+// 	else if (exit == true && g_exit_status == true)
+// 		ft_exit_print(g_exit_status, "Error\n", 2);
 // 	*lst = NULL;
 // 	lst = NULL;
 // }
@@ -92,19 +92,4 @@ void	ft_lstclear_env(t_env **lst)
 	}
 	*lst = NULL;
 	lst = NULL;
-}
-
-int	ft_lstsize_env(t_env **lst)
-{
-	int			i;
-	t_env		*current;
-
-	current = *lst;
-	i = 0;
-	while (current != NULL)
-	{
-		i++;
-		current = current->next;
-	}
-	return (i);
 }

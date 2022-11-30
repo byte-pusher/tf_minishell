@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 19:19:19 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:47:34 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_parser_errors(t_token **token)
 
 	if ((*token)->type == PIPE || ft_lstlast_t(*token)->type == PIPE) // still needs to handle pipe in the last position
 	{
-		exit_status = SYNTAX_ERR;
+		g_exit_status = SYNTAX_ERR;
 		ft_err_msg("|");
 		return ;
 	}
@@ -35,7 +35,7 @@ void	ft_parser_errors(t_token **token)
 void	ft_create_cmd_table(t_data *data)
 {
 	t_token		*current_token;
-	t_cmd_table	*current_ct; // ct = command table
+	t_cmd_table	*current_ct;
 
 	ft_create_cmd_table_lst(data);
 	current_token = ft_lstfirst_t(&data->tokens);
@@ -55,7 +55,7 @@ void	ft_create_cmd_table(t_data *data)
 void	ft_parser(t_data *data)
 {
 	ft_parser_errors(&data->tokens);
-	if (exit_status != SYNTAX_ERR)
+	if (g_exit_status != SYNTAX_ERR)
 		ft_create_cmd_table(data);
 	// print_cmd_strings(data->cmd_table);
 }

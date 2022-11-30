@@ -1,3 +1,8 @@
 ### TODOS
 - error handling
-	-> exit_status codes
+	-> g_exit_status codes
+	-> what happens with unclosed quotes?
+
+- norminette
+	-> comments löschen
+	-> #define Ding klären

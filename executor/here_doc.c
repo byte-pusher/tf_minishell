@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 20:15:24 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 20:20:59 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:23:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table)
 		read = readline("> ");
 		if (len_delimiter == ft_strlen(read)
 			&& ft_strncmp(read, redir->file, len_delimiter) == 0)
-				break ;
+			break ;
 		read_nl = ft_strjoin(read, "\n");
 		write(exec->here_fd[WRITE], read_nl, ft_strlen(read_nl));
 		free(read);

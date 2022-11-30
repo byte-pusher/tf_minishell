@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 20:27:22 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:41:34 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,20 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
 
 	env_arr = ft_get_env_arr(env_tesh);
 	if (cmd_table->is_command == true && cmd_table->is_builtin == false)
-		exit_status = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr); // noch entscheiden wie ich mit den errors umgehe	
+		g_exit_status = execve(cmd_table->path_name,
+				cmd_table->cmd_args, env_arr); // noch entscheiden wie ich mit den errors umgehe
 	else
 	{
-		exit_status = ft_exec_builtin(cmd_table);
+		g_exit_status = ft_exec_builtin(cmd_table);
 		exit (SUCCESS);
 	}
 }
 
-void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
+void	ft_create_child_prc(t_cmd_table *cmd_table,
+			t_env *env_tesh, t_exec *exec)
 {
 	exec->i++;
-	pipe(exec->end); 	// noch entscheiden wie ich mit den errors umgehe
+	pipe(exec->end);	// noch entscheiden wie ich mit den errors umgehe
 	exec->pid = fork(); // noch entscheiden wie ich mit den errors umgehe
 	if (exec->pid == 0)
 	{
@@ -46,11 +48,11 @@ void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 		{
 			close(exec->end[READ]); // das hat cat|cat|ls gefixt
 			ft_route_stdin(cmd_table, exec);
-			if (exit_status != OPEN_FILE_ERR)
+			if (g_exit_status != OPEN_FILE_ERR)
 				ft_route_stdout(cmd_table, exec);
-			if (exit_status != OPEN_FILE_ERR && cmd_table->is_command == true)
+			if (g_exit_status != OPEN_FILE_ERR && cmd_table->is_command == true)
 				ft_exec(cmd_table, env_tesh);
-			exit(exit_status); // ändern zu system code
+			exit(g_exit_status); // ändern zu system code
 		}
 	}
 	// close(exec->tmp_fd);
@@ -68,23 +70,10 @@ void	ft_end_prcs(t_exec	*exec)
 	{
 		waitpid(0, &exec->pid, 0);
 		if (WIFEXITED(exec->pid) == true)
-			exit_status = WEXITSTATUS(exec->pid);
+			g_exit_status = WEXITSTATUS(exec->pid);
 		exec->i--;
 	}
 	free(exec);
-}
-
-void	ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table)
-{
-	t_cmd_table	*current;
-
-	current = ft_lstfirst_ct(cmd_table);
-	while (current != NULL)
-	{
-		if (current->is_redir == true && ft_is_heredoc(&current->redir) == true)
-			ft_heredoc(exec, current);
-		current = current->next;
-	}
 }
 
 // letztendlich geht es darum zu schauen was zu STDIN und was zu STDOUT pointen soll
@@ -106,7 +95,7 @@ void	ft_executor(t_data *data)
 	while (current != NULL)
 	{
 		ft_create_child_prc(current, data->env_tesh, exec);
-		if (exit_status < 0)
+		if (g_exit_status < 0)
 			break ;
 		current = current->next;
 	}

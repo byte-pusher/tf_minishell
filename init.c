@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 20:36:09 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:41:34 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_init_teshno(t_data *data)
 			ft_lexer(data);
 			expansion(data);
 			ft_parser(data);
-			if (exit_status != SYNTAX_ERR)
+			if (g_exit_status != SYNTAX_ERR)
 				ft_executor(data);
 			ft_free_all(data);
 		}
@@ -53,5 +53,5 @@ int	ft_init_teshno(t_data *data)
 	ft_lstclear_env(&data->env_tesh);
 	free(data->input);
 	rl_clear_history();
-	return (exit_status);
+	return (g_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 17:35:33 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:51:49 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst)
 	return (*lst);
 }
 
-// void	ft_free_list(t_token **lst, bool exit, bool exit_status)
+// void	ft_free_list(t_token **lst, bool exit, bool g_exit_status)
 // {
 // 	t_token	*current;
 // 	t_token	*next;
@@ -78,10 +78,10 @@ t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst)
 // 		free(current);
 // 		current = next;
 // 	}
-// 	if (exit == true && exit_status == false)
-// 		ft_exit_print(exit_status, "Error\n", 2);
-// 	else if (exit == true && exit_status == true)
-// 		ft_exit_print(exit_status, "Error\n", 2);
+// 	if (exit == true && g_exit_status == false)
+// 		ft_exit_print(g_exit_status, "Error\n", 2);
+// 	else if (exit == true && g_exit_status == true)
+// 		ft_exit_print(g_exit_status, "Error\n", 2);
 // 	*lst = NULL;
 // 	lst = NULL;
 // }
@@ -101,19 +101,4 @@ void	ft_lstclear_ct(t_cmd_table **lst)
 	}
 	*lst = NULL;
 	lst = NULL;
-}
-
-int	ft_lstsize_ct(t_cmd_table **lst)
-{
-	int			i;
-	t_cmd_table	*current;
-
-	current = *lst;
-	i = 0;
-	while (current != NULL)
-	{
-		i++;
-		current = current->next;
-	}
-	return (i);
 }

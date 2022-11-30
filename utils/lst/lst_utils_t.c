@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 16:57:26 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:53:16 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_token	*ft_lstfirst_t(t_token **lst)
 	return (*lst);
 }
 
-// void	ft_free_list(t_token **lst, bool exit, bool exit_status)
+// void	ft_free_list(t_token **lst, bool exit, bool g_exit_status)
 // {
 // 	t_token	*current;
 // 	t_token	*next;
@@ -73,10 +73,10 @@ t_token	*ft_lstfirst_t(t_token **lst)
 // 		free(current);
 // 		current = next;
 // 	}
-// 	if (exit == true && exit_status == false)
-// 		ft_exit_print(exit_status, "Error\n", 2);
-// 	else if (exit == true && exit_status == true)
-// 		ft_exit_print(exit_status, "Error\n", 2);
+// 	if (exit == true && g_exit_status == false)
+// 		ft_exit_print(g_exit_status, "Error\n", 2);
+// 	else if (exit == true && g_exit_status == true)
+// 		ft_exit_print(g_exit_status, "Error\n", 2);
 // 	*lst = NULL;
 // 	lst = NULL;
 // }
@@ -98,7 +98,7 @@ void	ft_lst_clear_t(t_token **lst)
 	lst = NULL;
 }
 
-void	ms_print_list(t_token **lst)
+void	ms_print_list(t_token **lst) // danach löschen
 {
 	t_token	*current;
 	t_token	*next;

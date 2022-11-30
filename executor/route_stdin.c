@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:32:00 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 20:20:42 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:41:34 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_route_stdin(t_cmd_table *cmd_table, t_exec *exec)
 	if (cmd_table->is_redir == true && ft_is_infile(&cmd_table->redir) == true)
 	{
 		exec->fdin = ft_open_infiles(cmd_table->redir);
-		if (exit_status != OPEN_FILE_ERR)
+		if (g_exit_status != OPEN_FILE_ERR)
 		{
 			if (ft_heredoc_after_infile(cmd_table->redir) == false)
 			{
