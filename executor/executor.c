@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 20:17:44 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 18:42:24 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 	close(exec->end[READ]);
 	close(exec->end[WRITE]);
 }
-
+// << end1 <in1 cat >ou1 | cat > out2 << end2 <in2
 void	ft_end_prcs(t_exec	*exec)
 {
 	close(exec->tmp_fd);
@@ -72,6 +72,19 @@ void	ft_end_prcs(t_exec	*exec)
 		exec->i--;
 	}
 	free(exec);
+}
+
+void	ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table)
+{
+	t_cmd_table	*current;
+
+	current = ft_lstfirst_ct(cmd_table);
+	while (current != NULL)
+	{
+		if (current->is_redir == true && ft_is_heredoc(&current->redir) == true)
+			ft_heredoc(exec, current);
+		current = current->next;
+	}
 }
 
 // letztendlich geht es darum zu schauen was zu STDIN und was zu STDOUT pointen soll
@@ -89,6 +102,8 @@ void	ft_executor(t_data *data)
 		return ;
 	}
 	exec = ft_create_exec();
+	ft_open_heredocs(exec, &data->cmd_table);
+	// dprintf(2, "%d\n", current->here_tmp_fd);
 	while (current != NULL)
 	{
 		ft_create_child_prc(current, data->env_tesh, exec);

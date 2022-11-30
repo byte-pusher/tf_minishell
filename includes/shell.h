@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 18:40:57 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 17:35:00 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_redir
 {
 	int				type;
 	int				fd;
+	int				here_tmp_fd;
 	char			*file;
 	struct s_redir	*head;
 	struct s_redir	*next;
@@ -107,6 +108,7 @@ typedef struct s_redir
 typedef struct s_cmd_table
 {
 	int					builtin_type;
+	int					here_tmp_fd;
 	char				**cmd_args;
 	char				*path_name;
 	bool				is_command;
@@ -260,7 +262,9 @@ void		ft_close_outfiles(t_cmd_table *cmd_table);
 int			ft_open_outfiles(t_redir *redir);
 bool		ft_is_outfile(t_redir **redir);
 
-void		ft_heredoc(t_redir *redir, t_exec *exec);
+// void		ft_heredoc(t_redir *redir, t_exec *exec);
+// void		ft_heredoc(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table);
+void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table);
 bool		ft_is_heredoc(t_redir **redir);
 bool		ft_heredoc_after_infile(t_redir *redir);
 

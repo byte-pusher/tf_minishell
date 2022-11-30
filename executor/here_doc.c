@@ -6,13 +6,13 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 20:15:24 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 21:08:04 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 18:43:02 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-void	ft_heredoc_loop(t_redir *redir, t_exec *exec)
+void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table)
 {
 	int		len_delimiter;
 	char	*read;
@@ -31,24 +31,25 @@ void	ft_heredoc_loop(t_redir *redir, t_exec *exec)
 		free(read_nl);
 	}
 	free(read);
-	dup2(exec->here_fd[READ], exec->tmp_fd);
+	// dup2(exec->here_fd[READ], exec->tmp_fd);
+	dup2(exec->here_fd[READ], cmd_table->here_tmp_fd);
 	close(exec->here_fd[READ]);
 	close(exec->here_fd[WRITE]);
 }
 
-void	ft_heredoc(t_redir *redir, t_exec *exec)
+// void	ft_heredoc(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table)
+void	ft_heredoc(t_exec *exec, t_cmd_table *cmd_table)
 {
 	t_redir	*current;
 
-	current = ft_lstfirst_rd(&redir);
+	current = ft_lstfirst_rd(&cmd_table->redir);
 	while (current != NULL)
 	{
 		if (current->type == LESSLESS)
 		{
 			pipe(exec->here_fd);
-			ft_heredoc_loop(current, exec);
+			ft_heredoc_loop(current, exec, cmd_table);
 		}
-		dprintf(2, "raus\n");
 		current = current->next;
 	}
 }

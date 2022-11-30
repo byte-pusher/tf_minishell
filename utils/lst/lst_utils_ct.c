@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 15:27:54 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 17:35:33 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_cmd_table	*ft_lstnew_ct(void)
 	node = malloc(sizeof(t_cmd_table));
 	if (node == NULL)
 		exit(ENOMEM);
+	node->here_tmp_fd = dup(STDIN_FILENO);
 	node->is_command = false;
 	node->is_redir = false;
 	node->is_builtin = false;
@@ -94,6 +95,7 @@ void	ft_lstclear_ct(t_cmd_table **lst)
 	while (current != NULL)
 	{
 		next = current->next;
+		close(current->here_tmp_fd);
 		free(current);
 		current = next;
 	}

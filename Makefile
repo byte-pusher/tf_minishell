@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/29 14:56:58 by gjupy            ###   ########.fr        #
+#    Updated: 2022/11/30 19:42:00 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ test:
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)
 
-valgrind: $(NAME)
+valgrind: re
 	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
 .PHONY: all clean fclean re git lib valgrind

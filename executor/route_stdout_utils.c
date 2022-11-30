@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:44:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 19:02:09 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 18:17:17 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	ft_open_outfiles(t_redir *redir)
 			ft_close_outfiles_err(current->prev);
 			exit_status = OPEN_FILE_ERR;
 			ft_err_msg(current->file);
+			return (ret);
 		}
 		current = current->next;
 	}
