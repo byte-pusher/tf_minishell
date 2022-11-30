@@ -6,7 +6,7 @@
 #    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/28 18:37:53 by rkoop            ###   ########.fr        #
+#    Updated: 2022/11/30 20:36:32 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,10 @@ SRCS  = main.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
-		executor/executor.c executor/executor_utils.c executor/route_stdin.c executor/route_stdout.c \
+		executor/executor.c executor/executor_utils.c \
+		executor/here_doc.c executor/here_doc_utils.c \
+		executor/route_stdin.c executor/route_stdin_utils.c \
+		executor/route_stdout.c executor/route_stdout_utils.c \
 		builtin/builtin.c builtin/builtin_utils.c
  
 OBJ_DIR = ./objs/
@@ -77,7 +80,7 @@ test:
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)
 
-valgrind: $(NAME)
+valgrind: re
 	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
 .PHONY: all clean fclean re git lib valgrind
