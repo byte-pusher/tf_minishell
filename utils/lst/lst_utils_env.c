@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 18:11:54 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/30 20:17:41 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	ft_lstdel_env(t_env *lst, t_env *node)
 	{
 		if (p->var == node->var)
 			{
-				p->next->prev = p->prev;
+				if (p->next != NULL)
+					p->next->prev = p->prev;
 				p->prev->next = p->next;
 			}
 		p = p->next;

@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 20:15:48 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/30 17:43:42 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,8 @@ void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
 void		ft_export(char **cmd_args, t_env *env_tesh);
 void		ft_unset(char **cmd_args, t_env *env_tesh);
+void		ft_cd(char **cmd_args, t_env *env_tesh);
+void		ft_pwd();
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);

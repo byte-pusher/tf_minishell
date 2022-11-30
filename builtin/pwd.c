@@ -6,20 +6,17 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:43:24 by rkoop             #+#    #+#             */
-/*   Updated: 2022/11/29 20:32:13 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/30 17:47:28 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-
-void	ft_pwd(t_data *data)
+void	ft_pwd()
 {
-	char *current_dir;
+	char *buffer;
 	
-	//shorter to print var directly from get_var call
-	current_dir = malloc(sizeof(char) * (ft_strlen(get_var(data, "$PWD"))));
-	printf("%s",getcwd(current_dir, sizeof(current_dir)));
-	free(current_dir);
-	//return?
+	buffer = NULL;
+	printf("%s\n",getcwd(buffer, 0));
+	free(buffer);
 }

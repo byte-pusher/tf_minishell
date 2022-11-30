@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 20:31:37 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/11/30 20:14:03 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
 	if (cmd_table->builtin_type == UNSET)
 		ft_unset(cmd_table->cmd_args, env_tesh);
 	if (cmd_table->builtin_type == ENV)
-		ft_env(env_tesh);
-	//pwd ft needs data struct to get var
-	// if (cmd_table->builtin_type == PWD)
-	// 	ft_pwd(data)
-	// if (cmd_table->builtin_type == EXPORT)
-	// 	ft_export(cmd_table->cmd_args, data);
+		print_env(&env_tesh);
+	if (cmd_table->builtin_type == CD)
+		ft_cd(cmd_table->cmd_args, env_tesh);
+	if (cmd_table->builtin_type == PWD)
+		ft_pwd();
+	if (cmd_table->builtin_type == EXPORT)
+		ft_export(cmd_table->cmd_args, env_tesh);
 	return (SUCCESS);
 }
 

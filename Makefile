@@ -6,7 +6,7 @@
 #    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/11/29 20:01:43 by rkoop            ###   ########.fr        #
+#    Updated: 2022/11/30 17:45:17 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS  = main.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
 		executor/executor.c executor/executor_utils.c executor/route_stdin.c executor/route_stdout.c \
-		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c 
+		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/cd.c builtin/pwd.c
  
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
