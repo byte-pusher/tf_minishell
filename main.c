@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:41:34 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 12:44:45 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	main(int argc, char **argv, char **env)
 	ft_get_env(env, &data);
 	ft_init_teshno(&data);
 	// system("leaks minishell");
-	return (g_exit_status);
+	exit(g_exit_status);
 }

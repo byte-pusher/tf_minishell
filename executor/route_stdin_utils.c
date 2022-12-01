@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:20:35 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:41:34 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 14:49:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int	ft_open_infiles(t_redir *redir)
 	while (current != NULL)
 	{
 		if (current->type == LESS)
-			ret = open(current->file, O_RDONLY);
+		{
+			current->fd = open(current->file, O_RDONLY);
+			ret = current->fd;
+		}
 		if (ret == -1)
 		{
 			ft_close_infiles_err(current->prev);

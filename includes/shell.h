@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:52:58 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 17:36:34 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ enum e_TOKEN_TYPE
 
 enum e_ERROR_TYPE
 {
-	SUCCESS,
-	SYNTAX_ERR,
-	OPEN_FILE_ERR,
-	CMD_NOT_FOUND,
-	ABORT,
-	PIPE_ERR
+	SUCCESS = 0,
+	OPEN_FILE_ERR = 1,
+	CMD_NOT_FOUND = 127,
+	NON_NUM_ARG = 255,
+	SYNTAX_ERR = 258,
+	ABORT
 };
 
 enum e_BUILTIN_TYPE
@@ -96,6 +96,7 @@ typedef struct s_token
 typedef struct s_redir
 {
 	int				type;
+	int				fd;
 	int				here_tmp_fd;
 	char			*file;
 	struct s_redir	*head;
@@ -145,13 +146,14 @@ typedef struct s_exec
 typedef struct s_data
 {
 	char		*input;
+	bool		exit_in_err;
 	t_exec		*exec;
 	t_env		*env_tesh;
 	t_token		*tokens;
 	t_cmd_table	*cmd_table;
 }	t_data;
 
-int			ft_init_teshno(t_data *data);
+void		ft_init_teshno(t_data *data);
 void		ft_get_env(char **env, t_data *data);
 void		print_env(t_env **lst);
 
@@ -209,6 +211,7 @@ int			ft_lstsize_env(t_env **lst);
 
 /* ERRORS */
 void		ft_err_msg(char *s);
+void	ft_err_exit(char *s, int i, t_data *data);
 
 /* ************************************************************************** */
 /* PARSER																	  */
@@ -232,7 +235,7 @@ void		ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
 /* BUILTIN																	  */
 /* ************************************************************************** */
 bool		ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
-void		ft_exit(void);
+void		ft_exit(char *arg, t_data *data);
 void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
 
@@ -250,6 +253,7 @@ char		**ft_get_env_arr(t_env *env_tesh);
 bool		ft_check_single_builtin(t_cmd_table *cmd_table);
 bool		ft_check_single_cmd(t_cmd_table *cmd_table);
 t_exec		*ft_create_exec(void);
+void		ft_end_prcs(t_exec *exec);
 
 /* ROUTES */
 void		ft_route_stdin(t_cmd_table *cmd_table, t_exec *exec);

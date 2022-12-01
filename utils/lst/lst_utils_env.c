@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:52:06 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 12:26:50 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,19 @@ void	ft_lstclear_env(t_env **lst)
 	}
 	*lst = NULL;
 	lst = NULL;
+}
+
+int	ft_lstsize_env(t_env **lst)
+{
+	int		i;
+	t_env	*current;
+
+	i = 0;
+	current = *lst;
+	while (current != NULL)
+	{
+		i++;
+		current = current->next;
+	}
+	return (i);
 }

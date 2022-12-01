@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:45:09 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:41:34 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 14:54:13 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data)
 {
 	char	**pathnames;
 
-	cmd_table->cmd_args = ft_split(token->name, ' '); // add \t to split
+	cmd_table->cmd_args = ft_split(token->name, ' ');
 	if (cmd_table->cmd_args == NULL)
 		exit(ENOMEM);
 	cmd_table->is_command = true;
@@ -107,6 +107,7 @@ void	ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data)
 		if (pathnames != NULL)
 			ft_free_strings(&pathnames);
 		if (g_exit_status == CMD_NOT_FOUND)
-			ft_err_msg(cmd_table->cmd_args[0]);
+			// ft_err_msg(cmd_table->cmd_args[0]);
+			cmd_table->path_name = ft_strdup(cmd_table->cmd_args[0]);
 	}
 }

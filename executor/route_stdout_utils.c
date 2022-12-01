@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:44:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:41:34 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 15:12:25 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,16 @@ void	ft_close_outfiles(t_cmd_table *cmd_table)
 
 static void	ft_open (t_redir *redir, int *ret)
 {
-	// redir->fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (redir->type == GREAT)
-		(*ret) = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	{
+		redir->fd = open(redir->file, O_RDWR | O_CREAT | O_TRUNC, 0777);
+		(*ret) = redir->fd;
+	}
 	else if (redir->type == GREATGREAT)
-		(*ret) = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0777);
+	{
+		redir->fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		(*ret) = redir->fd;
+	}
 }
 
 int	ft_open_outfiles(t_redir *redir)

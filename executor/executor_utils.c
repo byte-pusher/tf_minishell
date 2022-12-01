@@ -6,11 +6,25 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:29:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 16:28:09 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 14:59:05 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+
+void	ft_end_prcs(t_exec *exec)
+{
+	close(exec->tmp_fd);
+	close(exec->stout);
+	while (exec->i > 0)
+	{
+		waitpid(0, &exec->pid, 0);
+		if (WIFEXITED(exec->pid) == true)
+			g_exit_status = WEXITSTATUS(exec->pid);
+		exec->i--;
+	}
+	free(exec);
+}
 
 char	**ft_get_env_arr(t_env *env_tesh)
 {
@@ -57,7 +71,6 @@ t_exec	*ft_create_exec(void)
 	t_exec	*new_exec;
 
 	new_exec = malloc(sizeof(t_exec));
-	// count processes that were initiated
 	new_exec->i = 0;
 	new_exec->end[WRITE] = 0;
 	new_exec->end[READ] = 0;
@@ -65,9 +78,11 @@ t_exec	*ft_create_exec(void)
 	new_exec->here_fd[READ] = 0;
 	// tmp_fd is always saving the STDIN/READ END of PIPE
 	new_exec->tmp_fd = dup(STDIN_FILENO);
-	// to where the STDIN should point at the end
-	// new_exec->stin = dup(STDIN_FILENO);
-	// to where the STDOUT should point at the end
+	if (new_exec->tmp_fd == -1)
+		ft_err_msg("dup");
+	// what STDOUT should have at the end
 	new_exec->stout = dup(STDOUT_FILENO);
+	if (new_exec->stout ==-1)
+		ft_err_msg("dup");
 	return (new_exec);
 }

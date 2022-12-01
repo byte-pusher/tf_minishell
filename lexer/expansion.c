@@ -19,17 +19,6 @@ char *get_var(t_data *data, char *var)
 	len_current_env_var = 0;
 	len_var = ft_strlen(var);
 	i = 0;
-
-	//check nulltermination
-	while(var[i] != '\0')
-		i++;
-	if (var[i] == '\0')
-		dprintf(2, "\nterminated");
-
-
-
-	
-	
 	// $  -> stays as $
 	// $$ -> bash: return of current pid. 	NOT IN SUBJECT.
 	if (ft_strncmp("$", var, 1) == 0 && len_var == 1 || ft_strncmp("$$", var, 2) == 0 && len_var == 2)

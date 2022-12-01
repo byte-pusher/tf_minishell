@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:47:34 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 15:21:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ void	ft_parser_errors(t_token **token)
 	while (current != NULL)
 	{
 		if (ft_is_redir(current->type) == true)
+		{
 			ft_check_redir_err(current);
-		// check for open quotes
+			if (g_exit_status == SYNTAX_ERR)
+				return ;
+		}
+		// check for open quotes. SYNTAX ERROR
 		current = current->next;
 	}
+	g_exit_status = SUCCESS;
 }
 
 void	ft_create_cmd_table(t_data *data)
