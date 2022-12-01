@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 17:43:42 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/01 14:35:36 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,3 +264,4 @@ void		ft_route_stdin(t_cmd_table *cmd_table, t_exec *exec);
 void		ft_route_stdout(t_cmd_table *cmd_table, t_exec *exec);
 
 #endif
+

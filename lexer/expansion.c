@@ -23,13 +23,7 @@ char *get_var(t_data *data, char *var)
 	//check nulltermination
 	while(var[i] != '\0')
 		i++;
-	if (var[i] == '\0')
-		dprintf(2, "\nterminated");
 
-
-
-	
-	
 	// $  -> stays as $
 	// $$ -> bash: return of current pid. 	NOT IN SUBJECT.
 	if (ft_strncmp("$", var, 1) == 0 && len_var == 1 || ft_strncmp("$$", var, 2) == 0 && len_var == 2)
@@ -110,6 +104,7 @@ void expand_tokens(t_data *data, t_token *token)
 			
 			if (token->name[i] == '\'' && token->name[i + 1] == '$')
 			{
+				dprintf(2,"\ngotcha");
 				i++;
 				start = i;
 				while (token->name[i] != '\'')
@@ -136,6 +131,7 @@ void expand_tokens(t_data *data, t_token *token)
 			j = 0;
 			// look up variable in ENV
 			value = get_var(data, var_arr[str_counter]);
+			//dprintf(2, "\nvalue from get var: %s", value);
 			if (value != NULL)
 				insert_value(token, var_arr[str_counter], value, start_index);
 			else
@@ -144,6 +140,7 @@ void expand_tokens(t_data *data, t_token *token)
 		}
 		i++;
 	}
+	//dprintf(2, "\ntoken name: %s", token->name);
 	var_arr[str_counter] = NULL;
 	free_var_arr(var_arr);
 }
