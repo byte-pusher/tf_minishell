@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 14:35:36 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/01 16:25:37 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ bool		ft_is_redir(int type);
 void		ft_create_cmd_table_lst(t_data *data);
 void		print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
 void		ft_check_redir_err(t_token *token);
+int			get_combined_len(t_token *current_token);
 
 /* CMD_PARSER */
 void		ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data);
