@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:19 by gjupy             #+#    #+#             */
 /*   Updated: 2022/12/02 15:50:41 by gjupy            ###   ########.fr       */
@@ -38,7 +38,8 @@ void	ft_echo(char **cmd_args)
 
 void	ft_env(t_env *env_tesh)
 {
-	print_env(&env_tesh);
+	if (env_tesh != NULL)
+		print_env(&env_tesh);
 }
 
 bool	ft_isnum(char c)

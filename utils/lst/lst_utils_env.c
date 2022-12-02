@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
 /*   Updated: 2022/12/01 12:26:50 by gjupy            ###   ########.fr       */
@@ -36,6 +36,7 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 		{
 			p = ft_lstlast_env(*(lst));
 			p->next = new;
+			new->prev = p;
 		}
 	}
 }
@@ -59,7 +60,27 @@ t_env	*ft_lstfirst_env(t_env **lst)
 	return (*lst);
 }
 
-// void	ft_free_list(t_token **lst, bool exit, bool g_exit_status)
+void	ft_lstdel_env(t_env *lst, t_env *node)
+{
+	t_env	*p;
+	t_env	*prev;
+
+	if (lst == NULL)
+		return ;
+	p = lst;
+	while (p->next)
+	{
+		if (p->var == node->var)
+			{
+				if (p->next != NULL)
+					p->next->prev = p->prev;
+				p->prev->next = p->next;
+			}
+		p = p->next;
+	}
+}
+
+// void	ft_free_list(t_token **lst, bool exit, bool exit_status)
 // {
 // 	t_token	*current;
 // 	t_token	*next;

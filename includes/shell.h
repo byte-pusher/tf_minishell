@@ -125,6 +125,7 @@ typedef struct s_env
 	char			*var;
 	bool			hidden;
 	struct s_env	*next;
+	struct s_env	*prev;
 }	t_env;
 
 typedef struct s_exec
@@ -209,6 +210,7 @@ t_env		*ft_lstnew_env(void);
 t_env		*ft_lstfirst_env(t_env **lst);
 void		ft_lstclear_env(t_env **lst);
 int			ft_lstsize_env(t_env **lst);
+void		ft_lstdel_env(t_env *lst, t_env *node);
 
 /* ERRORS */
 void		ft_err_msg(char *s);
@@ -224,6 +226,7 @@ bool		ft_is_redir(int type);
 void		ft_create_cmd_table_lst(t_data *data);
 void		print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
 void		ft_check_redir_err(t_token *token);
+int			get_combined_len(t_token *current_token);
 
 /* CMD_PARSER */
 void		ft_command_parser(t_cmd_table *cmd_table, t_token *token,
@@ -239,6 +242,10 @@ bool		ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
 void		ft_exit(char *arg, t_data *data);
 void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
+void		ft_export(char **cmd_args, t_env *env_tesh);
+void		ft_unset(char **cmd_args, t_env *env_tesh);
+void		ft_cd(char **cmd_args, t_env *env_tesh);
+void		ft_pwd();
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);
@@ -277,3 +284,4 @@ bool		ft_heredoc_after_infile(t_redir *redir);
 void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table);
 
 #endif
+

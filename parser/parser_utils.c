@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:32:11 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:46:06 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 17:17:25 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,18 @@ void	ft_create_cmd_table_lst(t_data *data)
 // 		current = current->next;
 // 	}
 // }
+
+int		get_combined_len(t_token *current_token)
+{
+	t_token	*tmp;
+	int 	len;
+
+	tmp = current_token->next;
+	len = ft_strlen(current_token->name);
+	while (tmp && (tmp->type == DQUOTE || tmp->type == SQUOTE))
+	{
+			len = len + ft_strlen(tmp->name);
+			tmp = tmp->next;	
+	}
+	return(len);
+}

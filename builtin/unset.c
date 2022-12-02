@@ -12,21 +12,25 @@
 
 #include "../includes/shell.h"
 
-//TD
-//change eng lst to double linked list
-//create del ft or implement directly in unser
-
-void	unset(t_data *data, char *var)
+void	ft_unset(char **cmd_args, t_env *env_tesh)
 {
 	t_env 	*current_env;
+	int 	i;
 
-	current_env = data->env_tesh;
-
-	while (current_env != NULL)
+	current_env = NULL;
+	i = 1;
+	while (cmd_args[i] != NULL)
 	{
-		if (ft_strnstr(current_env->var, var + 1, ft_strlen(current_env->var)) != NULL)
-		//...
+		//remove from env
+		current_env = env_tesh;
+		while (current_env != NULL)
+		{
+			if (ft_strnstr(current_env->var, cmd_args[i], ft_strlen(current_env->var)) != NULL)
+			{
+				ft_lstdel_env(env_tesh, current_env);
+			}	
+			current_env = current_env->next;
+		}
+		i++;
 	}
-	current_env = current_env->next;
-	
 }

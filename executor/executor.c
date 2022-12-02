@@ -3,19 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 17:06:35 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 17:16:31 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-int	ft_exec_builtin(t_cmd_table *cmd_table)
+int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh)
 {
 	if (cmd_table->builtin_type == ECHO)
 		ft_echo(cmd_table->cmd_args);
+	if (cmd_table->builtin_type == UNSET)
+		ft_unset(cmd_table->cmd_args, env_tesh);
+	if (cmd_table->builtin_type == ENV)
+		print_env(&env_tesh);
+	if (cmd_table->builtin_type == CD)
+		ft_cd(cmd_table->cmd_args, env_tesh);
+	if (cmd_table->builtin_type == PWD)
+		ft_pwd();
+	if (cmd_table->builtin_type == EXPORT)
+		ft_export(cmd_table->cmd_args, env_tesh);
 	return (SUCCESS);
 }
 
@@ -92,7 +102,7 @@ void	ft_executor(t_data *data)
 	current = ft_lstfirst_ct(&data->cmd_table);
 	if (ft_check_single_builtin(current) == true)
 	{
-		ft_exec_builtin(current);
+		ft_exec_builtin(current, data->env_tesh);
 		return ;
 	}
 	exec = ft_create_exec();

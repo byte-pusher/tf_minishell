@@ -1,12 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansion.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
+/*   Updated: 2022/12/02 16:55:38 by rkoop            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/shell.h"
 #include <string.h>
 #include <stdio.h>
-
-// current problem: long expansion after short one in same cmd 
-//ideas: external function for var creaion from string
-//replacement of realloc necessary! 
-//check execution style of builtins and returns
-
 
 char *get_var(t_data *data, char *var)
 {
@@ -67,7 +73,7 @@ void insert_value(t_token *token, char *var, char *value, int start_index)
 	if (token->name != NULL)
 	{
 		free(token->name);
-		token->name = name_expanded;
+		token->name = ft_strtrim(name_expanded, "\"");
 	}
 	
 }
@@ -94,7 +100,7 @@ void expand_tokens(t_data *data, t_token *token)
 
 	while (token->name[i] != '\0')
 	{
-		if (token->name[i] == '$' || (token->name[i] == '\'' && token->name[i + 1] == '$'))
+		if (token->name[i] == '$' || ((token->name[i] == '\'' && token->name[i + 1] == '$')))
 		{
 			
 			if (token->name[i] == '\'' && token->name[i + 1] == '$')
@@ -107,7 +113,7 @@ void expand_tokens(t_data *data, t_token *token)
 			else
 			{
 				start = i;
-				while (token->name[i] != ' ' && token->name[i] != '\0')
+				while (token->name[i] != ' ' && token->name[i] != '\0' && token->name[i] != '\"')
 					i++;
 			}
 			end = i;
@@ -128,7 +134,7 @@ void expand_tokens(t_data *data, t_token *token)
 			if (value != NULL)
 				insert_value(token, var_arr[str_counter], value, start_index);
 			else
-				ft_str_remove(token->name, var_arr[str_counter] );
+				ft_str_remove(token->name, var_arr[str_counter]);
 			str_counter++;
 		}
 		i++;
