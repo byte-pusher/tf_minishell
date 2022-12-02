@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"shell.h": "c",
+		"iterator": "c",
+		"locale": "c",
+		"__node_handle": "c"
+	}
+}

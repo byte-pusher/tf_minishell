@@ -1,3 +1,3 @@
 ### TODOS
 - error handling
-	-> malloc error: exit directly?
+	-> exit_status codes

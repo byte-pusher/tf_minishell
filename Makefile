@@ -32,8 +32,12 @@ SRCS  = main.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
-		executor/executor.c executor/executor_utils.c executor/route_stdin.c executor/route_stdout.c \
-		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/cd.c builtin/pwd.c
+		executor/executor.c executor/executor_utils.c \
+		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/cd.c builtin/pwd.c \
+		executor/here_doc.c executor/here_doc_utils.c \
+		executor/route_stdin.c executor/route_stdin_utils.c \
+		executor/route_stdout.c executor/route_stdout_utils.c \
+
  
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
@@ -77,7 +81,7 @@ test:
 inside: $(OBJS) $(LIBFT)
 	ar -t $(NAME)
 
-valgrind: $(NAME)
+valgrind: re
 	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
 .PHONY: all clean fclean re git lib valgrind

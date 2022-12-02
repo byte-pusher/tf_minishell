@@ -27,7 +27,7 @@ void	ft_check_redir_err(t_token *token)
 		exit_status = SYNTAX_ERR;
 		ft_err_msg("newline");
 	}
-	else if (token->next->type == PIPE)
+	else if (token->next->type != FILE_NAME)
 	{
 		exit_status = SYNTAX_ERR;
 		ft_err_msg(token->next->name);

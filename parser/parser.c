@@ -20,6 +20,7 @@ void	ft_parser_errors(t_token **token)
 	{
 		exit_status = SYNTAX_ERR;
 		ft_err_msg("|");
+		return ;
 	}
 	current = *token;
 	while (current != NULL)
@@ -79,10 +80,9 @@ void	ft_create_cmd_table(t_data *data)
 void	ft_parser(t_data *data)
 {
 	ft_parser_errors(&data->tokens);
-	if (exit_status == SUCCESS)
+	if (exit_status != SYNTAX_ERR)
 		ft_create_cmd_table(data);
 	// print_cmd_strings(data->cmd_table);
-	exit_status = SUCCESS;
 }
 
 // void	print_rd(t_data *data)
