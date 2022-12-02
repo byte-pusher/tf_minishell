@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 15:01:51 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 17:06:35 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
 	char	**env_arr;
 
 	env_arr = ft_get_env_arr(env_tesh);
-	if (cmd_table->is_command == true && cmd_table->is_builtin == false)
+	if (cmd_table->cmd_not_found == true)
+	{
+		g_exit_status = CMD_NOT_FOUND;
+		ft_err_msg(cmd_table->path_name);
+	}
+	else if (cmd_table->is_command == true && cmd_table->is_builtin == false)
 	{
 		if (execve(cmd_table->path_name,
 				cmd_table->cmd_args, env_arr) == -1)

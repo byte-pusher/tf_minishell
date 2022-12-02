@@ -1,4 +1,7 @@
 ### TODOS
+
+- valgrind laufen lassen
+
 - error handling
 	-> g_exit_status codes
 	-> what happens with unclosed quotes?
@@ -15,4 +18,4 @@
 
 - exit
 	-> exit code soll auch funktionieren mit "123" oder '123'
-	-> soll nicht funktionieren mit "'123'"
+	-> soll nicht funktionieren mit "'123'" oder '"123"'

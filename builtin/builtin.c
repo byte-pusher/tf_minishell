@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:19 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 17:49:24 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:50:41 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,3 @@ void	ft_exit(char *arg, t_data *data)
 	}
 	ft_save_e_code(arg, start);
 }
-	// parser für arguments
-		// nur Nummer
-		// nur 1 arg
-		// bis 255. ab 255 % 2555
-		// teshno: exit: too many args
-		// teshno: exit: string: numeric argument required
-		// errors: too many arguments = 1 (not exit)
-		//         numeric argument required = 255 (exit)
-// }

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 17:36:34 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 17:02:05 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_cmd_table
 	char				**cmd_args;
 	char				*path_name;
 	bool				is_command;
+	bool				cmd_not_found;
 	bool				is_redir;
 	bool				is_builtin;
 	pid_t				pid;

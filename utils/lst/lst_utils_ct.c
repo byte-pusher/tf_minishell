@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:51:49 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 17:04:07 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_cmd_table	*ft_lstnew_ct(void)
 	node->here_tmp_fd = dup(STDIN_FILENO);
 	node->is_command = false;
 	node->is_redir = false;
+	node->cmd_not_found = false;
 	node->is_builtin = false;
 	node->redir = NULL;
 	node->path_name = NULL;
