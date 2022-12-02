@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 12:33:25 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 19:47:24 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_handle_quotes(t_data *data, int *i, int type)
 			break ;
 	}
 	end++;
-	new_token->name = ft_substr(data->input, start, end - start);
+	new_token->name = ft_substr(data->input, start + 1, end - start - 2);
 	if (new_token->name == NULL)
 		exit(ENOMEM);
 	ft_lstadd_back_t(&data->tokens, new_token);

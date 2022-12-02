@@ -5,6 +5,7 @@
 		"locale": "c",
 		"__node_handle": "c",
 		"__config": "c",
-		"chrono": "c"
+		"chrono": "c",
+		"complex": "c"
 	}
 }

@@ -6,33 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 18:03:51 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 19:32:04 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/shell.h"
-
-bool	ft_exit_cmd(t_data *data)
-{
-	if (ft_strlen(data->input) >= 4)
-	{
-		if (data->input[0] == 'e' && data->input[1] == 'x'
-			&& data->input[2] == 'i' && data->input[3] == 't')
-		{
-			if (data->input[4] == '\0')
-			{
-				printf("exit\n");
-				return (true);
-			}
-			if (ft_is_space(data->input[4]) == true)
-			{
-				ft_exit(data->input, data);
-				return (true);
-			}
-		}
-	}
-	return (false);
-}
 
 void	ft_init_structs(t_data *data)
 {
@@ -61,16 +39,6 @@ void	ft_init_teshno(t_data *data)
 		ft_init_structs(data);
 		ft_init_input(data);
 		add_history(data->input);
-		if (ft_exit_cmd(data) == true)
-		{
-			if (data->exit_in_err == true && g_exit_status == 1)
-			{
-				free(data->input);
-				continue ;
-			}
-			else
-				break ;
-		}
 		if (data->input[0] != '\0' && data->input[0] != EOF)
 		{
 			ft_lexer(data);

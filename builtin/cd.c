@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/11/30 18:42:08 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 18:50:58 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_cd(char **cmd_args, t_env *env_tesh)
 	//check if path is valid && chdir command changes dir 
 	if (chdir(cmd_args[1]) == -1)
 	{
-		exit_status = OPEN_FILE_ERR;
+		g_exit_status = OPEN_FILE_ERR;
 		//also need to pass path string that has been tried to reach
 		ft_err_msg("cd: ");
 	}

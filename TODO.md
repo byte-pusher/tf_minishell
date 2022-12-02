@@ -15,7 +15,11 @@
 
 - redir
 	-> echo hey man >out | echo jojo > out (überschreibt die file falsch)
+	-> ls >out | <out cat
 
-- exit
-	-> exit code soll auch funktionieren mit "123" oder '123'
-	-> soll nicht funktionieren mit "'123'" oder '"123"'
+- cd
+	-> if OLD PWD doesnt exist we have to create
+	-> - flag goes to old
+
+- echo
+	-> "echo" hallo

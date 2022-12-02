@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 17:16:31 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 19:58:43 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,41 @@ int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh)
 {
 	if (cmd_table->builtin_type == ECHO)
 		ft_echo(cmd_table->cmd_args);
-	if (cmd_table->builtin_type == UNSET)
+	else if (cmd_table->builtin_type == UNSET)
 		ft_unset(cmd_table->cmd_args, env_tesh);
-	if (cmd_table->builtin_type == ENV)
+	else if (cmd_table->builtin_type == ENV)
 		print_env(&env_tesh);
-	if (cmd_table->builtin_type == CD)
+	else if (cmd_table->builtin_type == CD)
 		ft_cd(cmd_table->cmd_args, env_tesh);
-	if (cmd_table->builtin_type == PWD)
+	else if (cmd_table->builtin_type == PWD)
 		ft_pwd();
-	if (cmd_table->builtin_type == EXPORT)
+	else if (cmd_table->builtin_type == EXPORT)
 		ft_export(cmd_table->cmd_args, env_tesh);
+	else if (cmd_table->builtin_type == EXIT)
+		ft_exit(cmd_table->cmd_args);
 	return (SUCCESS);
 }
 
 void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
 {
 	char	**env_arr;
+	int		execve_ret;
 
 	env_arr = ft_get_env_arr(env_tesh);
+	if (cmd_table->is_command == true && cmd_table->is_builtin == false)
+		execve_ret = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr);
+	else
+	{
+		ft_exec_builtin(cmd_table, env_tesh);
+		exit (g_exit_status);
+	}
 	if (cmd_table->cmd_not_found == true)
 	{
 		g_exit_status = CMD_NOT_FOUND;
 		ft_err_msg(cmd_table->path_name);
 	}
-	else if (cmd_table->is_command == true && cmd_table->is_builtin == false)
-	{
-		if (execve(cmd_table->path_name,
-				cmd_table->cmd_args, env_arr) == -1)
-			ft_err_msg(cmd_table->path_name);
-	}
-	else
-	{
-		ft_exec_builtin(cmd_table);
-		exit (g_exit_status);
-	}
+	else if (execve_ret == -1)
+		ft_err_msg(cmd_table->path_name);
 	exit (g_exit_status);
 }
 
@@ -73,7 +74,7 @@ int	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
 		return (1);
 	}
 	exec->i++;
-	exec->pid = fork(); // noch entscheiden wie ich mit den errors umgehe
+	exec->pid = fork();
 	if (exec->pid == 0)
 	{
 		if (ft_check_single_cmd(cmd_table) == true)

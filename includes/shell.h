@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 17:02:05 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 19:31:31 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ void		ft_lstdel_env(t_env *lst, t_env *node);
 
 /* ERRORS */
 void		ft_err_msg(char *s);
-void	ft_err_exit(char *s, int i, t_data *data);
+void		ft_err_exit(char *s, int e_status);
 
 /* ************************************************************************** */
 /* PARSER																	  */
@@ -239,7 +239,7 @@ void		ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
 /* BUILTIN																	  */
 /* ************************************************************************** */
 bool		ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
-void		ft_exit(char *arg, t_data *data);
+void		ft_exit(char **arg);
 void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
 void		ft_export(char **cmd_args, t_env *env_tesh);
