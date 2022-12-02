@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:32:11 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/28 16:07:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 17:17:25 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,20 @@ void	print_cmd_strings(t_cmd_table *cmd_table)
 		}
 		current = current->next;
 	}
+}
+
+
+int		get_combined_len(t_token *current_token)
+{
+	t_token	*tmp;
+	int 	len;
+
+	tmp = current_token->next;
+	len = ft_strlen(current_token->name);
+	while (tmp && (tmp->type == DQUOTE || tmp->type == SQUOTE))
+	{
+			len = len + ft_strlen(tmp->name);
+			tmp = tmp->next;	
+	}
+	return(len);
 }
