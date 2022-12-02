@@ -6,13 +6,13 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 20:27:22 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 17:16:31 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
+int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh)
 {
 	if (cmd_table->builtin_type == ECHO)
 		ft_echo(cmd_table->cmd_args);
@@ -29,7 +29,7 @@ int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
 	return (SUCCESS);
 }
 
-void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
+void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
 {
 	char	**env_arr;
 
@@ -38,7 +38,7 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
 		exit_status = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr); // noch entscheiden wie ich mit den errors umgehe	
 	else
 	{
-		exit_status = ft_exec_builtin(cmd_table, env_tesh, data);
+		exit_status = ft_exec_builtin(cmd_table, env_tesh);
 		exit (SUCCESS);
 	}
 }
@@ -108,7 +108,7 @@ void	ft_executor(t_data *data)
 	current = ft_lstfirst_ct(&data->cmd_table);
 	if (ft_check_single_builtin(current) == true)
 	{
-		ft_exec_builtin(current, data->env_tesh, data);
+		ft_exec_builtin(current, data->env_tesh);
 		return ;
 	}
 	exec = ft_create_exec();
