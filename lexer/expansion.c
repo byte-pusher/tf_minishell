@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/02 16:55:38 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 19:50:23 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void insert_value(t_token *token, char *var, char *value, int start_index)
 		free(token->name);
 		token->name = ft_strtrim(name_expanded, "\"");
 	}
-	
 }
 
 void expand_tokens(t_data *data, t_token *token)

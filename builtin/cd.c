@@ -6,11 +6,15 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/11/30 18:42:08 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 20:24:51 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+
+
+// - to old pwd
+// nothing also correct input
 
 void	ft_cd(char **cmd_args, t_env *env_tesh)
 {
@@ -26,7 +30,7 @@ void	ft_cd(char **cmd_args, t_env *env_tesh)
 	//check if path is valid && chdir command changes dir 
 	if (chdir(cmd_args[1]) == -1)
 	{
-		exit_status = OPEN_FILE_ERR;
+		g_exit_status = OPEN_FILE_ERR;
 		//also need to pass path string that has been tried to reach
 		ft_err_msg("cd: ");
 	}

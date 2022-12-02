@@ -6,13 +6,13 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/11/30 20:15:21 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 20:40:30 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-//add vars to envs, but simple way. export demo=jo
+//add feature for existing vars, is del and new creation fine?
 //also works in dquotes and squotes
 
 int		is_var_declaration(char *cmd_arg)
@@ -29,6 +29,42 @@ int		is_var_declaration(char *cmd_arg)
 	return(1);
 }
 
+int		comp_var_len(char *cmd_arg)
+{
+	int 	i;
+	
+	i = 0;
+	while(cmd_arg[i] != '\0')
+	{
+		if (cmd_arg[i] == '=')
+			return(i);
+		i++;
+	}
+	return(0);
+}
+
+//check if var already exists, if yes replace complety 
+int		var_exists(char *cmd_arg, t_env *env_tesh)
+{
+	t_env	*current_env;
+
+	current_env = env_tesh;
+	
+	while(current_env != NULL)
+	{
+		if (ft_strncmp(current_env->var, cmd_arg, comp_var_len(cmd_arg)) == 0)
+		{
+			dprintf(2, "gotcha\n");
+			ft_lstdel_env(env_tesh, current_env);
+			return(0);
+		}
+		current_env = current_env->next;
+	}
+	return(1);
+}
+
+
+
 
 void	ft_export(char **cmd_args, t_env *env_tesh)
 {
@@ -44,12 +80,13 @@ void	ft_export(char **cmd_args, t_env *env_tesh)
 	{
 		if (is_var_declaration(cmd_args[i]) == 0)
 		{
-			ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
-			ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * ft_strlen(cmd_args[i]));
-			ft_lstlast_env(env_tesh)->var = cmd_args[i];
+			if (var_exists(cmd_args[i], env_tesh) != 0)
+			{
+				ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
+				ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * ft_strlen(cmd_args[i]));
+				ft_strncpy(ft_lstlast_env(env_tesh)->var, ft_strtrim(cmd_args[i], "\"\'"), ft_strlen(cmd_args[i]));
+			}
 		}
 		i++;
 	}
-	//dprintf(2, "last elem var: %s", ft_lstlast_env(env_tesh)->var);
-	print_env(&env_tesh);
 }

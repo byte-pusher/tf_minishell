@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 17:16:31 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 18:53:52 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
 	}
 	else
 	{
-		ft_exec_builtin(cmd_table);
+		ft_exec_builtin(cmd_table, env_tesh);
 		exit (g_exit_status);
 	}
 	exit (g_exit_status);
