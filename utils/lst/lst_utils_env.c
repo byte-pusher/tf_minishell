@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 20:17:41 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/01 12:26:50 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ void	ft_lstdel_env(t_env *lst, t_env *node)
 // 		free(current);
 // 		current = next;
 // 	}
-// 	if (exit == true && exit_status == false)
-// 		ft_exit_print(exit_status, "Error\n", 2);
-// 	else if (exit == true && exit_status == true)
-// 		ft_exit_print(exit_status, "Error\n", 2);
+// 	if (exit == true && g_exit_status == false)
+// 		ft_exit_print(g_exit_status, "Error\n", 2);
+// 	else if (exit == true && g_exit_status == true)
+// 		ft_exit_print(g_exit_status, "Error\n", 2);
 // 	*lst = NULL;
 // 	lst = NULL;
 // }
@@ -117,11 +117,11 @@ void	ft_lstclear_env(t_env **lst)
 
 int	ft_lstsize_env(t_env **lst)
 {
-	int			i;
-	t_env		*current;
+	int		i;
+	t_env	*current;
 
-	current = *lst;
 	i = 0;
+	current = *lst;
 	while (current != NULL)
 	{
 		i++;

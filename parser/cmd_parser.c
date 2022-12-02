@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:45:09 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 16:38:39 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 17:03:49 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,23 @@ void	ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data)
 {
 	char	**pathnames;
 
-	cmd_table->cmd_args = ft_split(token->name, ' '); // add \t to split
+	cmd_table->cmd_args = ft_split(token->name, ' ');
 	if (cmd_table->cmd_args == NULL)
 		exit(ENOMEM);
 	cmd_table->is_command = true;
 	if (ft_is_builtin(cmd_table, cmd_table->cmd_args[0]) == true)
-		exit_status = SUCCESS;
+		g_exit_status = SUCCESS;
 	else
 	{
 		pathnames = ft_find_path_line_and_split(&data->env_tesh);
-		exit_status = ft_get_cmd(cmd_table, pathnames);
+		g_exit_status = ft_get_cmd(cmd_table, pathnames);
 		if (pathnames != NULL)
 			ft_free_strings(&pathnames);
-		if (exit_status == CMD_NOT_FOUND)
-			ft_err_msg(cmd_table->cmd_args[0]);
+		if (g_exit_status == CMD_NOT_FOUND)
+			// ft_err_msg(cmd_table->cmd_args[0]);
+		{
+			cmd_table->cmd_not_found = true;
+			cmd_table->path_name = ft_strdup(cmd_table->cmd_args[0]);
+		}
 	}
 }

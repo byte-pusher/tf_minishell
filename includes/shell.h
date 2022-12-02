@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 16:25:37 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 17:02:05 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@
 # include <errno.h>
 # include <signal.h>
 
-
 /* ************************************************************************** */
 /* READLINE MISSING PROTOTYPES												  */
 /* ************************************************************************** */
-void 		rl_replace_line(const char *text, int clear_undo);
-extern void rl_clear_history (void);
+void		rl_replace_line(const char *text, int clear_undo);
+extern void	rl_clear_history(void);
 
-int			exit_status; // to store different error codes
+int			g_exit_status;
 
 /* ************************************************************************** */
 /* STRUCTS																	  */
@@ -60,12 +59,12 @@ enum e_TOKEN_TYPE
 
 enum e_ERROR_TYPE
 {
-	SUCCESS,
-	SYNTAX_ERR,
-	OPEN_FILE_ERR,
-	CMD_NOT_FOUND,
-	ABORT,
-	PIPE_ERR
+	SUCCESS = 0,
+	OPEN_FILE_ERR = 1,
+	CMD_NOT_FOUND = 127,
+	NON_NUM_ARG = 255,
+	SYNTAX_ERR = 258,
+	ABORT
 };
 
 enum e_BUILTIN_TYPE
@@ -112,6 +111,7 @@ typedef struct s_cmd_table
 	char				**cmd_args;
 	char				*path_name;
 	bool				is_command;
+	bool				cmd_not_found;
 	bool				is_redir;
 	bool				is_builtin;
 	pid_t				pid;
@@ -148,14 +148,14 @@ typedef struct s_exec
 typedef struct s_data
 {
 	char		*input;
+	bool		exit_in_err;
 	t_exec		*exec;
 	t_env		*env_tesh;
 	t_token		*tokens;
 	t_cmd_table	*cmd_table;
-	// char		**ms_env;
 }	t_data;
 
-int			ft_init_teshno(t_data *data);
+void		ft_init_teshno(t_data *data);
 void		ft_get_env(char **env, t_data *data);
 void		print_env(t_env **lst);
 
@@ -173,8 +173,8 @@ bool		ft_is_space(char c);
 int			ft_get_chartype(char *s, int *i);
 void		expansion(t_data *data);
 char		*get_var(t_data *data, char *var);
-int 		get_var_len(char *env_var);
-void 		ft_str_remove(char *str, const char *sub);
+int			get_var_len(char *env_var);
+void		ft_str_remove(char *str, const char *sub);
 int			get_var_amount(char *token_name);
 void		free_var_arr(char **var_arr);
 
@@ -182,8 +182,7 @@ void		free_var_arr(char **var_arr);
 /* UTILS																	  */
 /* ************************************************************************** */
 /* SIGNALS*/
-void		connect_signals();
-
+void		connect_signals(void);
 
 /* LST */
 t_cmd_table	*ft_lstnew_ct(void);
@@ -191,7 +190,6 @@ t_cmd_table	*ft_lstfirst_ct(t_cmd_table **lst);
 t_cmd_table	*ft_lstlast_ct(t_cmd_table *lst);
 void		ft_lstclear_ct(t_cmd_table **lst);
 void		ft_lstadd_back_ct(t_cmd_table **lst, t_cmd_table *new);
-int			ft_lstsize_ct(t_cmd_table **lst);
 
 t_token		*ft_lstlast_t(t_token *lst);
 void		ft_lstadd_back_t(t_token **lst, t_token *new);
@@ -216,6 +214,7 @@ void		ft_lstdel_env(t_env *lst, t_env *node);
 
 /* ERRORS */
 void		ft_err_msg(char *s);
+void	ft_err_exit(char *s, int i, t_data *data);
 
 /* ************************************************************************** */
 /* PARSER																	  */
@@ -230,7 +229,8 @@ void		ft_check_redir_err(t_token *token);
 int			get_combined_len(t_token *current_token);
 
 /* CMD_PARSER */
-void		ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data);
+void		ft_command_parser(t_cmd_table *cmd_table, t_token *token,
+				t_data *data);
 
 /* REDIR_PARSER*/
 void		ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
@@ -239,7 +239,7 @@ void		ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
 /* BUILTIN																	  */
 /* ************************************************************************** */
 bool		ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
-void		ft_exit(void);
+void		ft_exit(char *arg, t_data *data);
 void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
 void		ft_export(char **cmd_args, t_env *env_tesh);
@@ -261,6 +261,7 @@ char		**ft_get_env_arr(t_env *env_tesh);
 bool		ft_check_single_builtin(t_cmd_table *cmd_table);
 bool		ft_check_single_cmd(t_cmd_table *cmd_table);
 t_exec		*ft_create_exec(void);
+void		ft_end_prcs(t_exec *exec);
 
 /* ROUTES */
 void		ft_route_stdin(t_cmd_table *cmd_table, t_exec *exec);
@@ -280,6 +281,7 @@ bool		ft_is_outfile(t_redir **redir);
 void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table);
 bool		ft_is_heredoc(t_redir **redir);
 bool		ft_heredoc_after_infile(t_redir *redir);
+void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table);
 
 #endif
 

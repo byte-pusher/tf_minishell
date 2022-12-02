@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:20:35 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 18:41:28 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 16:59:07 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,20 @@ void	ft_close_infiles(t_cmd_table *cmd_table)
 int	ft_open_infiles(t_redir *redir)
 {
 	int		ret;
-	t_redir *current;
+	t_redir	*current;
 
 	current = ft_lstfirst_rd(&redir);
 	while (current != NULL)
 	{
-		if (current->type == LESS) // in
+		if (current->type == LESS)
 		{
 			current->fd = open(current->file, O_RDONLY);
 			ret = current->fd;
 		}
-		if (current->fd == -1)
+		if (ret == -1)
 		{
 			ft_close_infiles_err(current->prev);
-			exit_status = OPEN_FILE_ERR;
+			g_exit_status = OPEN_FILE_ERR;
 			ft_err_msg(current->file);
 		}
 		current = current->next;

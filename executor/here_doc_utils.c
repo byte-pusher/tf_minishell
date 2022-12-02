@@ -6,16 +6,24 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:54:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/29 18:43:21 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:23:24 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-// bool	ft_is_else_heredoc(t_redir **redir)
-// {
-	
-// }
+void	ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table)
+{
+	t_cmd_table	*current;
+
+	current = ft_lstfirst_ct(cmd_table);
+	while (current != NULL)
+	{
+		if (current->is_redir == true && ft_is_heredoc(&current->redir) == true)
+			ft_heredoc(exec, current);
+		current = current->next;
+	}
+}
 
 bool	ft_is_heredoc(t_redir **redir)
 {
@@ -31,7 +39,7 @@ bool	ft_is_heredoc(t_redir **redir)
 	return (false);
 }
 
-int		ft_count_infiles(t_redir *redir)
+int	ft_count_infiles(t_redir *redir)
 {
 	int		nbr_of_infiles;
 	t_redir	*current;

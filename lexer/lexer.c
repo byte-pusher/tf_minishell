@@ -6,19 +6,20 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/24 16:58:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/01 12:33:25 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-bool	ft_is_file_name (t_token *new_token)
+bool	ft_is_file_name(t_token *new_token)
 {
 	if (new_token->prev != NULL
 		&& (new_token->prev->type == GREAT
-			|| new_token->prev->type == GREATGREAT || new_token->prev->type == LESS 
+			|| new_token->prev->type == GREATGREAT
+			|| new_token->prev->type == LESS
 			|| new_token->prev->type == LESSLESS))
-			return (true);
+		return (true);
 	return (false);
 }
 
@@ -40,8 +41,8 @@ void	ft_cpy_string(t_data *data, t_token *new_token, int *i)
 	else if (new_token->type == COMMAND)
 	{
 		while (data->input[*i] != '\0'
-				&& (ft_get_chartype(data->input, i) == GENERAL
-					|| ft_get_chartype(data->input, i) == WHITE_SPACE))
+			&& (ft_get_chartype(data->input, i) == GENERAL
+				|| ft_get_chartype(data->input, i) == WHITE_SPACE))
 		{
 			(*i)++;
 			end = *i;
@@ -149,5 +150,4 @@ void	ft_lexer(t_data *data)
 		i++;
 	}
 	// ms_print_list(&data->tokens);
-	exit_status = SUCCESS;
 }

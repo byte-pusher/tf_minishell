@@ -6,32 +6,35 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:32:23 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 18:15:26 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 16:05:36 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-void		ft_route_stdout(t_cmd_table *cmd_table, t_exec *exec)
+void	ft_route_stdout(t_cmd_table *cmd_table, t_exec *exec)
 {
 	if (cmd_table->is_redir == true
-			&& ft_is_outfile(&cmd_table->redir) == true)
+		&& ft_is_outfile(&cmd_table->redir) == true)
 	{
 		exec->fdout = ft_open_outfiles(cmd_table->redir);
-		if (exit_status != OPEN_FILE_ERR)
+		if (g_exit_status != OPEN_FILE_ERR)
 		{
-			dup2(exec->fdout, STDOUT_FILENO);
+			if (dup2(exec->fdout, STDOUT_FILENO) == -1)
+				ft_err_msg("dup2");
 			ft_close_outfiles(cmd_table);
 		}
 	}
 	else if (cmd_table->next == NULL)
 	{
-		dup2(exec->stout, STDOUT_FILENO);
+		if (dup2(exec->stout, STDOUT_FILENO) == -1)
+			ft_err_msg("dup2");
 		close(exec->stout);
 	}
 	else
 	{
-		dup2(exec->end[WRITE], STDOUT_FILENO);
+		if (dup2(exec->end[WRITE], STDOUT_FILENO) == -1)
+			ft_err_msg("dup2");
 		close(exec->end[WRITE]);
 	}
 }

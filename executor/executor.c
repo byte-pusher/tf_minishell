@@ -34,67 +34,61 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh)
 	char	**env_arr;
 
 	env_arr = ft_get_env_arr(env_tesh);
-	if (cmd_table->is_command == true && cmd_table->is_builtin == false)
-		exit_status = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr); // noch entscheiden wie ich mit den errors umgehe	
+	if (cmd_table->cmd_not_found == true)
+	{
+		g_exit_status = CMD_NOT_FOUND;
+		ft_err_msg(cmd_table->path_name);
+	}
+	else if (cmd_table->is_command == true && cmd_table->is_builtin == false)
+	{
+		if (execve(cmd_table->path_name,
+				cmd_table->cmd_args, env_arr) == -1)
+			ft_err_msg(cmd_table->path_name);
+	}
 	else
 	{
-		exit_status = ft_exec_builtin(cmd_table, env_tesh);
-		exit (SUCCESS);
+		ft_exec_builtin(cmd_table);
+		exit (g_exit_status);
 	}
+	exit (g_exit_status);
 }
 
-void	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec, t_data *data)
+void	ft_route_and_exec(t_cmd_table *cmd_table, t_env *env_tesh,
+						t_exec *exec)
 {
+	close(exec->end[READ]); // das hat cat|cat|ls gefixt
+	ft_route_stdin(cmd_table, exec);
+	if (g_exit_status != OPEN_FILE_ERR)
+		ft_route_stdout(cmd_table, exec);
+	if (g_exit_status != OPEN_FILE_ERR && cmd_table->is_command == true)
+		ft_exec(cmd_table, env_tesh);
+	exit(g_exit_status); // ändern zu system code
+}
+
+int	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec)
+{
+	if (pipe(exec->end) == -1)
+	{
+		ft_err_msg("pipe");
+		return (1);
+	}
 	exec->i++;
-	pipe(exec->end); 	// noch entscheiden wie ich mit den errors umgehe
 	exec->pid = fork(); // noch entscheiden wie ich mit den errors umgehe
 	if (exec->pid == 0)
 	{
 		if (ft_check_single_cmd(cmd_table) == true)
 			ft_exec(cmd_table, env_tesh);
 		else
-		{
-			close(exec->end[READ]); // das hat cat|cat|ls gefixt
-			ft_route_stdin(cmd_table, exec);
-			if (exit_status != OPEN_FILE_ERR)
-				ft_route_stdout(cmd_table, exec);
-			if (exit_status != OPEN_FILE_ERR && cmd_table->is_command == true)
-				ft_exec(cmd_table, env_tesh);
-			exit(exit_status); // ändern zu system code
-		}
+			ft_route_and_exec(cmd_table, env_tesh, exec);
 	}
-	// close(exec->tmp_fd);
-	dup2(exec->end[READ], exec->tmp_fd);
-	// pipe ends need to be closed in the main process
-	close(exec->end[READ]);
-	close(exec->end[WRITE]);
-}
-
-void	ft_end_prcs(t_exec	*exec)
-{
-	close(exec->tmp_fd);
-	close(exec->stout);
-	while (exec->i > 0)
+	else if (exec->pid > 0)
 	{
-		waitpid(0, &exec->pid, 0);
-		if (WIFEXITED(exec->pid) == true)
-			exit_status = WEXITSTATUS(exec->pid);
-		exec->i--;
+		if (dup2(exec->end[READ], exec->tmp_fd) == -1)
+			ft_err_msg("dup2");
+		close(exec->end[READ]);
+		close(exec->end[WRITE]);
 	}
-	free(exec);
-}
-
-void	ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table)
-{
-	t_cmd_table	*current;
-
-	current = ft_lstfirst_ct(cmd_table);
-	while (current != NULL)
-	{
-		if (current->is_redir == true && ft_is_heredoc(&current->redir) == true)
-			ft_heredoc(exec, current);
-		current = current->next;
-	}
+	return (exec->pid);
 }
 
 // letztendlich geht es darum zu schauen was zu STDIN und was zu STDOUT pointen soll
@@ -115,15 +109,8 @@ void	ft_executor(t_data *data)
 	ft_open_heredocs(exec, &data->cmd_table);
 	while (current != NULL)
 	{
-		if (current->is_command == false)
-		{
-			current = current->next;
-			continue ;
-		}
-		else
-			ft_create_child_prc(current, data->env_tesh, exec, data);
-		if (exit_status < 0)
-			break ;
+		if (ft_create_child_prc(current, data->env_tesh, exec) == -1)
+			ft_err_msg("fork");
 		current = current->next;
 	}
 	ft_end_prcs(exec);

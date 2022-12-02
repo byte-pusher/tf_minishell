@@ -18,7 +18,7 @@ void	ft_parser_errors(t_token **token)
 
 	if ((*token)->type == PIPE || ft_lstlast_t(*token)->type == PIPE) // still needs to handle pipe in the last position
 	{
-		exit_status = SYNTAX_ERR;
+		g_exit_status = SYNTAX_ERR;
 		ft_err_msg("|");
 		return ;
 	}
@@ -26,16 +26,21 @@ void	ft_parser_errors(t_token **token)
 	while (current != NULL)
 	{
 		if (ft_is_redir(current->type) == true)
+		{
 			ft_check_redir_err(current);
-		// check for open quotes
+			if (g_exit_status == SYNTAX_ERR)
+				return ;
+		}
+		// check for open quotes. SYNTAX ERROR
 		current = current->next;
 	}
+	g_exit_status = SUCCESS;
 }
 
 void	ft_create_cmd_table(t_data *data)
 {
 	t_token		*current_token;
-	t_cmd_table	*current_ct; // ct = command table
+	t_cmd_table	*current_ct;
 	char		*combined_name;
 	t_token		*cmd_token;
 
@@ -80,7 +85,7 @@ void	ft_create_cmd_table(t_data *data)
 void	ft_parser(t_data *data)
 {
 	ft_parser_errors(&data->tokens);
-	if (exit_status != SYNTAX_ERR)
+	if (g_exit_status != SYNTAX_ERR)
 		ft_create_cmd_table(data);
 	// print_cmd_strings(data->cmd_table);
 }

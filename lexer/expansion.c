@@ -25,14 +25,13 @@ char *get_var(t_data *data, char *var)
 	len_current_env_var = 0;
 	len_var = ft_strlen(var);
 	i = 0;
-
 	// $  -> stays as $
 	// $$ -> bash: return of current pid. 	NOT IN SUBJECT.
 	if (ft_strncmp("$", var, 1) == 0 && len_var == 1 || ft_strncmp("$$", var, 2) == 0 && len_var == 2)
 		return(var+1);
-	// $? -> exit_status of last command, from subject: "the exit status of the most recently executed foreground pipeline"
+	// $? -> g_exit_status of last command, from subject: "the exit status of the most recently executed foreground pipeline"
 	if (ft_strncmp("?", var + 1, get_var_len(current_env->var)) == 0)
-		return(ft_itoa(exit_status));
+		return(ft_itoa(g_exit_status));
 	while (current_env != NULL)
 	{
 		len_current_env_var = get_var_len(current_env->var);
