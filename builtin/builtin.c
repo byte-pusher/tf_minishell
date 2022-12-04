@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:19 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 15:50:41 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 19:54:27 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,50 +50,48 @@ bool	ft_isnum(char c)
 		return (false);
 }
 
-void	ft_save_e_code(char *s, int i)
+void	ft_save_e_code(char *s)
 {
-	int		end;
-	int		start;
-	char	*e_code;
-
-	start = i;
-	while (s[i] != '\0')
-	{
-		i++;
-		end = i;
-	}
-	e_code = ft_substr(s, start, end - start);
-	g_exit_status = (ft_atoi(e_code));
-	free(e_code);
+	g_exit_status = (ft_atoi(s));
 	if (g_exit_status > 255)
 		g_exit_status = g_exit_status % 256;
 }
 
-void	ft_exit(char *arg, t_data *data)
+bool	ft_is_non_num(char *s)
 {
 	int	i;
-	int	start;
 
-	printf("exit\n");
-	i = 4;
-	while (ft_is_space(arg[i]) == true)
-		i++;
-	start = i;
-	while (arg[i] != '\0')
+	i = 0;
+	while (s[i] != '\0')
 	{
-		if (ft_is_space(arg[i]) == true)
+		if (ft_isnum(s[i]) == false)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+void	ft_exit(char **cmd_args)
+{
+	int	i;
+
+	i = 1;
+	printf("exit\n");
+	if (cmd_args[1] != NULL && cmd_args[2] != NULL)
+	{
+		ft_err_exit(cmd_args[1], 1);
+		return ;
+	}
+	while (cmd_args[i] != NULL)
+	{
+		if (ft_is_non_num(cmd_args[i]) == true)
 		{
-			g_exit_status = 1;
-			ft_err_exit(arg, start, data);
-			return ;
-		}
-		if (ft_isnum(arg[i]) == false)
-		{
-			g_exit_status = NON_NUM_ARG;
-			ft_err_exit(arg, start, data);
-			return ;
+			ft_err_exit(cmd_args[1], NON_NUM_ARG);
+			exit (g_exit_status);
 		}
 		i++;
 	}
-	ft_save_e_code(arg, start);
+	if (cmd_args[1] != NULL)
+		ft_save_e_code(cmd_args[1]);
+	exit (g_exit_status);
 }

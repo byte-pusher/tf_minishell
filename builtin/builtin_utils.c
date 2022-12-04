@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:29:25 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 19:14:10 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/02 18:49:29 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	ft_is_builtin(t_cmd_table *cmd_table, char *builtin)
 		cmd_table->builtin_type = UNSET;
 	else if (ft_strlen(builtin) == 3 && (ft_strncmp(builtin, "env", 3) == 0 || ft_strncmp(builtin, "ENV", 3) == 0)) 
 		cmd_table->builtin_type = ENV;
-	else if (ft_strlen(builtin) == 4 && (ft_strncmp(builtin, "exit", 4) == 0)) 
+	else if (ft_strlen(builtin) == 4 && (ft_strncmp(builtin, "exit", 4) == 0))
 		cmd_table->builtin_type = EXIT;
 	else
 		return (false);
