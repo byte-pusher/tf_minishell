@@ -6,11 +6,15 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/02 18:50:58 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/02 20:24:51 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+
+
+// - to old pwd
+// nothing also correct input
 
 void	ft_cd(char **cmd_args, t_env *env_tesh)
 {
