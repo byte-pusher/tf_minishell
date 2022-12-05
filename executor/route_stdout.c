@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:32:23 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 16:05:36 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 15:00:45 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_route_stdout(t_cmd_table *cmd_table, t_exec *exec)
 		{
 			if (dup2(exec->fdout, STDOUT_FILENO) == -1)
 				ft_err_msg("dup2");
+			// if (cmd_table->next != NULL)
+			// 	close(STDOUT_FILENO);
 			ft_close_outfiles(cmd_table);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/23 17:57:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 13:04:41 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_get_chartype(char *s, int *i)
 		return (SQUOTE);
 	if (s[*i] == '\"')
 		return (DQUOTE);
-	if (s[*i] == ' ')
+	if (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\n')
 		return (WHITE_SPACE);
 	return (GENERAL);
 }
