@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/05 16:53:13 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/05 17:12:49 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_cd(char **cmd_args, t_env *env_tesh)
 		return ;
 	//check for - 
 	if (ft_strncmp(cmd_args[1], "-", 1) == 0 &&
-		get_old_pwd(env_tesh, "$OLDPWD") != NULL)
+		get_dir(env_tesh, "$OLDPWD") != NULL)
 	{
 		old_pwd = get_dir(env_tesh, "$OLDPWD");
 		set_oldpwd(env_tesh);
@@ -124,7 +124,7 @@ void	ft_cd(char **cmd_args, t_env *env_tesh)
 		return ;
 	}
 	if (ft_strncmp(cmd_args[1], "~", 1) == 0 &&
-		get_old_pwd(env_tesh, "$HOME") != NULL)
+		get_dir(env_tesh, "$HOME") != NULL)
 	{
 		home_dir = get_dir(env_tesh, "$HOME");
 		set_oldpwd(env_tesh);
