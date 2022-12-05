@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 18:25:28 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 22:36:43 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	ft_cpy_string(t_data *data, t_token *new_token, int *i)
 	else if (new_token->type == COMMAND)
 	{
 		while (data->input[*i] != '\0'
-			&& (ft_get_chartype(data->input, i) == GENERAL
-				|| ft_get_chartype(data->input, i) == WHITE_SPACE))
+			&& (ft_get_chartype(data->input, i) == GENERAL))
+				// || ft_get_chartype(data->input, i) == WHITE_SPACE))
 		{
 			(*i)++;
 			end = *i;

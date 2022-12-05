@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
+#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/12/04 15:48:01 by rkoop            ###   ########.fr        #
+#    Updated: 2022/12/05 19:00:12 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CPPFLAGS    = -I/Users/$(USER)/.brew/opt/readline/include
 SRCS  = main.c \
 		init.c \
 		signal.c \
-		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c \
+		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c parser/cmd_parser_utils.c\
 		lexer/lexer.c lexer/lexer_utils.c lexer/expansion.c lexer/expansion_utils.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \

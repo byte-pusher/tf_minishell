@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/05 18:43:29 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/05 19:33:56 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		valid_export(char *cmd_arg)
 
 	i = 0;
 	
-	while (cmd_arg[i] != "\0")
+	while (cmd_arg[i] != '\0')
 	{
 		if (ft_isalpha(cmd_arg[i]) == 1)
 			return (1);

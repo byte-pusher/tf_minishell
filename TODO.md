@@ -2,8 +2,10 @@
 
 - valgrind laufen lassen
 
+- check for open files
+
 - error handling
-	-> what happens with unclosed quotes?
+	-> unclosed quotes (rays fct über slack)
 
 - norminette
 	-> comments löschen
@@ -25,8 +27,16 @@
 		-> otherwise in both lists
 
 - quotes
-	-> "       ls" -> soll nicht funktionieren
-	-> echo "     jo" -> spaces müssen geprintet werden
-	-> oder cat "        out" -> soll auch funktionieren
 	-> "l"s -> ich würde das nicht behandeln
+		-> wenn dann schauen ob is_space danach. wenn ja, quasi ein flag erstellen
+		-> wenn flag == true dann strjoin
 
+- expander
+	bash-3.2$ << "end" cat
+> "$USER"
+> end
+"$USER"
+	bash-3.2$ << end cat
+> $USER
+> end
+gjupy

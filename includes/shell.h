@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 17:28:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 23:25:45 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_token
 {
 	int				end;
 	int				type;
+	bool			mixed_quotes;
 	char			*name;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -115,6 +116,7 @@ typedef struct s_cmd_table
 	bool				cmd_not_found;
 	bool				is_redir;
 	bool				is_builtin;
+	bool				expander_delimiter;
 	pid_t				pid;
 	t_redir				*redir;
 	struct s_cmd_table	*next;
@@ -229,10 +231,12 @@ void		ft_create_cmd_table_lst(t_data *data);
 void		print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
 void		ft_check_redir_err(t_token *token);
 int			get_combined_len(t_token *current_token);
+bool		ft_is_cmd_or_quotes(t_token *token);
 
 /* CMD_PARSER */
-void		ft_command_parser(t_cmd_table *cmd_table, t_token *token,
+void		ft_command_parser(t_cmd_table *cmd_table, t_token **token,
 				t_data *data);
+void		ft_create_cmd_args(t_cmd_table *cmd_table, t_token **token);
 
 /* REDIR_PARSER*/
 void		ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
