@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/05 13:25:39 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/05 16:23:49 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ void	ft_export(char **cmd_args, t_env *env_tesh)
 	node = NULL;
 	last_node = NULL;
 	i = 1;
+	if (cmd_args[i] == NULL)
+	{
+		//print declare -x per var
+		//var vaue has to be quoted
+	}
 	while (cmd_args[i] != NULL )
 	{
 		if (is_var_declaration(cmd_args[i]) == 0)
@@ -82,6 +87,7 @@ void	ft_export(char **cmd_args, t_env *env_tesh)
 			ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * ft_strlen(cmd_args[i]));
 			ft_strncpy(ft_lstlast_env(env_tesh)->var, ft_strtrim(cmd_args[i], "\"\'"), ft_strlen(ft_strtrim(cmd_args[i], "\"\'")));
 		}
+		else
 		i++;
 	}
 }

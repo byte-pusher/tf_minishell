@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/05 16:10:45 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/05 16:53:13 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 // create OLDPWD if it has been unset or non existing
-char	*get_old_pwd(t_env *env_tesh, char *var)
+char	*get_dir(t_env *env_tesh, char *var)
 {
 	t_env	*current_env;
 	size_t	len_current_env_var;
@@ -106,17 +106,29 @@ void	set_pwd(t_env *env_tesh)
 void	ft_cd(char **cmd_args, t_env *env_tesh)
 {
 	char	*old_pwd;
+	char	*home_dir;
 
 	old_pwd = NULL;
+	home_dir = NULL;
+	
 	if (!cmd_args[1])
 		return ;
 	//check for - 
 	if (ft_strncmp(cmd_args[1], "-", 1) == 0 &&
 		get_old_pwd(env_tesh, "$OLDPWD") != NULL)
 	{
-		old_pwd = get_old_pwd(env_tesh, "$OLDPWD");
+		old_pwd = get_dir(env_tesh, "$OLDPWD");
 		set_oldpwd(env_tesh);
 		chdir(old_pwd);
+		set_pwd(env_tesh);
+		return ;
+	}
+	if (ft_strncmp(cmd_args[1], "~", 1) == 0 &&
+		get_old_pwd(env_tesh, "$HOME") != NULL)
+	{
+		home_dir = get_dir(env_tesh, "$HOME");
+		set_oldpwd(env_tesh);
+		chdir(home_dir);
 		set_pwd(env_tesh);
 		return ;
 	}
