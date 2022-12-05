@@ -19,7 +19,10 @@
 
 - cd
 	-> if OLD PWD doesnt exist we have to create
-	-> - flag goes to old
+	~~-> - flag goes to old~~
+	-> add path to error message if not found
 
 - echo
 	-> "echo" hallo
+
+
