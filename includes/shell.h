@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 19:31:31 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 17:28:01 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ typedef struct s_data
 void		ft_init_teshno(t_data *data);
 void		ft_get_env(char **env, t_data *data);
 void		print_env(t_env **lst);
+bool		ft_is_empty(char *input);
 
 /* ************************************************************************** */
 /* FREE																		  */

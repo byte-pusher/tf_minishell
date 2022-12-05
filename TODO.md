@@ -19,10 +19,13 @@
 			--> sometimes jo\nlo, but sometimes also only jo
 			--> so maybe I dont need to handle this
 
-- cd
-	-> if OLD PWD doesnt exist we have to create
-
 - export
 	-> create export list
 	-> handle VAR with no value or only with '=' (should be saved only in the export list)
 		-> otherwise in both lists
+
+- quotes
+	-> "       ls" -> soll nicht funktionieren
+	-> echo "     jo" -> spaces müssen geprintet werden
+	-> oder cat "        out" -> soll auch funktionieren
+	-> "l"s -> ich würde das nicht behandeln

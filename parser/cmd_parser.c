@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:45:09 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 12:34:35 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 18:37:10 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,24 @@ void	ft_command_parser(t_cmd_table *cmd_table, t_token *token, t_data *data)
 {
 	char	**pathnames;
 
-	cmd_table->cmd_args = ft_split(token->name, ' ');
-	if (cmd_table->cmd_args == NULL)
-		exit(ENOMEM);
-	cmd_table->is_command = true;
+	if (ft_is_empty(token->name) == true)
+	{
+		cmd_table->cmd_args = malloc(sizeof(char *) * 2);
+		cmd_table->cmd_args[0] = ft_strdup("\0");
+		cmd_table->cmd_args[1] = NULL;
+		cmd_table->is_command = true;
+		g_exit_status = CMD_NOT_FOUND;
+		cmd_table->cmd_not_found = true;
+		cmd_table->path_name = ft_strdup(cmd_table->cmd_args[0]);
+		return ;
+	}
+	else
+	{
+		cmd_table->cmd_args = ft_split(token->name, ' ');
+		if (cmd_table->cmd_args == NULL)
+			exit(ENOMEM);
+		cmd_table->is_command = true;
+	}
 	if (ft_is_builtin(cmd_table, cmd_table->cmd_args[0]) == true)
 		g_exit_status = SUCCESS;
 	else
