@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/02 19:50:23 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/04 16:01:48 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <string.h>
 #include <stdio.h>
 
-char *get_var(t_data *data, char *var)
+char	*get_var(t_data *data, char *var)
 {
 	t_env	*current_env;
 	size_t	len_current_env_var;
-	size_t 	len_var;
+	size_t	len_var;
 	int		i;
 
 	current_env = data->env_tesh;
@@ -27,31 +27,33 @@ char *get_var(t_data *data, char *var)
 	i = 0;
 	// $  -> stays as $
 	// $$ -> bash: return of current pid. 	NOT IN SUBJECT.
-	if (ft_strncmp("$", var, 1) == 0 && len_var == 1 || ft_strncmp("$$", var, 2) == 0 && len_var == 2)
-		return(var+1);
+	if (ft_strncmp("$", var, 1) == 0 && len_var == 1 ||
+		ft_strncmp("$$", var, 2) == 0 && len_var == 2)
+		return (var+1);
 	// $? -> g_exit_status of last command, from subject: "the exit status of the most recently executed foreground pipeline"
 	if (ft_strncmp("?", var + 1, get_var_len(current_env->var)) == 0)
-		return(ft_itoa(g_exit_status));
+		return (ft_itoa(g_exit_status));
 	while (current_env != NULL)
 	{
 		len_current_env_var = get_var_len(current_env->var);
 		// check if given var is in current list elem->var. ! additional check for case, char *var is empty
-		if (ft_strncmp(current_env->var, var + 1, len_current_env_var) == 0 && var[len_current_env_var + 1] == '\0')
+		if (ft_strncmp(current_env->var, var + 1, len_current_env_var) == 0
+			&& var[len_current_env_var + 1] == '\0')
 		{
-			while(current_env->var[i] != '=')
+			while (current_env->var[i] != '=')
 				i++;
-			return(current_env->var + ft_strlen(var));
+			return (current_env->var + ft_strlen(var));
 		}
 		current_env = current_env->next;
 	}
-	return(NULL);
+	return (NULL);
 }
 
-void insert_value(t_token *token, char *var, char *value, int start_index)
+void	insert_value(t_token *token, char *var, char *value, int start_index)
 {
 	// lens as variables to avoid multiple strlen calls
-	size_t len_token_name;
-	size_t len_value;
+	size_t	len_token_name;
+	size_t	len_value;
 
 	len_token_name = ft_strlen(token->name);
 	//+1 cause of $ in beginng
@@ -75,18 +77,20 @@ void insert_value(t_token *token, char *var, char *value, int start_index)
 		free(token->name);
 		token->name = ft_strtrim(name_expanded, "\"");
 	}
+	free(name_expanded);
+
 }
 
-void expand_tokens(t_data *data, t_token *token)
+void	expand_tokens(t_data *data, t_token *token)
 {
-	char *value;
-	int i;
-	int j;
-	int start;
-	int end;
-	int start_index;
-	int	str_counter;
-	char **var_arr;
+	char	*value;
+	int		i;
+	int		j;
+	int		start;
+	int		end;
+	int		start_index;
+	int		str_counter;
+	char	**var_arr;
 
 	i = 0;
 	j = 0;
@@ -95,13 +99,12 @@ void expand_tokens(t_data *data, t_token *token)
 	value = NULL;
 	start_index = 0;
 	str_counter = 0;
-	var_arr =(char **)malloc(sizeof(char *) * (get_var_amount(token->name) + 1));
+	var_arr = (char **)malloc(sizeof(char *) * (get_var_amount(token->name) + 1));
 
 	while (token->name[i] != '\0')
 	{
 		if (token->name[i] == '$' || ((token->name[i] == '\'' && token->name[i + 1] == '$')))
 		{
-			
 			if (token->name[i] == '\'' && token->name[i + 1] == '$')
 			{
 				i++;
@@ -142,9 +145,9 @@ void expand_tokens(t_data *data, t_token *token)
 	free_var_arr(var_arr);
 }
 
-void expansion(t_data *data)
+void	expansion(t_data *data)
 {
-	t_token *current_token;
+	t_token	*current_token;
 
 	current_token = data->tokens;
 	while (current_token != NULL)

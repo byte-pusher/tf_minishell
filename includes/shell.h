@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
 /*   Updated: 2022/12/05 17:28:01 by gjupy            ###   ########.fr       */
@@ -30,6 +30,7 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <signal.h>
+#include  <sys/wait.h>
 
 /* ************************************************************************** */
 /* READLINE MISSING PROTOTYPES												  */
@@ -246,7 +247,7 @@ void		ft_echo(char **cmd_args);
 void		ft_export(char **cmd_args, t_env *env_tesh);
 void		ft_unset(char **cmd_args, t_env *env_tesh);
 void		ft_cd(char **cmd_args, t_env *env_tesh);
-void		ft_pwd();
+void		ft_pwd(void);
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);
@@ -285,4 +286,3 @@ bool		ft_heredoc_after_infile(t_redir *redir);
 void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table);
 
 #endif
-

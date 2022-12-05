@@ -29,3 +29,4 @@
 	-> echo "     jo" -> spaces müssen geprintet werden
 	-> oder cat "        out" -> soll auch funktionieren
 	-> "l"s -> ich würde das nicht behandeln
+
