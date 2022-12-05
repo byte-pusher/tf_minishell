@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 19:32:04 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 18:25:51 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,24 @@ void	ft_init_input(t_data *data)
 
 	in = readline(TESHNO);
 	data->input = ft_strtrim(in, " ");
+	data->input = ft_strtrim(in, "\t");
 	free(in);
 	if (data->input == NULL)
 		exit(ENOMEM);
+}
+
+bool	ft_is_empty(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] != '\0')
+	{
+		if (ft_is_space(input[i]) == false)
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 void	ft_init_teshno(t_data *data)
@@ -39,7 +54,7 @@ void	ft_init_teshno(t_data *data)
 		ft_init_structs(data);
 		ft_init_input(data);
 		add_history(data->input);
-		if (data->input[0] != '\0' && data->input[0] != EOF)
+		if (ft_is_empty(data->input) == false && data->input[0] != EOF)
 		{
 			ft_lexer(data);
 			expansion(data);

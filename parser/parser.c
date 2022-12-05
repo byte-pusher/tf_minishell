@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 20:15:52 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 18:28:14 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,17 @@ void	ft_create_cmd_table(t_data *data)
 	current_ct = ft_lstfirst_ct(&data->cmd_table);
 	while (current_token != NULL)
 	{
-		if (current_token->type == COMMAND || current_token->type == DQUOTE || current_token->next->type == SQUOTE)
+		if (current_token->type == COMMAND || current_token->type == DQUOTE || current_token->type == SQUOTE)
 		{
 			cmd_token = current_token;
-			if (current_token->next && (current_token->next->type == DQUOTE || current_token->next->type == SQUOTE || current_token->type == COMMAND))
+			if (current_token->next != NULL && (current_token->next->type == DQUOTE || current_token->next->type == SQUOTE || current_token->next->type == COMMAND))
 			{
 				combined_name = (char *)malloc(sizeof(char) * get_combined_len(current_token));
 				ft_strncpy(combined_name, current_token->name, get_combined_len(current_token));
 				current_token = current_token->next;
 				while (current_token && (current_token->type == DQUOTE || current_token->type == SQUOTE || current_token->type == COMMAND ))
 				{
+					cmd_token->name = ft_strjoin(cmd_token->name, " ");
 					cmd_token->name = ft_strjoin(cmd_token->name, current_token->name);
 					cmd_token->name = ft_strjoin(cmd_token->name, " ");
 					current_token = current_token->next;

@@ -15,6 +15,7 @@
 // add print statements for export call without var ->declare list
 // export with var  without = -> in declare list but not in env list 
 
+
 int		is_var_declaration(char *cmd_arg)
 {
 	int	i;
@@ -78,6 +79,7 @@ int		valid_export(char *cmd_arg)
 	return(0);
 }
 
+
 // //declare x functon
 // void	declare_x(t_env *env_tesh)
 // {
@@ -129,6 +131,7 @@ void	ft_export(char **cmd_args, t_env *env_tesh)
 			ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
 			ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * ft_strlen(cmd_args[i]));
 			ft_strncpy(ft_lstlast_env(env_tesh)->var, ft_strtrim(cmd_args[i], "\"\'"), ft_strlen(ft_strtrim(cmd_args[i], "\"\'")));
+
 		}
 		// else if (valid_export(cmd_args[i]) == 0)
 		// {

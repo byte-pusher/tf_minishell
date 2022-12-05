@@ -78,6 +78,7 @@ void	insert_value(t_token *token, char *var, char *value, int start_index)
 		token->name = ft_strtrim(name_expanded, "\"");
 	}
 	free(name_expanded);
+
 }
 
 void	expand_tokens(t_data *data, t_token *token)

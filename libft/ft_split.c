@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:18:22 by rkoop             #+#    #+#             */
-/*   Updated: 2022/04/17 19:03:45 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/05 17:36:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int	count_substrs(char const *s, char c)
 	detect_c = 0;
 	while (s[e] != '\0')
 	{
-		if (s[e] != c && detect_c == 0)
+		if ((s[e] != c && s[e] != '\t' && s[e] != '\n') && detect_c == 0)
 		{
 			detect_c = 1;
 			count++;
 		}
-		else if (s[e] == c)
+		else if ((s[e] == c) || (s[e] == '\t') || (s[e] == '\n'))
 			detect_c = 0;
 		e++;
 	}
@@ -40,7 +40,7 @@ static size_t	count_substr_len(const char *s, char c, size_t stat)
 	size_t	i;
 
 	i = 0;
-	while (s[stat] && s[stat] != c)
+	while (s[stat] && s[stat] != c && s[stat] != '\t' && s[stat] != '\n')
 	{
 		i++;
 		stat++;
@@ -66,7 +66,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	while (i < ft_strlen(s) && itwo < (nb_of_strs))
 	{
-		while (s[i] == c)
+		while ((s[i] == c) || (s[i] == '\t') || (s[i] == '\n'))
 			i++;
 		len = count_substr_len(s, c, i);
 		rtr_arr[itwo] = ft_substr(s, i, len);
