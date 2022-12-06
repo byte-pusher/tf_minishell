@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/06 20:05:54 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/06 20:29:16 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,11 @@ void	expand_tokens(t_data *data, t_token *token)
 			// look up variable in ENV
 			value = get_var(data, var_arr[str_counter]);
 			if (value != NULL)
+			{
 				insert_value(token, var_arr[str_counter], value, start_index);
-			// else if (var_exists(var_arr[str_counter], data->env_tesh) == 1)
+			}
+			dprintf(2, "\n >> %s\n", var_arr[str_counter]);
+			// if (token->type != DQUOTE && var_exists(var_arr[str_counter], data->env_tesh) == 1)
 			// 	ft_str_remove(token->name, var_arr[str_counter]);
 			str_counter++;
 		}
