@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 23:25:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/06 17:55:48 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_cmd_table
 	bool				is_redir;
 	bool				is_builtin;
 	bool				expander_delimiter;
+	bool				mixed_quotes;
 	pid_t				pid;
 	t_redir				*redir;
 	struct s_cmd_table	*next;
@@ -173,14 +174,17 @@ void		ft_free_strings(char ***s);
 /* LEXER																	  */
 /* ************************************************************************** */
 void		ft_lexer(t_data *data);
-bool		ft_is_space(char c);
-int			ft_get_chartype(char *s, int *i);
 void		expansion(t_data *data);
 char		*get_var(t_data *data, char *var);
 int			get_var_len(char *env_var);
 void		ft_str_remove(char *str, const char *sub);
 int			get_var_amount(char *token_name);
 void		free_var_arr(char **var_arr);
+
+/* UTILS */
+bool		ft_is_space(char c);
+bool		ft_is_redir_token(char c);
+int			ft_get_chartype(char *s, int *i);
 
 /* ************************************************************************** */
 /* UTILS																	  */
@@ -284,9 +288,12 @@ bool		ft_is_outfile(t_redir **redir);
 
 // void		ft_heredoc(t_redir *redir, t_exec *exec);
 // void		ft_heredoc(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table);
-void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table);
+void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table, t_data *data);
 bool		ft_is_heredoc(t_redir **redir);
 bool		ft_heredoc_after_infile(t_redir *redir);
-void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table);
+void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table, t_data *data);
+char		*ft_expand_read(char *s, t_data *data);
+bool		ft_is_var(char *s);
+
 
 #endif

@@ -26,12 +26,9 @@
 	-> handle VAR with no value or only with '=' (should be saved only in the export list)
 		-> otherwise in both lists
 
-- quotes
-	-> "l"s -> ich würde das nicht behandeln
-		-> wenn dann schauen ob is_space danach. wenn ja, quasi ein flag erstellen
-		-> wenn flag == true dann strjoin
-
 - expander
+	-> $ alone should not expand
+	-> echo $HOME$USER
 	bash-3.2$ << "end" cat
 > "$USER"
 > end

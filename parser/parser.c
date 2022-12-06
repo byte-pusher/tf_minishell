@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 23:33:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/06 19:07:35 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,7 @@ void	ft_create_cmd_table(t_data *data)
 	while (current_token != NULL)
 	{
 		if (ft_is_cmd_or_quotes(current_token) == true)
-		{
-			if (current_token->type == COMMAND && current_token->prev != NULL
-				&& current_token->prev->type == LESSLESS)
-				current_ct->expander_delimiter = true;
 			ft_command_parser(current_ct, &current_token, data);
-		}
 		if (current_token != NULL)
 		{
 			if (ft_is_redir(current_token->type))

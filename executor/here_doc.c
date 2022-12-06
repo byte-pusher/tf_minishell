@@ -6,36 +6,13 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 20:15:24 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 23:33:09 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/06 19:10:15 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-// void	ft_check_expander(char *read)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (read )
-// }
-
-// void	ft_expand_read(char **read)
-// {
-// 	int		i;
-// 	char	*new_read;
-
-// 	i = 0;
-
-// 	new_read = malloc(ft_strlen(read));
-// 	while (read[i] != '\0')
-// 	{
-// 		while ()
-// 	}
-// 	free(*read);
-// }
-
-void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table)
+void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table, t_data *data)
 {
 	int		len_delimiter;
 	char	*read;
@@ -50,8 +27,8 @@ void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table)
 		if (len_delimiter == ft_strlen(read)
 			&& ft_strncmp(read, redir->file, len_delimiter) == 0)
 			break ;
-		// if (cmd_table->expander_delimiter == true)
-			
+		if (cmd_table->expander_delimiter == true && ft_is_var(read) == true)
+			read = ft_expand_read(read, data);
 		read_nl = ft_strjoin(read, "\n");
 		write(exec->here_fd[WRITE], read_nl, ft_strlen(read_nl));
 		free(read);
@@ -64,7 +41,7 @@ void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table)
 	close(exec->here_fd[WRITE]);
 }
 
-void	ft_heredoc(t_exec *exec, t_cmd_table *cmd_table)
+void	ft_heredoc(t_exec *exec, t_cmd_table *cmd_table, t_data *data)
 {
 	t_redir	*current;
 
@@ -74,7 +51,7 @@ void	ft_heredoc(t_exec *exec, t_cmd_table *cmd_table)
 		if (current->type == LESSLESS)
 		{
 			pipe(exec->here_fd);
-			ft_heredoc_loop(current, exec, cmd_table);
+			ft_heredoc_loop(current, exec, cmd_table, data);
 		}
 		current = current->next;
 	}
