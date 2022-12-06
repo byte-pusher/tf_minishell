@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 15:59:30 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/06 13:08:57 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_env	*ft_lstnew_env(void)
 	node = malloc(sizeof(t_env));
 	if (node == NULL)
 		exit(ENOMEM);
+	node->hidden = false;
 	node->var = NULL;
 	node->next = NULL;
 	return (node);

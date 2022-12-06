@@ -6,14 +6,56 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/04 16:01:48 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/06 20:05:54 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 #include <string.h>
 #include <stdio.h>
+int		is_var_declaration(char *cmd_arg)
+{
+	int	i;
 
+	i = 0;
+	while (cmd_arg[i] != '\0')
+	{
+		if (cmd_arg[i] == '=')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+//get len until =
+int	comp_var_len(char *cmd_arg)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_arg[i] != '\0')
+	{
+		if (cmd_arg[i] == '=')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int		valid_export(char *cmd_arg)
+{
+	int i;
+
+	i = 0;
+	
+	while (cmd_arg[i] != '\0')
+	{
+		if (ft_isalpha(cmd_arg[i]) == 1)
+			return (1);
+		i++;
+	}
+	return(0);
+}
 char	*get_var(t_data *data, char *var)
 {
 	t_env	*current_env;
@@ -115,7 +157,8 @@ void	expand_tokens(t_data *data, t_token *token)
 			else
 			{
 				start = i;
-				while (token->name[i] != ' ' && token->name[i] != '\0' && token->name[i] != '\"')
+				i++;
+				while (token->name[i] != ' ' && token->name[i] != '\0' && token->name[i] != '\"' && token->name[i] != '$' )
 					i++;
 			}
 			end = i;
@@ -135,13 +178,14 @@ void	expand_tokens(t_data *data, t_token *token)
 			value = get_var(data, var_arr[str_counter]);
 			if (value != NULL)
 				insert_value(token, var_arr[str_counter], value, start_index);
-			else
-				ft_str_remove(token->name, var_arr[str_counter]);
+			// else if (var_exists(var_arr[str_counter], data->env_tesh) == 1)
+			// 	ft_str_remove(token->name, var_arr[str_counter]);
 			str_counter++;
 		}
 		i++;
 	}
 	var_arr[str_counter] = NULL;
+	//use free strings?
 	free_var_arr(var_arr);
 }
 
