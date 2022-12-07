@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:32:11 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 21:44:38 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 19:35:16 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,21 @@ bool	ft_is_redir(int type)
 	return (false);
 }
 
-void	ft_check_redir_err(t_token *token)
+bool	ft_check_redir_err(t_token *token)
 {
 	if (token->next == NULL)
 	{
 		g_exit_status = SYNTAX_ERR;
 		ft_err_msg("newline");
+		return (true);
 	}
 	else if (token->next->type != FILE_NAME && token->type != LESSLESS)
 	{
 		g_exit_status = SYNTAX_ERR;
 		ft_err_msg(token->next->name);
+		return (true);
 	}
+	return (false);
 }
 
 void	ft_create_cmd_table_lst(t_data *data)
@@ -78,17 +81,17 @@ bool	ft_is_cmd_or_quotes(t_token *token)
 // 	}
 // }
 
-int		get_combined_len(t_token *current_token)
-{
-	t_token	*tmp;
-	int 	len;
+// int		get_combined_len(t_token *current_token)
+// {
+// 	t_token	*tmp;
+// 	int 	len;
 
-	tmp = current_token->next;
-	len = ft_strlen(current_token->name);
-	while (tmp && (tmp->type == DQUOTE || tmp->type == SQUOTE))
-	{
-			len = len + ft_strlen(tmp->name);
-			tmp = tmp->next;	
-	}
-	return(len);
-}
+// 	tmp = current_token->next;
+// 	len = ft_strlen(current_token->name);
+// 	while (tmp && (tmp->type == DQUOTE || tmp->type == SQUOTE))
+// 	{
+// 			len = len + ft_strlen(tmp->name);
+// 			tmp = tmp->next;	
+// 	}
+// 	return(len);
+// }

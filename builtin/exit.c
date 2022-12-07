@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 15:46:27 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/04 15:47:28 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 20:30:40 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	ft_is_non_num(char *s)
 	return (false);
 }
 
-void	ft_exit(char **cmd_args)
+void	ft_exit(char **cmd_args, t_cmd_table *cmd_table)
 {
 	int	i;
 
@@ -63,5 +63,6 @@ void	ft_exit(char **cmd_args)
 	}
 	if (cmd_args[1] != NULL)
 		ft_save_e_code(cmd_args[1]);
+	ft_lstclear_ct(&cmd_table);
 	exit (g_exit_status);
 }

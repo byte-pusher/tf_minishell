@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 19:03:41 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 20:49:10 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,20 @@ int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
 	else if (cmd_table->builtin_type == EXPORT)
 		ft_export(cmd_table->cmd_args, env_tesh, data);
 	else if (cmd_table->builtin_type == EXIT)
-		ft_exit(cmd_table->cmd_args);
+		ft_exit(cmd_table->cmd_args, cmd_table);
 	return (SUCCESS);
+}
+
+void	ft_close_tmp_heredocs(t_cmd_table *cmd_table)
+{
+	t_cmd_table	*current;
+
+	current = ft_lstfirst_ct(&cmd_table);
+	while (current != NULL)
+	{
+		close(current->here_tmp_fd);
+		current = current->next;
+	}
 }
 
 void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
@@ -36,6 +48,11 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
 	char	**env_arr;
 	int		execve_ret;
 
+	// close(data->exec->end[READ]);
+	// close(data->exec->end[WRITE]);
+	// close(data->exec->tmp_fd);
+	// close(data->exec->stout);
+	// ft_close_tmp_heredocs(cmd_table);
 	env_arr = ft_get_env_arr(env_tesh);
 	if (cmd_table->is_command == true && cmd_table->is_builtin == false)
 		execve_ret = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr);

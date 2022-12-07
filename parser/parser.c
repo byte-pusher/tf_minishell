@@ -6,17 +6,17 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/06 19:07:35 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 19:33:30 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-void	ft_parser_errors(t_token **token)
+void	ft_parser_errors(t_token **token, t_data *data)
 {
 	t_token	*current;
 
-	if ((*token)->type == PIPE || ft_lstlast_t(*token)->type == PIPE)
+	if (((*token)->type == PIPE || ft_lstlast_t(*token)->type == PIPE))
 	{
 		g_exit_status = SYNTAX_ERR;
 		ft_err_msg("|");
@@ -25,19 +25,12 @@ void	ft_parser_errors(t_token **token)
 	current = *token;
 	while (current != NULL)
 	{
-		if (current->next != NULL && current->type == PIPE && current->next->type == PIPE)
-		{
-			g_exit_status = SYNTAX_ERR;
-			ft_err_msg("|");
+		if (ft_check_quotes(data->input) == true)
 			return ;
-		}
-		if (ft_is_redir(current->type) == true)
-		{
-			ft_check_redir_err(current);
-			if (g_exit_status == SYNTAX_ERR)
-				return ;
-		}
-		// check for open quotes. SYNTAX ERROR
+		if (ft_check_pipe_sequence(current) == true)
+			return ;
+		if (ft_is_redir(current->type) == true && ft_check_redir_err(current) == true)
+			return ;
 		current = current->next;
 	}
 	g_exit_status = SUCCESS;
@@ -69,7 +62,7 @@ void	ft_create_cmd_table(t_data *data)
 
 void	ft_parser(t_data *data)
 {
-	ft_parser_errors(&data->tokens);
+	ft_parser_errors(&data->tokens, data);
 	if (g_exit_status != SYNTAX_ERR)
 		ft_create_cmd_table(data);
 	// print_cmd_strings(data->cmd_table);

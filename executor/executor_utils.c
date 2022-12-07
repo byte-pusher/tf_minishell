@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:29:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 14:59:05 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 20:21:44 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_end_prcs(t_exec *exec)
 {
+	close(exec->end[READ]);
+	close(exec->end[WRITE]);
 	close(exec->tmp_fd);
 	close(exec->stout);
 	while (exec->i > 0)

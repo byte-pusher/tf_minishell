@@ -4,9 +4,6 @@
 
 - check for open files
 
-- error handling
-	-> unclosed quotes (rays fct über slack)
-
 - norminette
 	-> comments löschen
 	-> #define Ding klären
@@ -21,19 +18,10 @@
 			--> sometimes jo\nlo, but sometimes also only jo
 			--> so maybe I dont need to handle this
 
-- export
-	-> create export list
-	-> handle VAR with no value or only with '=' (should be saved only in the export list)
-		-> otherwise in both lists
-
 - expander
 	-> $ alone should not expand
-	-> echo $HOME$USER
-	bash-3.2$ << "end" cat
-> "$USER"
-> end
-"$USER"
-	bash-3.2$ << end cat
-> $USER
-> end
-gjupy
+
+- exit function
+	-> just exit or free stuff?
+
+- open fds
