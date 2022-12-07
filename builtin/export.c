@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/06 19:52:20 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 15:05:03 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	var_exists_del(char *cmd_arg, t_env *env_tesh)
 		}
 		else if (current_env->hidden == true)
 		{
-			if (ft_strncmp(current_env->var, cmd_arg, ft_strlen(cmd_arg) == 0))
+			if (ft_strncmp(current_env->var, cmd_arg, var_len) == 0)
 			{
 				ft_lstdel_env(env_tesh, current_env);
 				return (0);
@@ -67,8 +67,6 @@ int	var_exists(char *cmd_arg, t_env *env_tesh)
 	return (1);
 }
 
-
-// //declare x functon
 void	print_declare_x(t_env *env_tesh)
 {
 	t_env	*current_env;
@@ -113,7 +111,7 @@ int		is_valid_input(char *cmd_arg)
 	}
 	while (cmd_arg[i] != '\0')
 	{
-		if (cmd_arg[i] == ')' || cmd_arg[i] == '(' || cmd_arg[i] == '&')
+		if (cmd_arg[i] == ')' || cmd_arg[i] == '(' || cmd_arg[i] == '&' || cmd_arg[i] == '+')
 			return (1);
 		if (cmd_arg[i] == '!')
 		{
@@ -128,7 +126,6 @@ int		is_valid_input(char *cmd_arg)
 }
 
 
-//simple version, if var already exists, deletes elem in lst and creates new
 void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 {
 	t_env	*node;
@@ -145,19 +142,24 @@ void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 	{
 		if (is_valid_input(cmd_args[i]) == 0)
 		{
-			var_exists_del(cmd_args[i], env_tesh);
-			ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
-			ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * ft_strlen(cmd_args[i]));
-			ft_strncpy(ft_lstlast_env(env_tesh)->var, ft_strtrim(cmd_args[i], "\"\'"), ft_strlen(ft_strtrim(cmd_args[i], "\"\'")));
-			if (is_var_declaration(cmd_args[i]) == 1)
-				ft_lstlast_env(env_tesh)->hidden = true;
+			//export a if a=xz exists already, nothing happens
+			if (is_var_declaration(cmd_args[i]) == 1 && var_exists(cmd_args[i], env_tesh) == 0)
+				dprintf(2, "\ngotcha");	
+			else
+			{
+				var_exists_del(cmd_args[i], env_tesh);
+				ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
+				ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * ft_strlen(cmd_args[i]));
+				ft_strncpy(ft_lstlast_env(env_tesh)->var, ft_strtrim(cmd_args[i], "\"\'"), ft_strlen(ft_strtrim(cmd_args[i], "\"\'")));
+				if (is_var_declaration(cmd_args[i]) == 1)
+					ft_lstlast_env(env_tesh)->hidden = true;
+			}
 		}
-		// else if (is_valid_input(cmd_args[i]) == 1)
-		// {
-		// 	g_exit_status = ;
-		// // 	//combine str for error message
-		// // 	ft_err_msg("export: '%s': not a valid identifier", &cmd_args[i]);
-		// }
+		else if (is_valid_input(cmd_args[i]) == 1)
+		{
+			g_exit_status = INVALID_IDENTIFIER;	
+			ft_err_msg(cmd_args[i]);
+		}
 		i++;
 	}
 }

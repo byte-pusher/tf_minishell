@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/06 19:52:32 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 13:34:29 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ enum e_ERROR_TYPE
 	CMD_NOT_FOUND = 127,
 	NON_NUM_ARG = 255,
 	SYNTAX_ERR = 258,
+	INVALID_IDENTIFIER = 260,
 	ABORT
 };
 

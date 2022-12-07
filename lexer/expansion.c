@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/06 20:29:16 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 16:32:54 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,13 @@ void	insert_value(t_token *token, char *var, char *value, int start_index)
 	// strlcat to copy rest of strB (strcC, strA + x)
 	ft_strlcat(name_expanded, token->name + start_index, (len_token_name + len_value));
 	// free & replace token name with extended str
+	//dprintf(2, "\ntoken name %s\n", token->name);
 	if (token->name != NULL)
 	{
 		free(token->name);
 		token->name = ft_strtrim(name_expanded, "\"");
 	}
 	free(name_expanded);
-
 }
 
 void	expand_tokens(t_data *data, t_token *token)
@@ -149,9 +149,10 @@ void	expand_tokens(t_data *data, t_token *token)
 		{
 			if (token->name[i] == '\'' && token->name[i + 1] == '$')
 			{
+				dprintf(2, "\nhereee");
 				i++;
 				start = i;
-				while (token->name[i] != '\'')
+				while (token->name[i] != '\'' && token->name[i] != '\0' && token->name[i] != ' ')
 					i++;
 			}
 			else
@@ -166,6 +167,7 @@ void	expand_tokens(t_data *data, t_token *token)
 			if (var_arr[str_counter]  == NULL)
 				exit(ENOMEM);
 			start_index = start;
+			dprintf(2, "\nstart token: %s", &token->name[start]);
 			while (start < end)
 			{
 				var_arr[str_counter][j] = token->name[start];
@@ -175,14 +177,17 @@ void	expand_tokens(t_data *data, t_token *token)
 			var_arr[str_counter][j] = '\0';
 			j = 0;
 			// look up variable in ENV
+			//dprintf(2, "\nvar: %s", var_arr[str_counter]);
 			value = get_var(data, var_arr[str_counter]);
+			//dprintf(2, "\nvalue: %s", value);
 			if (value != NULL)
 			{
 				insert_value(token, var_arr[str_counter], value, start_index);
 			}
-			dprintf(2, "\n >> %s\n", var_arr[str_counter]);
-			// if (token->type != DQUOTE && var_exists(var_arr[str_counter], data->env_tesh) == 1)
-			// 	ft_str_remove(token->name, var_arr[str_counter]);
+			
+			else if (token->type != DQUOTE && var_exists(var_arr[str_counter], data->env_tesh) == 1)
+				ft_str_remove(token->name, var_arr[str_counter]);
+				
 			str_counter++;
 		}
 		i++;
