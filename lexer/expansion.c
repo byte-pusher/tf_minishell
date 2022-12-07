@@ -6,13 +6,39 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/07 16:55:57 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 18:28:34 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 #include <string.h>
 #include <stdio.h>
+
+
+int	exp_var_exists(char *cmd_arg, t_env *env_tesh)
+{
+	t_env	*current_env;
+	int		var_len;
+
+	current_env = env_tesh;
+	var_len = comp_var_len(cmd_arg);
+	while (current_env != NULL)
+	{
+		if(current_env->hidden == false)
+		{
+			if (ft_strncmp(current_env->var, cmd_arg, var_len) == 0)
+				return (0);
+		}
+		else if (current_env->hidden == true)
+		{
+			if (ft_strncmp(current_env->var, cmd_arg, ft_strlen(cmd_arg) == 0))
+				return (0);
+		}
+		current_env = current_env->next;
+	}
+	return (1);
+}
+
 int		is_var_declaration(char *cmd_arg)
 {
 	int	i;
@@ -142,7 +168,6 @@ void	expand_tokens(t_data *data, t_token *token)
 	start_index = 0;
 	str_counter = 0;
 	var_arr = (char **)malloc(sizeof(char *) * (get_var_amount(token->name) + 1));
-
 	while (token->name[i] != '\0')
 	{
 		if (token->name[i] == '$' || ((token->name[i] == '\'' && token->name[i + 1] == '$')))
@@ -190,10 +215,14 @@ void	expand_tokens(t_data *data, t_token *token)
 			{
 				insert_value(token, var_arr[str_counter], value, start_index);
 			}
-			
-			else if (token->type != DQUOTE && var_exists(var_arr[str_counter], data->env_tesh) == 1)
+			// else if (token->type != DQUOTE && exp_var_exists(var_arr[str_counter], data->env_tesh) == 0)
+			// {
+			// 	ft_str_remove(token->name, var_arr[str_counter]);
+			// 	dprintf(2,"\ndeleting\n");
+			// }
+			else
 				ft_str_remove(token->name, var_arr[str_counter]);
-				
+			//dprintf(2,"\ntoken type:%i", token->type);	
 			str_counter++;
 		}
 		i++;
