@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/07 16:32:54 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 16:55:57 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,25 +149,31 @@ void	expand_tokens(t_data *data, t_token *token)
 		{
 			if (token->name[i] == '\'' && token->name[i + 1] == '$')
 			{
-				dprintf(2, "\nhereee");
 				i++;
 				start = i;
+				//dprintf(2, "char %c", token->name[i]);
 				while (token->name[i] != '\'' && token->name[i] != '\0' && token->name[i] != ' ')
+				{
 					i++;
+					if (token->name[i] == '$')
+						break ;
+				}
+					
 			}
 			else
 			{
 				start = i;
 				i++;
-				while (token->name[i] != ' ' && token->name[i] != '\0' && token->name[i] != '\"' && token->name[i] != '$' )
+				while (token->name[i] != ' ' && token->name[i] != '\0' && token->name[i] != '\"' && token->name[i] != '$' && token->name[i] != '\'' )
 					i++;
+
 			}
 			end = i;
 			var_arr[str_counter] = malloc(sizeof(char) * (end - start) + 1);
 			if (var_arr[str_counter]  == NULL)
 				exit(ENOMEM);
 			start_index = start;
-			dprintf(2, "\nstart token: %s", &token->name[start]);
+			
 			while (start < end)
 			{
 				var_arr[str_counter][j] = token->name[start];
