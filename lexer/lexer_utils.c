@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 13:04:41 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/06 15:12:15 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,16 @@ bool	ft_is_space(char c)
 {
 	if (c == ' ' || c == '\n' || c == '\t')
 		return (true);
-	return (false);
+	else
+		return (false);
+}
+
+bool	ft_is_redir_token(char c)
+{
+	if (c == '>' || c == '<')
+		return (true);
+	else
+		return (false);
 }
 
 int	ft_get_chartype(char *s, int *i)

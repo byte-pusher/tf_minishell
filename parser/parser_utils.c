@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:32:11 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 17:17:25 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/05 21:44:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_check_redir_err(t_token *token)
 		g_exit_status = SYNTAX_ERR;
 		ft_err_msg("newline");
 	}
-	else if (token->next->type != FILE_NAME)
+	else if (token->next->type != FILE_NAME && token->type != LESSLESS)
 	{
 		g_exit_status = SYNTAX_ERR;
 		ft_err_msg(token->next->name);
@@ -46,6 +46,14 @@ void	ft_create_cmd_table_lst(t_data *data)
 			ft_lstadd_back_ct(&data->cmd_table, ft_lstnew_ct());
 		current = current->next;
 	}
+}
+
+bool	ft_is_cmd_or_quotes(t_token *token)
+{
+	if (token->type == COMMAND || token->type == SQUOTE || token->type == DQUOTE)
+		return (true);
+	else
+		return (false);
 }
 
 // void	print_cmd_strings(t_cmd_table *cmd_table)

@@ -6,13 +6,13 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:54:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:23:24 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/06 17:21:09 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-void	ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table)
+void	ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table, t_data *data)
 {
 	t_cmd_table	*current;
 
@@ -20,7 +20,7 @@ void	ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table)
 	while (current != NULL)
 	{
 		if (current->is_redir == true && ft_is_heredoc(&current->redir) == true)
-			ft_heredoc(exec, current);
+			ft_heredoc(exec, current, data);
 		current = current->next;
 	}
 }

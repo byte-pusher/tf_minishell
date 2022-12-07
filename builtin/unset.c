@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:28:21 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/04 15:42:33 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/05 20:58:02 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_unset(char **cmd_args, t_env *env_tesh)
 	i = 1;
 	while (cmd_args[i] != NULL)
 	{
-		current_env = env_tesh;
+		current_env = ft_lstfirst_env(&env_tesh);
 		while (current_env != NULL)
 		{
 			if (ft_strnstr(current_env->var, cmd_args[i],

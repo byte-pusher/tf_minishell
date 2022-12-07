@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:02:09 by rkoop             #+#    #+#             */
-/*   Updated: 2022/11/28 17:07:31 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 17:56:21 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ int	get_var_amount(char *token_name)
 	
 	i = 0;
 	count = 0;
+	// printf("%s\n", token_name);
 	while(token_name[i] != '\0')
 	{
 		if (token_name[i] == '$')
 			count++;
 		i++;
 	}
-	return(count);
+	return (count);
 }
 
 int get_var_len(char *env_var)

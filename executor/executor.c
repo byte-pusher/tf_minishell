@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 14:52:23 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/06 17:20:57 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	ft_executor(t_data *data)
 	t_cmd_table	*current;
 	t_exec		*exec;
 
+	if (g_exit_status == SYNTAX_ERR)
+		return ;
 	current = ft_lstfirst_ct(&data->cmd_table);
 	if (ft_check_single_builtin(current) == true)
 	{
@@ -107,7 +109,7 @@ void	ft_executor(t_data *data)
 		return ;
 	}
 	exec = ft_create_exec();
-	ft_open_heredocs(exec, &data->cmd_table);
+	ft_open_heredocs(exec, &data->cmd_table, data);
 	while (current != NULL)
 	{
 		if (ft_create_child_prc(current, data->env_tesh, exec) == -1)

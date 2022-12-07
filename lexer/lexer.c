@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 18:25:28 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/06 19:09:19 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,18 @@ void	ft_cpy_string(t_data *data, t_token *new_token, int *i)
 	else if (new_token->type == COMMAND)
 	{
 		while (data->input[*i] != '\0'
-			&& (ft_get_chartype(data->input, i) == GENERAL
-				|| ft_get_chartype(data->input, i) == WHITE_SPACE))
+			&& (ft_get_chartype(data->input, i) == GENERAL))
+				// || ft_get_chartype(data->input, i) == WHITE_SPACE))
 		{
 			(*i)++;
 			end = *i;
 		}
 	}
+	if (data->input[*i] == '\"' || data->input[*i] == '\'')
+		new_token->mixed_quotes = true;
 	(*i)--;
 	new_token->name = ft_substr(data->input, start, end - start);
+	ft_strtrim(new_token->name, "\t\n ");
 }
 
 void	ft_handle_cmd(t_data *data, int *i, int type)
@@ -105,7 +108,11 @@ void	ft_handle_quotes(t_data *data, int *i, int type)
 		(*i)++;
 		end = *i;
 		if (data->input[*i] == c)
+		{
+			if (ft_is_space(data->input[(*i) + 1]) == false && ft_is_redir_token(data->input[(*i) + 1]) == false)
+				new_token->mixed_quotes = true;
 			break ;
+		}
 	}
 	end++;
 	new_token->name = ft_substr(data->input, start + 1, end - start - 2);

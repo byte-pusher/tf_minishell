@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 17:28:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 16:54:04 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_token
 {
 	int				end;
 	int				type;
+	bool			mixed_quotes;
 	char			*name;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -115,6 +116,8 @@ typedef struct s_cmd_table
 	bool				cmd_not_found;
 	bool				is_redir;
 	bool				is_builtin;
+	bool				expander_delimiter;
+	bool				mixed_quotes;
 	pid_t				pid;
 	t_redir				*redir;
 	struct s_cmd_table	*next;
@@ -156,6 +159,11 @@ typedef struct s_data
 	t_cmd_table	*cmd_table;
 }	t_data;
 
+typedef struct s_heredoc
+{
+	char	*read;
+}	t_heredoc;
+
 void		ft_init_teshno(t_data *data);
 void		ft_get_env(char **env, t_data *data);
 void		print_env(t_env **lst);
@@ -171,14 +179,17 @@ void		ft_free_strings(char ***s);
 /* LEXER																	  */
 /* ************************************************************************** */
 void		ft_lexer(t_data *data);
-bool		ft_is_space(char c);
-int			ft_get_chartype(char *s, int *i);
 void		expansion(t_data *data);
 char		*get_var(t_data *data, char *var);
 int			get_var_len(char *env_var);
 void		ft_str_remove(char *str, const char *sub);
 int			get_var_amount(char *token_name);
 void		free_var_arr(char **var_arr);
+
+/* UTILS */
+bool		ft_is_space(char c);
+bool		ft_is_redir_token(char c);
+int			ft_get_chartype(char *s, int *i);
 
 /* ************************************************************************** */
 /* UTILS																	  */
@@ -229,10 +240,12 @@ void		ft_create_cmd_table_lst(t_data *data);
 void		print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
 void		ft_check_redir_err(t_token *token);
 int			get_combined_len(t_token *current_token);
+bool		ft_is_cmd_or_quotes(t_token *token);
 
 /* CMD_PARSER */
-void		ft_command_parser(t_cmd_table *cmd_table, t_token *token,
+void		ft_command_parser(t_cmd_table *cmd_table, t_token **token,
 				t_data *data);
+void		ft_create_cmd_args(t_cmd_table *cmd_table, t_token **token);
 
 /* REDIR_PARSER*/
 void		ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
@@ -280,9 +293,13 @@ bool		ft_is_outfile(t_redir **redir);
 
 // void		ft_heredoc(t_redir *redir, t_exec *exec);
 // void		ft_heredoc(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table);
-void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table);
+void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table, t_data *data);
 bool		ft_is_heredoc(t_redir **redir);
 bool		ft_heredoc_after_infile(t_redir *redir);
-void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table);
+void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table, t_data *data);
+// char		*ft_expand_read(char *s, t_data *data);
+void		ft_expand_read(t_heredoc *heredoc, t_data *data);
+bool		ft_is_var(char *s);
+
 
 #endif

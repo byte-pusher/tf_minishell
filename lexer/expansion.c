@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/04 16:01:48 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/05 22:02:39 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,14 @@ void	expansion(t_data *data)
 	while (current_token != NULL)
 	{
 		if (current_token->type == DQUOTE || current_token->type == COMMAND)
+		{
+			if (current_token->prev != NULL && current_token->prev->type == LESSLESS)
+			{
+				current_token = current_token->next;
+				continue ;
+			}
 			expand_tokens(data, current_token);
+		}
 		current_token = current_token->next;
 	}
 }

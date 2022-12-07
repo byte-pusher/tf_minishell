@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:53:16 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 20:02:08 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_token	*ft_lstnew_t(void)
 	node = malloc(sizeof(t_token));
 	if (node == NULL)
 		exit(ENOMEM);
+	node->mixed_quotes = false;
 	node->name = NULL;
 	node->next = NULL;
 	node->prev = NULL;

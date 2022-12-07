@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 21:40:05 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 18:31:21 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/05 21:11:01 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_env(t_env **lst)
 	t_env	*current;
 
 	current = *lst;
-	while (current)
+	while (current != NULL)
 	{
 		printf("%s\n", current->var);
 		current = current->next;
