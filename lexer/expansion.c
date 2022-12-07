@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/05 22:02:39 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 18:28:34 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,74 @@
 #include <string.h>
 #include <stdio.h>
 
+
+int	exp_var_exists(char *cmd_arg, t_env *env_tesh)
+{
+	t_env	*current_env;
+	int		var_len;
+
+	current_env = env_tesh;
+	var_len = comp_var_len(cmd_arg);
+	while (current_env != NULL)
+	{
+		if(current_env->hidden == false)
+		{
+			if (ft_strncmp(current_env->var, cmd_arg, var_len) == 0)
+				return (0);
+		}
+		else if (current_env->hidden == true)
+		{
+			if (ft_strncmp(current_env->var, cmd_arg, ft_strlen(cmd_arg) == 0))
+				return (0);
+		}
+		current_env = current_env->next;
+	}
+	return (1);
+}
+
+int		is_var_declaration(char *cmd_arg)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_arg[i] != '\0')
+	{
+		if (cmd_arg[i] == '=')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+//get len until =
+int	comp_var_len(char *cmd_arg)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_arg[i] != '\0')
+	{
+		if (cmd_arg[i] == '=')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int		valid_export(char *cmd_arg)
+{
+	int i;
+
+	i = 0;
+	
+	while (cmd_arg[i] != '\0')
+	{
+		if (ft_isalpha(cmd_arg[i]) == 1)
+			return (1);
+		i++;
+	}
+	return(0);
+}
 char	*get_var(t_data *data, char *var)
 {
 	t_env	*current_env;
@@ -72,13 +140,13 @@ void	insert_value(t_token *token, char *var, char *value, int start_index)
 	// strlcat to copy rest of strB (strcC, strA + x)
 	ft_strlcat(name_expanded, token->name + start_index, (len_token_name + len_value));
 	// free & replace token name with extended str
+	//dprintf(2, "\ntoken name %s\n", token->name);
 	if (token->name != NULL)
 	{
 		free(token->name);
 		token->name = ft_strtrim(name_expanded, "\"");
 	}
 	free(name_expanded);
-
 }
 
 void	expand_tokens(t_data *data, t_token *token)
@@ -100,7 +168,6 @@ void	expand_tokens(t_data *data, t_token *token)
 	start_index = 0;
 	str_counter = 0;
 	var_arr = (char **)malloc(sizeof(char *) * (get_var_amount(token->name) + 1));
-
 	while (token->name[i] != '\0')
 	{
 		if (token->name[i] == '$' || ((token->name[i] == '\'' && token->name[i + 1] == '$')))
@@ -109,20 +176,29 @@ void	expand_tokens(t_data *data, t_token *token)
 			{
 				i++;
 				start = i;
-				while (token->name[i] != '\'')
+				//dprintf(2, "char %c", token->name[i]);
+				while (token->name[i] != '\'' && token->name[i] != '\0' && token->name[i] != ' ')
+				{
 					i++;
+					if (token->name[i] == '$')
+						break ;
+				}
+					
 			}
 			else
 			{
 				start = i;
-				while (token->name[i] != ' ' && token->name[i] != '\0' && token->name[i] != '\"')
+				i++;
+				while (token->name[i] != ' ' && token->name[i] != '\0' && token->name[i] != '\"' && token->name[i] != '$' && token->name[i] != '\'' )
 					i++;
+
 			}
 			end = i;
 			var_arr[str_counter] = malloc(sizeof(char) * (end - start) + 1);
 			if (var_arr[str_counter]  == NULL)
 				exit(ENOMEM);
 			start_index = start;
+			
 			while (start < end)
 			{
 				var_arr[str_counter][j] = token->name[start];
@@ -132,16 +208,27 @@ void	expand_tokens(t_data *data, t_token *token)
 			var_arr[str_counter][j] = '\0';
 			j = 0;
 			// look up variable in ENV
+			//dprintf(2, "\nvar: %s", var_arr[str_counter]);
 			value = get_var(data, var_arr[str_counter]);
+			//dprintf(2, "\nvalue: %s", value);
 			if (value != NULL)
+			{
 				insert_value(token, var_arr[str_counter], value, start_index);
+			}
+			// else if (token->type != DQUOTE && exp_var_exists(var_arr[str_counter], data->env_tesh) == 0)
+			// {
+			// 	ft_str_remove(token->name, var_arr[str_counter]);
+			// 	dprintf(2,"\ndeleting\n");
+			// }
 			else
 				ft_str_remove(token->name, var_arr[str_counter]);
+			//dprintf(2,"\ntoken type:%i", token->type);	
 			str_counter++;
 		}
 		i++;
 	}
 	var_arr[str_counter] = NULL;
+	//use free strings?
 	free_var_arr(var_arr);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 21:40:05 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 21:11:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/06 15:01:56 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	print_env(t_env **lst)
 	current = *lst;
 	while (current != NULL)
 	{
-		printf("%s\n", current->var);
+		if (current->hidden == false)
+			printf("%s\n", current->var);
 		current = current->next;
 	}
 }

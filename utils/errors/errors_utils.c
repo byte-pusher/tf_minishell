@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:21:13 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 21:26:47 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 13:39:26 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ void	ft_synt_err(char *s)
 	write(STDERR_FILENO, "\n", 1);
 }
 
+void	ft_invalid_err(char *s)
+{
+	ft_putstr_fd("`", 2);
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd("': not a valid identifier", 2);
+	write(STDERR_FILENO, "\n", 1);
+}
+
 void	ft_err_msg(char *s)
 {
 	write(2, "teshno: ", 8);
@@ -34,6 +42,8 @@ void	ft_err_msg(char *s)
 		ft_synt_err(s);
 	else if (g_exit_status == CMD_NOT_FOUND)
 		ft_cmd_err(s);
+	else if (g_exit_status == INVALID_IDENTIFIER)
+		ft_invalid_err(s);
 	else
 		perror(s);
 }

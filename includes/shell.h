@@ -65,6 +65,7 @@ enum e_ERROR_TYPE
 	CMD_NOT_FOUND = 127,
 	NON_NUM_ARG = 255,
 	SYNTAX_ERR = 258,
+	INVALID_IDENTIFIER = 260,
 	ABORT
 };
 
@@ -257,10 +258,15 @@ bool		ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
 void		ft_exit(char **arg);
 void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
-void		ft_export(char **cmd_args, t_env *env_tesh);
+void		ft_export(char **cmd_args, t_env *env_tesh, t_data *data);
 void		ft_unset(char **cmd_args, t_env *env_tesh);
 void		ft_cd(char **cmd_args, t_env *env_tesh);
 void		ft_pwd(void);
+int			is_var_declaration(char *cmd_arg);
+int			comp_var_len(char *cmd_arg);
+int			valid_export(char *cmd_arg);
+int			var_exists(char *cmd_arg, t_env *env_tesh);
+
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);
