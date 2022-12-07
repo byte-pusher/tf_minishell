@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:13:43 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/06 19:09:10 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 18:29:23 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,34 +61,31 @@ char	*get_var_hd(char *var, t_data *data)
 	return (NULL);
 }
 
-char	*insert_value_hd(char *read, char *read_sub, char *value, int start_index)
+void	insert_value_hd(t_heredoc *heredoc, char *read_sub, char *value, int start_index)
 {
 	// lens as variables to avoid multiple strlen calls
 	size_t	len_token_name;
 	size_t	len_value;
 	char	*new_read;
 
-	len_token_name = ft_strlen(read);
-	//+1 cause of $ in beginng
+	len_token_name = ft_strlen(heredoc->read);
 	len_value = ft_strlen(value) + 1;
-	// remove $var from read
-	ft_str_remove(read, read_sub);
-	// second: insert value
-	// allocate new string for concenated one
+	ft_str_remove(heredoc->read, read_sub);
 	new_read = malloc(sizeof(char) * (len_token_name + len_value));
 	if (new_read == NULL)
 		exit(ENOMEM);
-	// copy first strA until start to new strC
-	ft_strlcpy(new_read, read, start_index + 1);
-	// strlcat to copy strB
+	ft_strlcpy(new_read, heredoc->read, start_index + 1);
 	ft_strlcat(new_read, value, (len_token_name + len_value));
-	// strlcat to copy rest of strB (strcC, strA + x)
-	ft_strlcat(new_read, read + start_index, (len_token_name + len_value));
-	// free & replace token name with extended str
-	return (new_read);
+	ft_strlcat(new_read, heredoc->read + start_index, (len_token_name + len_value));
+	if (heredoc->read != NULL)
+	{
+		free(heredoc->read);
+		heredoc->read = ft_strdup(new_read);
+	}
+	free(new_read);
 }
 
-char	*ft_expand_read(char *read, t_data *data)
+void	ft_expand_read(t_heredoc *heredoc, t_data *data)
 {
 	char	*new_read;
 	char	*value;
@@ -103,30 +100,36 @@ char	*ft_expand_read(char *read, t_data *data)
 	end = 0;
 	// value = NULL;
 	str_counter = 0;
-	read_sub_arr = (char **)malloc(sizeof(char *) * (get_var_amount(read) + 1));
-	while (read[i] != '\0')
+	int	var_amount = get_var_amount(heredoc->read);
+	read_sub_arr = (char **)malloc(sizeof(char *) * (var_amount + 1));
+	while (heredoc->read[i] != '\0')
 	{
-		if (read[i] == '$' || read[i + 1] == '$')
+		if (heredoc->read[i] == '$')
 		{
+			var_amount--;
 			start = i;
-			while (read[i] != ' ' && read[i] != '\0' && read[i] != '$')
+			i++;
+			while (heredoc->read[i] != ' ' && heredoc->read[i] != '\0' && heredoc->read[i] != '$'
+					&& heredoc->read[i] != '\"' && heredoc->read[i] != '\'')
 				i++;
-		}
 			end = i;
-			read_sub_arr[str_counter] = ft_substr(read, start, end - start);
+			read_sub_arr[str_counter] = ft_substr(heredoc->read, start, end - start);
 			if (read_sub_arr[str_counter] == NULL)
 				exit(ENOMEM);
-			// look up variable in ENV
 			value = get_var_hd(read_sub_arr[str_counter], data);
 			if (value != NULL)
-				new_read = insert_value_hd(read, read_sub_arr[str_counter], value, start);
+				insert_value_hd(heredoc, read_sub_arr[str_counter], value, start);
 			else
-				ft_str_remove(read, read_sub_arr[str_counter]);
+				ft_str_remove(heredoc->read, read_sub_arr[str_counter]);
 			str_counter++;
+			if (var_amount)
+			{
+				i = start;
+				continue;
+			}
+		}
 		i++;
 	}
 	read_sub_arr[str_counter] = NULL;
-	// ft_free_strings(&read_sub_arr);
-	return (new_read);
-	// if var doesent exist return "\0"
+	ft_free_strings(&read_sub_arr);
 }

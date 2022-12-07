@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/06 17:55:48 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 16:54:04 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,11 @@ typedef struct s_data
 	t_cmd_table	*cmd_table;
 }	t_data;
 
+typedef struct s_heredoc
+{
+	char	*read;
+}	t_heredoc;
+
 void		ft_init_teshno(t_data *data);
 void		ft_get_env(char **env, t_data *data);
 void		print_env(t_env **lst);
@@ -292,7 +297,8 @@ void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table, t_data *data);
 bool		ft_is_heredoc(t_redir **redir);
 bool		ft_heredoc_after_infile(t_redir *redir);
 void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table, t_data *data);
-char		*ft_expand_read(char *s, t_data *data);
+// char		*ft_expand_read(char *s, t_data *data);
+void		ft_expand_read(t_heredoc *heredoc, t_data *data);
 bool		ft_is_var(char *s);
 
 
