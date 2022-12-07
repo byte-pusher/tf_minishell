@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 20:15:24 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/07 17:05:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 18:30:19 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table, t_dat
 {
 	int			len_delimiter;
 	t_heredoc	heredoc;
-	// char	*read;
-	char	*read_nl;
+	char		*read_nl;
 
 	len_delimiter = ft_strlen(redir->file);
 	while (true)
