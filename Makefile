@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
+#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
 #    Updated: 2022/12/06 19:51:23 by rkoop            ###   ########.fr        #
@@ -27,14 +27,14 @@ CPPFLAGS    = -I/Users/$(USER)/.brew/opt/readline/include
 SRCS  = main.c \
 		init.c \
 		signal.c \
-		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c \
+		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c parser/cmd_parser_utils.c\
 		lexer/lexer.c lexer/lexer_utils.c lexer/expansion.c lexer/expansion_utils.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
 		executor/executor.c executor/executor_utils.c \
 		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/export_utils.c builtin/cd.c builtin/pwd.c  builtin/exit.c\
-		executor/here_doc.c executor/here_doc_utils.c \
+		executor/here_doc.c executor/here_doc_utils.c executor/here_doc_utils_2.c \
 		executor/route_stdin.c executor/route_stdin_utils.c \
 		executor/route_stdout.c executor/route_stdout_utils.c \
 

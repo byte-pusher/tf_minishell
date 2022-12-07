@@ -2,8 +2,10 @@
 
 - valgrind laufen lassen
 
+- check for open files
+
 - error handling
-	-> what happens with unclosed quotes?
+	-> unclosed quotes (rays fct über slack)
 
 - norminette
 	-> comments löschen
@@ -24,9 +26,14 @@
 	-> handle VAR with no value or only with '=' (should be saved only in the export list)
 		-> otherwise in both lists
 
-- quotes
-	-> "       ls" -> soll nicht funktionieren
-	-> echo "     jo" -> spaces müssen geprintet werden
-	-> oder cat "        out" -> soll auch funktionieren
-	-> "l"s -> ich würde das nicht behandeln
-
+- expander
+	-> $ alone should not expand
+	-> echo $HOME$USER
+	bash-3.2$ << "end" cat
+> "$USER"
+> end
+"$USER"
+	bash-3.2$ << end cat
+> $USER
+> end
+gjupy

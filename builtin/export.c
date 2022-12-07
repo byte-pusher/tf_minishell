@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
 /*   Updated: 2022/12/07 15:05:03 by rkoop            ###   ########.fr       */
@@ -99,6 +99,7 @@ int		is_valid_input(char *cmd_arg)
 	int	i;
 
 	i = 0;
+
 	if (is_var_declaration(cmd_arg) == 0)
 	{
 		while (cmd_arg[i] != '=')

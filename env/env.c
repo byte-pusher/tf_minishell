@@ -17,7 +17,7 @@ void	print_env(t_env **lst)
 	t_env	*current;
 
 	current = *lst;
-	while (current)
+	while (current != NULL)
 	{
 		if (current->hidden == false)
 			printf("%s\n", current->var);

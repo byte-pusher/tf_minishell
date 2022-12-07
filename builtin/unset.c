@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:28:21 by rkoop             #+#    #+#             */
 /*   Updated: 2022/12/07 16:19:27 by rkoop            ###   ########.fr       */
@@ -43,7 +43,7 @@ void	ft_unset(char **cmd_args, t_env *env_tesh)
 			g_exit_status = INVALID_IDENTIFIER;	
 			ft_err_msg(cmd_args[i]);
 		}
-		current_env = env_tesh;
+		current_env = ft_lstfirst_env(&env_tesh);
 		while (current_env != NULL)
 		{
 			if (ft_strnstr(current_env->var, cmd_args[i],
