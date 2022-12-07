@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/07 18:28:34 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 18:52:52 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,10 @@ char	*get_var(t_data *data, char *var)
 	i = 0;
 	// $  -> stays as $
 	// $$ -> bash: return of current pid. 	NOT IN SUBJECT.
-	if (ft_strncmp("$", var, 1) == 0 && len_var == 1 ||
-		ft_strncmp("$$", var, 2) == 0 && len_var == 2)
+	if (ft_strncmp("$$", var, 2) == 0 && len_var == 2)
 		return (var+1);
+	if (ft_strncmp("$", var, 1) == 0 && len_var == 1)
+		return(var);
 	// $? -> g_exit_status of last command, from subject: "the exit status of the most recently executed foreground pipeline"
 	if (ft_strncmp("?", var + 1, get_var_len(current_env->var)) == 0)
 		return (ft_itoa(g_exit_status));

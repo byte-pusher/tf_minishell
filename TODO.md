@@ -21,19 +21,9 @@
 			--> sometimes jo\nlo, but sometimes also only jo
 			--> so maybe I dont need to handle this
 
-- export
-	-> create export list
-	-> handle VAR with no value or only with '=' (should be saved only in the export list)
-		-> otherwise in both lists
 
-- expander
-	-> $ alone should not expand
-	-> echo $HOME$USER
-	bash-3.2$ << "end" cat
-> "$USER"
-> end
-"$USER"
-	bash-3.2$ << end cat
-> $USER
-> end
-gjupy
+## ray
+~~- -> $ alone should not expand~~
+- SEGFAULT expansion: deletion of several non existing vars> e.g. echo $ghj $hj $ghj $ghj $ghj $Ghj
+- further error messages for builtins?
+- rewrite expansion functions
