@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/06 13:08:57 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:34:08 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,15 @@ void	ft_lstdel_env(t_env *lst, t_env *node)
 void	ft_lstclear_env(t_env **lst)
 {
 	t_env	*current;
+	t_env	*next;
 
 	current = *lst;
 	while (current != NULL)
 	{
+		next = current->next;
 		free(current->var);
 		free(current);
-		current = current->next;
+		current = next;
 	}
 	*lst = NULL;
 	lst = NULL;

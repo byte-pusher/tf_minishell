@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 20:15:24 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/07 18:30:19 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:10:51 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table, t_dat
 
 		read_nl = ft_strjoin(heredoc.read, "\n");
 		write(exec->here_fd[WRITE], read_nl, ft_strlen(read_nl));
-		// free(read);
 		free(heredoc.read);
 		free(read_nl);
 	}

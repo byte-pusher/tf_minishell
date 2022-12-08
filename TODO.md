@@ -2,8 +2,6 @@
 
 - valgrind laufen lassen
 
-- check for open files
-
 - norminette
 	-> comments löschen
 	-> #define Ding klären
@@ -17,11 +15,3 @@
 		echo hallo >out | <out wc -l >out2 | echo jo >out => cat out => jo\nlo
 			--> sometimes jo\nlo, but sometimes also only jo
 			--> so maybe I dont need to handle this
-
-- expander
-	-> $ alone should not expand
-
-- exit function
-	-> just exit or free stuff?
-
-- open fds

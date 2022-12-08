@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/07 20:49:10 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:45:31 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,32 @@ int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
 	else if (cmd_table->builtin_type == EXPORT)
 		ft_export(cmd_table->cmd_args, env_tesh, data);
 	else if (cmd_table->builtin_type == EXIT)
-		ft_exit(cmd_table->cmd_args, cmd_table);
+		ft_exit(cmd_table->cmd_args, cmd_table, data);
 	return (SUCCESS);
 }
 
-void	ft_close_tmp_heredocs(t_cmd_table *cmd_table)
+void	ft_close_open_fds(t_exec *exec, t_cmd_table **cmd_table)
 {
 	t_cmd_table	*current;
 
-	current = ft_lstfirst_ct(&cmd_table);
+	current = *cmd_table;
 	while (current != NULL)
 	{
 		close(current->here_tmp_fd);
 		current = current->next;
 	}
+	close(exec->tmp_fd);
+	close(exec->stout);
+	close(exec->end[WRITE]);
+	close(exec->end[READ]);
 }
 
-void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
+void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data, t_exec *exec)
 {
 	char	**env_arr;
 	int		execve_ret;
 
-	// close(data->exec->end[READ]);
-	// close(data->exec->end[WRITE]);
-	// close(data->exec->tmp_fd);
-	// close(data->exec->stout);
-	// ft_close_tmp_heredocs(cmd_table);
+	ft_close_open_fds(exec, &cmd_table);
 	env_arr = ft_get_env_arr(env_tesh);
 	if (cmd_table->is_command == true && cmd_table->is_builtin == false)
 		execve_ret = execve(cmd_table->path_name, cmd_table->cmd_args, env_arr);
@@ -79,8 +79,9 @@ void	ft_route_and_exec(t_cmd_table *cmd_table, t_env *env_tesh,
 	if (g_exit_status != OPEN_FILE_ERR)
 		ft_route_stdout(cmd_table, exec);
 	if (g_exit_status != OPEN_FILE_ERR && cmd_table->is_command == true)
-		ft_exec(cmd_table, env_tesh, data);
-	exit(g_exit_status); // ändern zu system code
+		ft_exec(cmd_table, env_tesh, data, exec);
+	ft_close_open_fds(exec, &cmd_table);
+	exit(g_exit_status);
 }
 
 int	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec, t_data *data)
@@ -95,7 +96,7 @@ int	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec, t
 	if (exec->pid == 0)
 	{
 		if (ft_check_single_cmd(cmd_table) == true)
-			ft_exec(cmd_table, env_tesh, data);
+			ft_exec(cmd_table, env_tesh, data, exec);
 		else
 			ft_route_and_exec(cmd_table, env_tesh, exec, data);
 	}
