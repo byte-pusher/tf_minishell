@@ -17,7 +17,6 @@
 			--> so maybe I dont need to handle this
 
 - invalid read size of 1
-	-> <<1 cat + $USER
 	-> echo $?
 	-> export
 

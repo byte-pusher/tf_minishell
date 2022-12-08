@@ -6,25 +6,25 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:30:17 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/08 18:37:07 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 21:28:49 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-char	*get_value(t_data *data, char *var)
+char	*get_value(t_data *data, char *var, bool *is_env_var)
 {
 	t_env	*current_env;
 	size_t	len_current_env_var;
 	size_t	len_var;
 	int		i;
 
-	current_env = data->env_tesh;
+	current_env = ft_lstfirst_env(&data->env_tesh);
 	len_var = ft_strlen(var);
 	i = 0;
-	if (ft_strncmp("$$", var, 2) == 0 && len_var == 2
-		|| ft_strncmp("$", var, 1) == 0 && len_var == 1 )
-		return ("$");
+	if ((ft_strncmp("$$", var, 2) == 0 && len_var == 2)
+		|| (ft_strncmp("$", var, 1) == 0 && len_var == 1))
+		return (ft_strdup("$"));
 	if (ft_strncmp("?", var + 1, get_var_len(current_env->var)) == 0)
 		return (ft_itoa(g_exit_status));
 	while (current_env != NULL)
@@ -35,6 +35,7 @@ char	*get_value(t_data *data, char *var)
 		{
 			while (current_env->var[i] != '=')
 				i++;
+			*is_env_var = true;
 			return (current_env->var + ft_strlen(var));
 		}
 		current_env = current_env->next;
@@ -72,18 +73,22 @@ void	change_token_name(t_data *data, t_token *token, int start, int end)
 {
 	char	*variable;
 	char	*value;
+	bool	is_env_var;
 
+	is_env_var = false;
 	variable = NULL;
 	value = NULL;
-	variable = malloc(sizeof(char) * (end - start) + 1);
+	variable = ft_substr(token->name, start, (end - start));
 	if (variable == NULL)
 		exit(ENOMEM);
-	variable = ft_substr(token->name, start, (end - start));
-	value = get_value(data, variable);
+	value = get_value(data, variable, &is_env_var);
 	if (value != NULL)
 		insert_value(token, variable, value, start);
 	else
 		ft_str_remove(token->name, variable);
+	if (is_env_var == false)
+		free(value);
+	free(variable);
 }
 
 
@@ -106,7 +111,7 @@ void	expand_tokens(t_data *data, t_token *token)
 			{
 				i++;
 				start = i;
-				while (token->name[i] != '\'' && token->name[i] != '\0'
+				while (token->name[i] != '\0' && token->name[i] != '\''
 					&& token->name[i] != ' ')
 				{
 					i++;
@@ -118,7 +123,7 @@ void	expand_tokens(t_data *data, t_token *token)
 			{
 				start = i;
 				i++;
-				while (token->name[i] != ' ' && token->name[i] != '\0'
+				while (token->name[i] != '\0' && token->name[i] != ' '
 					&& token->name[i] != '\"' && token->name[i] != '$'
 					&& token->name[i] != '\'' )
 					i++;

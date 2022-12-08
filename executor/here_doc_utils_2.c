@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:13:43 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 14:11:36 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 20:32:10 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void	ft_expand_read(t_heredoc *heredoc, t_data *data)
 	int		end;
 	int		str_counter;
 	char	**read_sub_arr;
+	int		var_amount;
 
 	i = 0;
 	start = 0;
 	end = 0;
-	// value = NULL;
 	str_counter = 0;
-	int	var_amount = get_var_amount(heredoc->read);
+	var_amount = get_var_amount(heredoc->read);
 	read_sub_arr = (char **)malloc(sizeof(char *) * (var_amount + 1));
 	while (heredoc->read[i] != '\0')
 	{
@@ -128,7 +128,8 @@ void	ft_expand_read(t_heredoc *heredoc, t_data *data)
 				continue;
 			}
 		}
-		i++;
+		if (heredoc->read[i] != '\0')
+			i++;
 	}
 	read_sub_arr[str_counter] = NULL;
 	ft_free_strings(&read_sub_arr);
