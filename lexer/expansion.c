@@ -6,13 +6,23 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/07 19:17:10 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:16:53 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 #include <string.h>
 #include <stdio.h>
+
+//fts neede
+//1. check if var exists: check for hidden and visible
+//2. get amount of vars in one token
+//3. get var len
+//4. check if is var declaration
+//5. free creatd var array
+
+
+
 
 int	exp_var_exists(char *cmd_arg, t_env *env_tesh)
 {
@@ -39,19 +49,7 @@ int	exp_var_exists(char *cmd_arg, t_env *env_tesh)
 }
 
 //get len until =
-int	comp_var_len(char *cmd_arg)
-{
-	int	i;
 
-	i = 0;
-	while (cmd_arg[i] != '\0')
-	{
-		if (cmd_arg[i] == '=')
-			return (i);
-		i++;
-	}
-	return (0);
-}
 
 char	*get_var(t_data *data, char *var)
 {

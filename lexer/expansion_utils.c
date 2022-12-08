@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:02:09 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/07 19:17:15 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:19:53 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	is_var_declaration(char *cmd_arg)
 	return (1);
 }
 
+//move to other file
 int	valid_export(char *cmd_arg)
 {
 	int	i;
@@ -88,4 +89,34 @@ int	valid_export(char *cmd_arg)
 		i++;
 	}
 	return (0);
+}
+
+int	comp_var_len(char *cmd_arg)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_arg[i] != '\0')
+	{
+		if (cmd_arg[i] == '=')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int	get_nr_of_vars(char *token_name)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (token_name[i] != '\0')
+	{
+		if (token_name[i] == '$')
+			count++;
+		i++;
+	}
+	return (count);
 }
