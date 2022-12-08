@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/12/07 20:17:48 by gjupy            ###   ########.fr        #
+#    Updated: 2022/12/08 14:15:47 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS  = main.c \
 		init.c \
 		signal.c \
 		parser/parser.c parser/parser_utils.c parser/parser_utils_2.c parser/cmd_parser.c parser/redir_parser.c parser/cmd_parser_utils.c\
-		lexer/lexer.c lexer/lexer_utils.c lexer/expansion.c lexer/expansion_utils.c \
+		lexer/lexer.c lexer/lexer_utils.c lexer/expansion_short.c lexer/expansion_utils.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \

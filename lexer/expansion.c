@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:55:37 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/07 18:28:34 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:16:53 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 #include <string.h>
 #include <stdio.h>
+
+//fts neede
+//1. check if var exists: check for hidden and visible
+//2. get amount of vars in one token
+//3. get var len
+//4. check if is var declaration
+//5. free creatd var array
+
+
 
 
 int	exp_var_exists(char *cmd_arg, t_env *env_tesh)
@@ -24,7 +33,7 @@ int	exp_var_exists(char *cmd_arg, t_env *env_tesh)
 	var_len = comp_var_len(cmd_arg);
 	while (current_env != NULL)
 	{
-		if(current_env->hidden == false)
+		if (current_env->hidden == false)
 		{
 			if (ft_strncmp(current_env->var, cmd_arg, var_len) == 0)
 				return (0);
@@ -39,49 +48,9 @@ int	exp_var_exists(char *cmd_arg, t_env *env_tesh)
 	return (1);
 }
 
-int		is_var_declaration(char *cmd_arg)
-{
-	int	i;
-
-	i = 0;
-	while (cmd_arg[i] != '\0')
-	{
-		if (cmd_arg[i] == '=')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 //get len until =
-int	comp_var_len(char *cmd_arg)
-{
-	int	i;
 
-	i = 0;
-	while (cmd_arg[i] != '\0')
-	{
-		if (cmd_arg[i] == '=')
-			return (i);
-		i++;
-	}
-	return (0);
-}
 
-int		valid_export(char *cmd_arg)
-{
-	int i;
-
-	i = 0;
-	
-	while (cmd_arg[i] != '\0')
-	{
-		if (ft_isalpha(cmd_arg[i]) == 1)
-			return (1);
-		i++;
-	}
-	return(0);
-}
 char	*get_var(t_data *data, char *var)
 {
 	t_env	*current_env;
@@ -93,18 +62,15 @@ char	*get_var(t_data *data, char *var)
 	len_current_env_var = 0;
 	len_var = ft_strlen(var);
 	i = 0;
-	// $  -> stays as $
-	// $$ -> bash: return of current pid. 	NOT IN SUBJECT.
-	if (ft_strncmp("$", var, 1) == 0 && len_var == 1 ||
-		ft_strncmp("$$", var, 2) == 0 && len_var == 2)
-		return (var+1);
-	// $? -> g_exit_status of last command, from subject: "the exit status of the most recently executed foreground pipeline"
+	if (ft_strncmp("$", var, 1) == 0 && len_var == 1)
+		return (var);
+	if (ft_strncmp("$$", var, 2) == 0 && len_var == 2)
+		return (var + 1);
 	if (ft_strncmp("?", var + 1, get_var_len(current_env->var)) == 0)
 		return (ft_itoa(g_exit_status));
 	while (current_env != NULL)
 	{
 		len_current_env_var = get_var_len(current_env->var);
-		// check if given var is in current list elem->var. ! additional check for case, char *var is empty
 		if (ft_strncmp(current_env->var, var + 1, len_current_env_var) == 0
 			&& var[len_current_env_var + 1] == '\0')
 		{
@@ -241,7 +207,8 @@ void	expansion(t_data *data)
 	{
 		if (current_token->type == DQUOTE || current_token->type == COMMAND)
 		{
-			if (current_token->prev != NULL && current_token->prev->type == LESSLESS)
+			if (current_token->prev != NULL
+				&& current_token->prev->type == LESSLESS)
 			{
 				current_token = current_token->next;
 				continue ;

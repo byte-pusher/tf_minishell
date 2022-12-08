@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/05 17:12:49 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 19:24:26 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	set_oldpwd(t_env *env_tesh)
 {
 	t_env	*last_node;
 	char	*buffer;
-
+	
 	buffer = NULL;
 	ft_lstdel_env(env_tesh, get_var_node(env_tesh, "OLDPWD="));
 	ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
@@ -111,7 +111,7 @@ void	ft_cd(char **cmd_args, t_env *env_tesh)
 	old_pwd = NULL;
 	home_dir = NULL;
 	
-	if (!cmd_args[1])
+	if (!cmd_args[1] || env_tesh == NULL )
 		return ;
 	//check for - 
 	if (ft_strncmp(cmd_args[1], "-", 1) == 0 &&

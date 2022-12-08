@@ -15,3 +15,10 @@
 		echo hallo >out | <out wc -l >out2 | echo jo >out => cat out => jo\nlo
 			--> sometimes jo\nlo, but sometimes also only jo
 			--> so maybe I dont need to handle this
+
+## ray
+~~- -> $ alone should not expand~~
+- SEGFAULT expansion: deletion of several non existing vars> e.g. echo $ghj $hj $ghj $ghj $ghj $Ghj
+- further error messages for builtins?
+- rewrite expansion functions
+- protection for missing environment in builtins
