@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/07 15:05:03 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/07 19:24:53 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 	last_node = NULL;
 	i = 1;
 
+	if (env_tesh == NULL)
+		return ;
 	if (cmd_args[i] == NULL)
 		print_declare_x(env_tesh);
 	while (cmd_args[i] != NULL )

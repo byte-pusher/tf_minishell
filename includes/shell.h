@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/07 16:54:04 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/07 19:17:27 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,8 @@ int			is_var_declaration(char *cmd_arg);
 int			comp_var_len(char *cmd_arg);
 int			valid_export(char *cmd_arg);
 int			var_exists(char *cmd_arg, t_env *env_tesh);
-
+int			is_var_declaration(char *cmd_arg);
+int			valid_export(char *cmd_arg);
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);

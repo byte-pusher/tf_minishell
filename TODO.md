@@ -27,3 +27,4 @@
 - SEGFAULT expansion: deletion of several non existing vars> e.g. echo $ghj $hj $ghj $ghj $ghj $Ghj
 - further error messages for builtins?
 - rewrite expansion functions
+- protection for missing environment in builtins
