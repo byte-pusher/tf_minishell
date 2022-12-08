@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:59:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/06 16:56:23 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 19:00:16 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	ft_create_cmd_args(t_cmd_table *cmd_table, t_token **token)
 	i = 0;
 	while (*token != NULL && ft_is_cmd_or_quotes(*token) == true)
 	{
-		cmd_table->cmd_args[i] = ft_strdup((*token)->name);
+		if ((*token)->name[0] == '\0')
+			cmd_table->cmd_args[i] = "";
+		else
+			cmd_table->cmd_args[i] = ft_strdup((*token)->name);
 		while ((*token) != NULL && (*token)->mixed_quotes == true && ft_is_cmd_or_quotes(*token) == true)
 		{
 			if ((*token)->next != NULL)

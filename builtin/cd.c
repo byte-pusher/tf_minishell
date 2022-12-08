@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/07 19:24:26 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 16:09:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ void	ft_cd(char **cmd_args, t_env *env_tesh)
 		g_exit_status = OPEN_FILE_ERR;
 		//also need to pass path string that has been tried to reach
 		ft_err_msg("cd: ");
-		printf("%s", cmd_args[1]);
 	}
 	//rewrite pwd
 	set_pwd(env_tesh);

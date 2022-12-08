@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:56:52 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/07 19:35:33 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 18:42:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	check_dquotes(char *str, int *i, int *status)
 {
+
 	if (str[(*i)] == '\"')
 	{
 		*status = DOUBLE_OPEN;
@@ -37,7 +38,7 @@ void	check_squotes(char *str, int *i, int *status)
 		while (str[(*i)] != '\0' && *status == SINGLE_OPEN)
 		{
 			if (str[(*i)] == '\'')
-				*status = SINGLE_OPEN;
+				*status = SINGLE_CLOSED;
 			else
 				(*i)++;
 		}

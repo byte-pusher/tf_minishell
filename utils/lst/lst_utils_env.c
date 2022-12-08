@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 13:34:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 16:05:07 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ void	ft_lstdel_env(t_env *lst, t_env *node)
 	while (p != NULL)
 	{
 		if (p->var == node->var)
-			{
-				if (p->next != NULL)
-					p->next->prev = p->prev;
-				if (p->prev != NULL)
-					p->prev->next = p->next;
-				free(p->var);
-				free(p);
-				break ;
-			}
+		{
+			if (p->next != NULL)
+				p->next->prev = p->prev;
+			if (p->prev != NULL)
+				p->prev->next = p->next;
+			free(p->var);
+			free(p);
+			break ;
+		}
 		p = p->next;
 	}
 }

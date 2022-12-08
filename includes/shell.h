@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 13:46:03 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 19:20:19 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ typedef struct s_exec
 typedef struct s_data
 {
 	char		*input;
-	bool		exit_in_err;
+	bool		exit_shell;
 	t_exec		*exec;
 	t_env		*env_tesh;
 	t_token		*tokens;
@@ -238,7 +238,7 @@ void		ft_lstdel_env(t_env *lst, t_env *node);
 
 /* ERRORS */
 void		ft_err_msg(char *s);
-void		ft_err_exit(char *s, int e_status);
+void		ft_err_exit(char *s, int e_status, t_data *data);
 
 /* ************************************************************************** */
 /* PARSER																	  */

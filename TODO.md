@@ -16,6 +16,11 @@
 			--> sometimes jo\nlo, but sometimes also only jo
 			--> so maybe I dont need to handle this
 
+- invalid read size of 1
+	-> <<1 cat + $USER
+	-> echo $?
+	-> export
+
 ## ray
 ~~- -> $ alone should not expand~~
 - SEGFAULT expansion: deletion of several non existing vars> e.g. echo $ghj $hj $ghj $ghj $ghj $Ghj
