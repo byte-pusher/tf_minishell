@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/06 19:48:13 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:47:12 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,4 @@ void	ft_init_teshno(t_data *data)
 			ft_free_all(data);
 		}
 	}
-	ft_lstclear_env(&data->env_tesh);
-	free(data->input);
-	rl_clear_history();
 }

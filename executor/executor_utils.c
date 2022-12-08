@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:29:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/01 14:59:05 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 12:36:35 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_end_prcs(t_exec *exec)
 {
+	// close(exec->end[READ]);
+	// close(exec->end[WRITE]);
 	close(exec->tmp_fd);
 	close(exec->stout);
 	while (exec->i > 0)
@@ -82,7 +84,7 @@ t_exec	*ft_create_exec(void)
 		ft_err_msg("dup");
 	// what STDOUT should have at the end
 	new_exec->stout = dup(STDOUT_FILENO);
-	if (new_exec->stout ==-1)
+	if (new_exec->stout == -1)
 		ft_err_msg("dup");
 	return (new_exec);
 }

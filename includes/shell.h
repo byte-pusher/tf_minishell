@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 14:20:20 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:46:03 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,16 @@ enum e_BUILTIN_TYPE
 	UNSET,
 	ENV,
 	EXIT
+};
+
+enum e_STATUS
+{
+	DOUBLE_OPEN,
+	DOUBLE_CLOSED,
+	SINGLE_OPEN,
+	SINGLE_CLOSED,
+	OPEN,
+	NON
 };
 
 enum e_PIPE_END
@@ -239,9 +249,11 @@ void		ft_parser(t_data *data);
 bool		ft_is_redir(int type);
 void		ft_create_cmd_table_lst(t_data *data);
 void		print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
-void		ft_check_redir_err(t_token *token);
+bool		ft_check_redir_err(t_token *token);
 int			get_combined_len(t_token *current_token);
 bool		ft_is_cmd_or_quotes(t_token *token);
+bool		ft_check_quotes(char *str);
+bool		ft_check_pipe_sequence(t_token *token);
 
 /* CMD_PARSER */
 void		ft_command_parser(t_cmd_table *cmd_table, t_token **token,
@@ -255,7 +267,7 @@ void		ft_redir_parser(t_cmd_table *cmd_table, t_token **token);
 /* BUILTIN																	  */
 /* ************************************************************************** */
 bool		ft_is_builtin(t_cmd_table *cmd_table, char *builtin);
-void		ft_exit(char **arg);
+void		ft_exit(char **arg, t_cmd_table *cmd_table, t_data *data);
 void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
 void		ft_export(char **cmd_args, t_env *env_tesh, t_data *data);

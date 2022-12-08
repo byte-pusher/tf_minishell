@@ -27,7 +27,7 @@ CPPFLAGS    = -I/Users/$(USER)/.brew/opt/readline/include
 SRCS  = main.c \
 		init.c \
 		signal.c \
-		parser/parser.c parser/parser_utils.c parser/cmd_parser.c parser/redir_parser.c parser/cmd_parser_utils.c\
+		parser/parser.c parser/parser_utils.c parser/parser_utils_2.c parser/cmd_parser.c parser/redir_parser.c parser/cmd_parser_utils.c\
 		lexer/lexer.c lexer/lexer_utils.c lexer/expansion_short.c lexer/expansion_utils.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
@@ -38,7 +38,6 @@ SRCS  = main.c \
 		executor/route_stdin.c executor/route_stdin_utils.c \
 		executor/route_stdout.c executor/route_stdout_utils.c \
 
- 
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
 OBJS := $(addprefix $(OBJ_DIR), $(OBJFILES))

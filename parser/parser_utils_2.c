@@ -1,0 +1,79 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils_2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 18:56:52 by gjupy             #+#    #+#             */
+/*   Updated: 2022/12/07 19:35:33 by gjupy            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/shell.h"
+
+void	check_dquotes(char *str, int *i, int *status)
+{
+	if (str[(*i)] == '\"')
+	{
+		*status = DOUBLE_OPEN;
+		(*i)++;
+		while (str[(*i)] != '\0' && *status == DOUBLE_OPEN)
+		{
+			if(str[(*i)] == '\"')
+				*status = DOUBLE_CLOSED;
+			else
+				(*i)++;
+		}
+	}
+}
+
+void	check_squotes(char *str, int *i, int *status)
+{
+	if (str[(*i)] == '\'')
+	{
+		*status = SINGLE_OPEN;
+		(*i)++;
+		while (str[(*i)] != '\0' && *status == SINGLE_OPEN)
+		{
+			if (str[(*i)] == '\'')
+				*status = SINGLE_OPEN;
+			else
+				(*i)++;
+		}
+	}
+}
+
+bool	ft_check_quotes(char *str)
+{
+	int	status;
+	int	i;
+
+	status = NON;
+	i = 0;
+	while(str[i] != '\0')
+	{
+		check_dquotes(str, &i, &status);
+		check_squotes(str, &i, &status);
+		i++;
+	}
+	if (status == SINGLE_OPEN || status == DOUBLE_OPEN)
+	{
+		g_exit_status = SYNTAX_ERR;
+		ft_err_msg("newline");
+		return (true);
+	}
+	return (false);
+}
+
+bool	ft_check_pipe_sequence(t_token *token)
+{
+	if (token->next != NULL && token->type == PIPE
+		&& token->next->type == PIPE)
+	{
+		g_exit_status = SYNTAX_ERR;
+		ft_err_msg("|");
+		return (true);
+	}
+	return (false);
+}

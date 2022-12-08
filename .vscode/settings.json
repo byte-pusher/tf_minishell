@@ -6,6 +6,7 @@
 		"__node_handle": "c",
 		"__config": "c",
 		"chrono": "c",
-		"complex": "c"
+		"complex": "c",
+		"stdio.h": "c"
 	}
 }
