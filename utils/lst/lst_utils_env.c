@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 13:34:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/09 18:32:10 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	ft_lstdel_env(t_env *lst, t_env *node)
 	if (lst == NULL || node == NULL)
 		return ;
 	p = ft_lstfirst_env(&lst);
+	// if (p->var == NULL)
+	// 	p = p->next;
 	while (p != NULL)
 	{
 		if (p->var == node->var)
@@ -128,6 +130,8 @@ int	ft_lstsize_env(t_env **lst)
 	t_env	*current;
 
 	i = 0;
+	if (!lst)
+		return (i);
 	current = *lst;
 	while (current != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:02:09 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/08 14:19:53 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 19:45:09 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,6 @@ void	ft_str_remove(char *str, const char *sub)
 	start = ft_strnstr(str, sub, ft_strlen(str));
 	end = start + ft_strlen(sub);
 	ft_strncpy(start, end, ft_strlen(str));
-}
-
-void	free_var_arr(char **var_arr)
-{
-	int	i;
-
-	i = 0;
-	while (var_arr[i] != NULL)
-	{
-		free(var_arr[i]);
-		i++;
-	}
-	free(var_arr[i]);
-	free(var_arr);
 }
 
 int	is_var_declaration(char *cmd_arg)

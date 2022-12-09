@@ -22,3 +22,8 @@
 - further error messages for builtins?
 - rewrite expansion functions
 - protection for missing environment in builtins
+
+
+
+Unset:
+add check for empty envs at end of funciton

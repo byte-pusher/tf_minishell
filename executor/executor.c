@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 13:45:31 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/09 14:45:54 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
 	if (cmd_table->builtin_type == ECHO)
 		ft_echo(cmd_table->cmd_args);
 	else if (cmd_table->builtin_type == UNSET)
-		ft_unset(cmd_table->cmd_args, env_tesh);
+		ft_unset(cmd_table->cmd_args, env_tesh, data);
 	else if (cmd_table->builtin_type == ENV)
-		print_env(&env_tesh);
+		print_env(&env_tesh, data);
 	else if (cmd_table->builtin_type == CD)
-		ft_cd(cmd_table->cmd_args, env_tesh);
+		ft_cd(cmd_table->cmd_args, env_tesh, data);
 	else if (cmd_table->builtin_type == PWD)
 		ft_pwd();
 	else if (cmd_table->builtin_type == EXPORT)

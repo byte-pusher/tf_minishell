@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:30:17 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/08 14:54:18 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 18:03:34 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*get_value(t_data *data, char *var)
 	size_t	len_var;
 	int		i;
 
+	if (ft_lstfirst_env(&data->env_tesh)->var == NULL)
+		return (NULL);
 	current_env = data->env_tesh;
 	len_var = ft_strlen(var);
 	i = 0;
@@ -85,7 +87,6 @@ void	change_token_name(t_data *data, t_token *token, int start, int end)
 	else
 		ft_str_remove(token->name, variable);
 }
-
 
 //expand single token
 void	expand_tokens(t_data *data, t_token *token)
