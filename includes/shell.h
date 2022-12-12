@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 19:20:19 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:05:52 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ typedef struct s_data
 {
 	char		*input;
 	bool		exit_shell;
+	bool		empty_input;
 	t_exec		*exec;
 	t_env		*env_tesh;
 	t_token		*tokens;
@@ -173,6 +174,7 @@ typedef struct s_data
 typedef struct s_heredoc
 {
 	char	*read;
+	bool	is_read_var;
 }	t_heredoc;
 
 void		ft_init_teshno(t_data *data);
@@ -190,7 +192,6 @@ void		ft_free_strings(char ***s);
 /* LEXER																	  */
 /* ************************************************************************** */
 void		ft_lexer(t_data *data);
-void		expansion(t_data *data);
 char		*get_var(t_data *data, char *var);
 int			get_var_len(char *env_var);
 void		ft_str_remove(char *str, const char *sub);
@@ -201,6 +202,16 @@ void		free_var_arr(char **var_arr);
 bool		ft_is_space(char c);
 bool		ft_is_redir_token(char c);
 int			ft_get_chartype(char *s, int *i);
+
+/* ************************************************************************** */
+/* EXPANSION																	*/
+/* ************************************************************************** */
+void		expansion(t_data *data);
+
+/* UTILS */
+bool	ft_is_double_dollar(char *s);
+int		ft_get_next_var(char *s);
+void	ft_insert_dollars(char *s);
 
 /* ************************************************************************** */
 /* UTILS																	  */
@@ -297,29 +308,24 @@ bool		ft_check_single_builtin(t_cmd_table *cmd_table);
 bool		ft_check_single_cmd(t_cmd_table *cmd_table);
 t_exec		*ft_create_exec(void);
 void		ft_end_prcs(t_exec *exec);
+void		ft_close_open_fds(t_exec *exec, t_cmd_table **cmd_table);
 
 /* ROUTES */
 void		ft_route_stdin(t_cmd_table *cmd_table, t_exec *exec);
-int			ft_get_last_infile(t_cmd_table *cmd_table);
 void		ft_close_infiles(t_cmd_table *cmd_table);
 bool		ft_is_infile(t_redir **redir);
 int			ft_open_infiles(t_redir *redir);
 
 void		ft_route_stdout(t_cmd_table *cmd_table, t_exec *exec);
-int			ft_get_last_outfile(t_cmd_table *cmd_table);
 void		ft_close_outfiles(t_cmd_table *cmd_table);
 int			ft_open_outfiles(t_redir *redir);
 bool		ft_is_outfile(t_redir **redir);
 
-// void		ft_heredoc(t_redir *redir, t_exec *exec);
-// void		ft_heredoc(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table);
 void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table, t_data *data);
 bool		ft_is_heredoc(t_redir **redir);
 bool		ft_heredoc_after_infile(t_redir *redir);
 void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table, t_data *data);
-// char		*ft_expand_read(char *s, t_data *data);
 void		ft_expand_read(t_heredoc *heredoc, t_data *data);
 bool		ft_is_var(char *s);
-
 
 #endif
