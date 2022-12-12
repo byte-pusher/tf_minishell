@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 21:40:05 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/09 18:01:41 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/12 13:24:41 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	print_env(t_env **lst, t_data *data)
 	current = *lst;
 	while (current != NULL)
 	{
-		//
 		if (current->hidden == false && current->var != NULL)
 			printf("%s\n", current->var);
 		current = current->next;
