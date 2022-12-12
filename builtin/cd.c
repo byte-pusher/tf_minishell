@@ -6,14 +6,12 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/09 18:32:00 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/12 13:19:25 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-
-// create OLDPWD if it has been unset or non existing
 char	*get_dir(t_env *env_tesh, char *var)
 {
 	t_env	*current_env;
@@ -74,18 +72,13 @@ void	set_oldpwd(t_env *env_tesh, t_data *data)
 	char	*buffer;
 	
 	buffer = NULL;
-	if (var_exists_del("OLDPWD=", env_tesh, data) == 1)
-	{
-		
-		ft_lstdel_env(env_tesh, get_var_node(env_tesh, "OLDPWD="));
-		dprintf(2, "\n oi");
-		ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
-		ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * (ft_strlen(getcwd(buffer, 0)) + 8));
-		ft_strncpy(ft_lstlast_env(env_tesh)->var, "OLDPWD=", ft_strlen(getcwd(buffer, 0)) + 8);
-		ft_lstlast_env(env_tesh)->var = ft_strjoin(ft_lstlast_env(env_tesh)->var, getcwd(buffer, 0));
-		free(buffer);
-	}
 	
+	var_exists_del("OLDPWD=", env_tesh, data);
+	ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
+	ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * (ft_strlen(getcwd(buffer, 0)) + 8));
+	ft_strncpy(ft_lstlast_env(env_tesh)->var, "OLDPWD=", ft_strlen(getcwd(buffer, 0)) + 8);
+	ft_lstlast_env(env_tesh)->var = ft_strjoin(ft_lstlast_env(env_tesh)->var, getcwd(buffer, 0));
+	free(buffer);
 }
 
 //leaking
@@ -97,33 +90,15 @@ void	set_pwd(t_env *env_tesh, t_data *data)
 	char	*buffer;
 	
 	buffer = NULL;
-	current_env = env_tesh;
+	current_env = ft_lstfirst_env(&env_tesh);
 	if (current_env->var == NULL)
 		current_env = current_env->next;
 	len_new_pwd = ft_strlen(getcwd(NULL, 0)) + 4;
-	//rewrite pwd in env
-	if (var_exists_del(pwd_var, env_tesh, data) == 1)
-	{
-		ft_lstdel_env(env_tesh, get_var_node(env_tesh, pwd_var));
-		ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
-		ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * (ft_strlen(getcwd(buffer, 0)) + 8));
-		ft_strncpy(ft_lstlast_env(env_tesh)->var, pwd_var, ft_strlen(getcwd(buffer, 0)) + 8);
-		ft_lstlast_env(env_tesh)->var = ft_strjoin(ft_lstlast_env(env_tesh)->var, getcwd(buffer, 0));
-	}
-	else
-	{
-		while (current_env != NULL)
-		{
-			if (ft_strnstr(current_env->var, pwd_var, 4) != NULL)
-			{
-				free(current_env->var);
-				current_env->var = malloc(sizeof(char) * len_new_pwd);
-				ft_strlcpy(current_env->var, pwd_var, len_new_pwd);
-				ft_strlcat(current_env->var, getcwd(buffer, 0), len_new_pwd);
-			}	
-			current_env = current_env->next;
-		}
-	}
+	var_exists_del(pwd_var, env_tesh, data);
+	ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
+	ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * (ft_strlen(getcwd(buffer, 0)) + 4));
+	ft_strncpy(ft_lstlast_env(env_tesh)->var, pwd_var, ft_strlen(getcwd(buffer, 0)) + 4);
+	ft_lstlast_env(env_tesh)->var = ft_strjoin(ft_lstlast_env(env_tesh)->var, getcwd(buffer, 0));
 	if (buffer != NULL)
 		free(buffer);
 }
@@ -136,13 +111,15 @@ void	ft_cd(char **cmd_args, t_env *env_tesh, t_data *data)
 	old_pwd = NULL;
 	home_dir = NULL;
 	
-	if (!cmd_args[1] || data->env_exists == false)
+	if (!cmd_args[1])
 		return ;
 	if (ft_strncmp(cmd_args[1], "-", 1) == 0 &&
 		get_dir(env_tesh, "$OLDPWD") != NULL)
 	{
+		
 		old_pwd = get_dir(env_tesh, "$OLDPWD");
 		set_oldpwd(env_tesh, data);
+		//print_env(&env_tesh, data);
 		chdir(old_pwd);
 		set_pwd(env_tesh, data);
 		return ;
@@ -164,5 +141,5 @@ void	ft_cd(char **cmd_args, t_env *env_tesh, t_data *data)
 		ft_err_msg("cd: ");
 	}
 	//rewrite pwd
-	//set_pwd(env_tesh, data);
+	set_pwd(env_tesh, data);
 }
