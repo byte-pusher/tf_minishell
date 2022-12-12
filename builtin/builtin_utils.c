@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:29:25 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 17:46:52 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 19:50:20 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,14 @@ void	ft_skip_flags(char **cmd_args, int *i)
 			return ;
 		(*i)++;
 	}
+}
+
+t_env	*ft_set_head(t_env *env_tesh)
+{
+	t_env	*current_head;
+
+	current_head = ft_lstfirst_env(&env_tesh);
+	if (current_head->var == NULL)
+		current_head = current_head->next;
+	return (current_head);
 }

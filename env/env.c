@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 21:40:05 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 13:24:41 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/12 20:37:10 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_create_empty_env(t_env **env_tesh)
 {
 	t_env	*new_env;
 	t_env	*head_node;
+	char	*tmp;
 	char	*buffer;
 	char	pwd_var[] = "PWD=";
 

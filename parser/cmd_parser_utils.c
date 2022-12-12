@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:59:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/09 13:14:16 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 20:42:03 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
-
-// 	{
-// 		cmd_table->cmd_args = ft_split(token->name, ' ');
-// 		if (cmd_table->cmd_args == NULL)
-// 			exit(ENOMEM);
-// 		cmd_table->is_command = true;
-// 	}
 
 int	ft_count_args(t_token *token)
 {

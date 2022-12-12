@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 16:05:52 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 19:50:58 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,7 @@ int			is_var_declaration(char *cmd_arg);
 int			valid_export(char *cmd_arg);
 int			get_nr_of_vars(char *token_name);
 void		set_pwd(t_env *env_tesh, t_data *data);
+t_env		*ft_set_head(t_env *env_tesh);
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);

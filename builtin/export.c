@@ -6,13 +6,12 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/12 17:34:09 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/12 20:09:09 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-//check if var already exists, if yes delete
 int	var_exists_del(char *cmd_arg, t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
@@ -20,27 +19,21 @@ int	var_exists_del(char *cmd_arg, t_env *env_tesh, t_data *data)
 
 	if (data->env_exists == false)
 		return (1);
-	current_env = ft_lstfirst_env(&env_tesh);
-	if (current_env->var == NULL)
-		current_env = current_env->next;
+	current_env = ft_set_head(env_tesh);
 	var_len = comp_var_len(cmd_arg);
 	while (current_env != NULL)
 	{
-		if (current_env->hidden == false)
+		if (current_env->hidden == false
+			&& ft_strncmp(current_env->var, cmd_arg, var_len + 1) == 0)
 		{
-			if (ft_strncmp(current_env->var, cmd_arg, var_len + 1) == 0)
-			{
-				ft_lstdel_env(env_tesh, current_env);
-				return (0);
-			}
+			ft_lstdel_env(env_tesh, current_env);
+			return (0);
 		}
-		else if (current_env->hidden == true)
+		else if (current_env->hidden == true
+			&& ft_strncmp(current_env->var, cmd_arg, var_len) == 0)
 		{
-			if (ft_strncmp(current_env->var, cmd_arg, var_len) == 0)
-			{
-				ft_lstdel_env(env_tesh, current_env);
-				return (0);
-			}
+			ft_lstdel_env(env_tesh, current_env);
+			return (0);
 		}
 		current_env = current_env->next;
 	}
@@ -79,41 +72,36 @@ void	print_declare_x(t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
 	char	*modified_str;
-	int		current_var_len;
 
 	if (data->env_exists == false)
 		return ;
 	current_env = ft_lstfirst_env(&env_tesh);
 	if (current_env->var == NULL)
 		current_env = current_env->next;
-	modified_str = NULL;
-	current_var_len = 0;
 	while (current_env != NULL)
 	{
-		current_var_len = ft_strlen(current_env->var);
 		printf("declare -x ");
-		modified_str = malloc(sizeof(char) * current_var_len + 2);
+		modified_str = malloc(sizeof(char) * ft_strlen(current_env->var) + 2);
 		ft_strlcpy(modified_str, current_env->var,
 			comp_var_len(current_env->var) + 2);
 		if (current_env->hidden == false)
-			ft_strlcat(modified_str, "\"", current_var_len + 2);
+			ft_strlcat(modified_str, "\"", ft_strlen(current_env->var) + 2);
 		ft_strlcat(modified_str, current_env->var
-			+ (comp_var_len(current_env->var) + 1), current_var_len + 2);
+			+ (comp_var_len(current_env->var) + 1),
+			ft_strlen(current_env->var) + 2);
 		if (current_env->hidden == false)
-			ft_strlcat(modified_str, "\"", current_var_len + 3);
+			ft_strlcat(modified_str, "\"", ft_strlen(current_env->var) + 3);
 		printf("%s\n", modified_str);
 		current_env = current_env->next;
-		if (modified_str != NULL)
-			free(modified_str);
+		free(modified_str);
 	}
 }
 
-int		is_valid_input(char *cmd_arg)
+int	is_valid_input(char *cmd_arg)
 {
 	int	i;
 
 	i = 0;
-
 	if (is_var_declaration(cmd_arg) == 0)
 	{
 		while (cmd_arg[i] != '=')
@@ -129,18 +117,14 @@ int		is_valid_input(char *cmd_arg)
 		if (cmd_arg[i] == ')' || cmd_arg[i] == '('
 			|| cmd_arg[i] == '&' || cmd_arg[i] == '+')
 			return (1);
-		if (cmd_arg[i] == '!')
-		{
-			if (is_var_declaration(cmd_arg) == 1)
-				return (1);
-			else if (is_var_declaration(cmd_arg) == 0 && cmd_arg[i + 1] != '\0')
-				return (1);
-		}
+		if (cmd_arg[i] == '!' && is_var_declaration(cmd_arg) == 1
+			|| (cmd_arg[i] == '!' && is_var_declaration(cmd_arg) == 0
+				&& cmd_arg[i + 1] != '\0'))
+			return (1);
 		i++;
 	}
 	return (0);
 }
-
 
 void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 {
@@ -155,10 +139,8 @@ void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 	{
 		if (is_valid_input(cmd_args[i]) == 0)
 		{
-			//export a if a=xz exists already, nothing happens
-			if (is_var_declaration(cmd_args[i]) == 1 && var_exists(cmd_args[i], env_tesh, data) == 0)
-				dprintf(2, "");
-			else
+			if (is_var_declaration(cmd_args[i]) == 0
+				|| var_exists(cmd_args[i], env_tesh, data) == 1)
 			{
 				tmp_trim = ft_strtrim(cmd_args[i], "\"\'");
 				var_exists_del(cmd_args[i], env_tesh, data);

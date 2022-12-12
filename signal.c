@@ -1,26 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/12 20:34:50 by rkoop             #+#    #+#             */
+/*   Updated: 2022/12/12 20:35:26 by rkoop            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/shell.h"
 
-void signal_handler(int signum)
+void	signal_handler(int signum)
 {
-	// ◦ ctrl-C displays a new prompt on a new line.
 	if (signum == SIGINT)
 	{
-		//printf("\n%s",rl_line_buffer);
 		rl_replace_line("", 0);
 		rl_redisplay();
 		write(2, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	// ◦ ctrl-D exits the shell.
-	// no signal, sends EOF to stdin. detect it in lexer and exit
-	return;
+	return ;
 }
 
-void connect_signals()
+void	connect_signals(void)
 {
-	//connects to function signal_handler
 	signal(SIGINT, signal_handler);
-	//silences signal
 	signal(SIGQUIT, SIG_IGN);
 }
