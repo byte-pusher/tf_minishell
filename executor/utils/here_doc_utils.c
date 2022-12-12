@@ -6,11 +6,25 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:54:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 11:43:07 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/11 18:20:38 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
+#include "../../includes/shell.h"
+
+bool	ft_is_var(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i + 1] && s[i] == '$' && ft_is_space(s[i + 1]) == false)
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
 void	ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table, t_data *data)
 {

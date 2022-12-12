@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:02:09 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/08 20:27:04 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:05:42 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,45 @@ int	get_nr_of_vars(char *token_name)
 		i++;
 	}
 	return (count);
+}
+
+bool	ft_is_double_dollar(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '$' && s[i + 1] == '$')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+int		ft_get_next_var(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '$')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+void	ft_insert_dollars(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == 127)
+			s[i] = '$';
+		i++;
+	}
 }

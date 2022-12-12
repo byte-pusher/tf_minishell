@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 13:45:31 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 00:48:08 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,8 @@ int	ft_exec_builtin(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data)
 	return (SUCCESS);
 }
 
-void	ft_close_open_fds(t_exec *exec, t_cmd_table **cmd_table)
-{
-	t_cmd_table	*current;
-
-	current = *cmd_table;
-	while (current != NULL)
-	{
-		close(current->here_tmp_fd);
-		current = current->next;
-	}
-	close(exec->tmp_fd);
-	close(exec->stout);
-	close(exec->end[WRITE]);
-	close(exec->end[READ]);
-}
-
-void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data, t_exec *exec)
+void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data,
+				t_exec *exec)
 {
 	char	**env_arr;
 	int		execve_ret;
@@ -74,7 +59,7 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data, t_exec *exec
 void	ft_route_and_exec(t_cmd_table *cmd_table, t_env *env_tesh,
 						t_exec *exec, t_data *data)
 {
-	close(exec->end[READ]); // das hat cat|cat|ls gefixt
+	close(exec->end[READ]);
 	ft_route_stdin(cmd_table, exec);
 	if (g_exit_status != OPEN_FILE_ERR)
 		ft_route_stdout(cmd_table, exec);
@@ -84,7 +69,8 @@ void	ft_route_and_exec(t_cmd_table *cmd_table, t_env *env_tesh,
 	exit(g_exit_status);
 }
 
-int	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec, t_data *data)
+int	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec,
+						t_data *data)
 {
 	if (pipe(exec->end) == -1)
 	{
@@ -110,9 +96,6 @@ int	ft_create_child_prc(t_cmd_table *cmd_table, t_env *env_tesh, t_exec *exec, t
 	return (exec->pid);
 }
 
-// letztendlich geht es darum zu schauen was zu STDIN und was zu STDOUT pointen soll
-// entweder igne file oder pipe
-// de cmds finden dann automatisch 
 void	ft_executor(t_data *data)
 {
 	t_cmd_table	*current;

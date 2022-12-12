@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:20:35 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/02 16:59:07 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/11 18:20:41 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
+#include "../../includes/shell.h"
 
 bool	ft_is_infile(t_redir **redir)
 {
