@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/11 17:45:16 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 17:08:19 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 			else
 			{
 				tmp_trim = ft_strtrim(cmd_args[i], "\"\'");
-				var_exists_del(cmd_args[i], env_tesh);
+				var_exists_del(cmd_args[i], env_tesh, data);
 				ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
 				ft_lstlast_env(env_tesh)->var = malloc(ft_strlen(cmd_args[i]) + 1);
 				ft_strncpy(ft_lstlast_env(env_tesh)->var, tmp_trim,
