@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:21:13 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/07 13:39:26 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/08 19:12:30 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_err_msg(char *s)
 		perror(s);
 }
 
-void	ft_err_exit(char *s, int e_status)
+void	ft_err_exit(char *s, int e_status, t_data *data)
 {
 	g_exit_status = e_status;
 	ft_putstr_fd("teshno: exit: ", 2);
@@ -56,6 +56,10 @@ void	ft_err_exit(char *s, int e_status)
 	{
 		ft_putstr_fd(s, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
+		ft_free_all(data);
+		ft_lstclear_env(&data->env_tesh);
+		rl_clear_history();
+		exit(g_exit_status);
 	}
 	else if (g_exit_status == 1)
 		ft_putstr_fd("too many arguments\n", 2);

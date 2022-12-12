@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/09 18:24:21 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/11 17:45:16 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,13 +144,15 @@ int		is_valid_input(char *cmd_arg)
 
 void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 {
-	t_env	*node;
-	t_env	*last_node;
+	// t_env	*node;
+	// t_env	*last_node;
+	char	*tmp_trim;
 	int		i;
 
-	node = NULL;
-	last_node = NULL;
+	// node = NULL;
+	// last_node = NULL;
 	i = 1;
+	tmp_trim = NULL;
 
 	if (cmd_args[i] == NULL)
 		print_declare_x(env_tesh, data);
@@ -163,13 +165,16 @@ void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 				dprintf(2, "");
 			else
 			{
-				var_exists_del(cmd_args[i], env_tesh, data);
+				tmp_trim = ft_strtrim(cmd_args[i], "\"\'");
+				var_exists_del(cmd_args[i], env_tesh);
 				ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
-				ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * ft_strlen(cmd_args[i]));
-				ft_strncpy(ft_lstlast_env(env_tesh)->var, ft_strtrim(cmd_args[i], "\"\'"), ft_strlen(ft_strtrim(cmd_args[i], "\"\'")));
+				ft_lstlast_env(env_tesh)->var = malloc(ft_strlen(cmd_args[i]) + 1);
+				ft_strncpy(ft_lstlast_env(env_tesh)->var, tmp_trim,
+						ft_strlen(tmp_trim));
 				if (is_var_declaration(cmd_args[i]) == 1)
 					ft_lstlast_env(env_tesh)->hidden = true;
 				data->env_exists = true;
+				free(tmp_trim);
 			}
 		}
 		else if (is_valid_input(cmd_args[i]) == 1)

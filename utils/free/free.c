@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:42:34 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:49:36 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 19:03:25 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_free_strings(char ***s)
 	i = 0;
 	while ((*s)[i] != NULL)
 	{
-		free((*s)[i]);
+		if ((*s)[i][0] != '\0')
+			free((*s)[i]);
 		i++;
 	}
 	free((*s)[i]);
@@ -35,7 +36,7 @@ void	ft_free_cmd_args(t_cmd_table *cmd_table)
 	{
 		if (current->is_command == true)
 		{
-			if (current->path_name != NULL)
+			if (current->path_name != NULL && current->path_name[0] != '\0')
 				free(current->path_name);
 			ft_free_strings(&current->cmd_args);
 		}

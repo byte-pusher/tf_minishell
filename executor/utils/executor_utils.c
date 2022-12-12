@@ -6,16 +6,30 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:29:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 12:36:35 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/11 18:20:30 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
+#include "../../includes/shell.h"
+
+void	ft_close_open_fds(t_exec *exec, t_cmd_table **cmd_table)
+{
+	t_cmd_table	*current;
+
+	current = *cmd_table;
+	while (current != NULL)
+	{
+		close(current->here_tmp_fd);
+		current = current->next;
+	}
+	close(exec->tmp_fd);
+	close(exec->stout);
+	close(exec->end[WRITE]);
+	close(exec->end[READ]);
+}
 
 void	ft_end_prcs(t_exec *exec)
 {
-	// close(exec->end[READ]);
-	// close(exec->end[WRITE]);
 	close(exec->tmp_fd);
 	close(exec->stout);
 	while (exec->i > 0)
@@ -49,25 +63,9 @@ char	**ft_get_env_arr(t_env *env_tesh)
 	return (env_arr);
 }
 
-bool	ft_check_single_builtin(t_cmd_table *cmd_table)
-{
-	if (cmd_table->is_builtin == true && cmd_table->is_redir == false
-		&& cmd_table->prev == NULL && cmd_table->next == NULL)
-		return (true);
-	else
-		return (false);
-}
-
-bool	ft_check_single_cmd(t_cmd_table *cmd_table)
-{
-	if (cmd_table->is_command == true && cmd_table->is_builtin == false
-		&& cmd_table->is_redir == false && cmd_table->next == NULL
-		&& cmd_table->prev == NULL)
-		return (true);
-	else
-		return (false);
-}
-
+/* 
+tmp_fd is always saving the STDIN/READ END of PIPE
+*/
 t_exec	*ft_create_exec(void)
 {
 	t_exec	*new_exec;
@@ -78,11 +76,9 @@ t_exec	*ft_create_exec(void)
 	new_exec->end[READ] = 0;
 	new_exec->here_fd[WRITE] = 0;
 	new_exec->here_fd[READ] = 0;
-	// tmp_fd is always saving the STDIN/READ END of PIPE
 	new_exec->tmp_fd = dup(STDIN_FILENO);
 	if (new_exec->tmp_fd == -1)
 		ft_err_msg("dup");
-	// what STDOUT should have at the end
 	new_exec->stout = dup(STDOUT_FILENO);
 	if (new_exec->stout == -1)
 		ft_err_msg("dup");

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
+#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/12/08 14:15:47 by rkoop            ###   ########.fr        #
+#    Updated: 2022/12/11 17:59:10 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,13 @@ SRCS  = main.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors_utils.c utils/free/free.c \
 		env/env.c \
-		executor/executor.c executor/executor_utils.c \
+		executor/executor.c \
+		executor/utils/executor_utils.c executor/utils/executor_utils_2.c \
+		executor/here_doc.c \
+		executor/utils/here_doc_utils.c executor/utils/here_doc_utils_2.c \
+		executor/route_stdin.c executor/route_stdout.c \
+		executor/utils/route_stdin_utils.c executor/utils/route_stdout_utils.c \
 		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/export_utils.c builtin/cd.c builtin/pwd.c  builtin/exit.c\
-		executor/here_doc.c executor/here_doc_utils.c executor/here_doc_utils_2.c \
-		executor/route_stdin.c executor/route_stdin_utils.c \
-		executor/route_stdout.c executor/route_stdout_utils.c \
 
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
@@ -83,4 +85,4 @@ inside: $(OBJS) $(LIBFT)
 valgrind: re
 	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
-.PHONY: all clean fclean re git lib valgrind
+.PHONY: all clean fclean re git lib valgrind		

@@ -1,16 +1,3 @@
-{
-	"files.associations": {
-		"shell.h": "c",
-		"iterator": "c",
-		"locale": "c",
-		"__node_handle": "c",
-		"__config": "c",
-		"chrono": "c",
-		"complex": "c",
-		"stdio.h": "c",
-		"array": "c",
-		"string": "c",
-		"string_view": "c",
-		"vector": "c"
+
 	}
 }

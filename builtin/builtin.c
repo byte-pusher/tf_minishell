@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:19 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 11:47:04 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/11 17:52:09 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+
+
 
 void	ft_echo(char **cmd_args)
 {

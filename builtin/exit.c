@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 15:46:27 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/08 13:49:14 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/08 19:12:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,13 @@ void	ft_exit(char **cmd_args, t_cmd_table *cmd_table, t_data *data)
 	printf("exit\n");
 	if (cmd_args[1] != NULL && cmd_args[2] != NULL)
 	{
-		ft_err_exit(cmd_args[1], 1);
+		ft_err_exit(cmd_args[1], 1, data);
 		return ;
 	}
 	while (cmd_args[i] != NULL)
 	{
 		if (ft_is_non_num(cmd_args[i]) == true)
-		{
-			ft_err_exit(cmd_args[1], NON_NUM_ARG);
-			exit (g_exit_status);
-		}
+			ft_err_exit(cmd_args[1], NON_NUM_ARG, data);
 		i++;
 	}
 	if (cmd_args[1] != NULL)
