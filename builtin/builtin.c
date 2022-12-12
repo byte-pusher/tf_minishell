@@ -38,8 +38,8 @@ void	ft_echo(char **cmd_args)
 		printf("\n");
 }
 
-void	ft_env(t_env *env_tesh)
-{
-	if (env_tesh != NULL)
-		print_env(&env_tesh);
-}
+// void	ft_env(t_env *env_tesh)
+// {
+// 	if (env_tesh != NULL)
+// 		print_env(&env_tesh);
+// }

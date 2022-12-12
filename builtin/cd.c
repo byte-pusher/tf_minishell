@@ -6,14 +6,12 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/08 16:09:38 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:52:49 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-
-// create OLDPWD if it has been unset or non existing
 char	*get_dir(t_env *env_tesh, char *var)
 {
 	t_env	*current_env;
@@ -22,8 +20,10 @@ char	*get_dir(t_env *env_tesh, char *var)
 	int		i;
 
 	current_env = env_tesh;
+	if (current_env->var == NULL)
+		current_env = current_env->next;
 	len_current_env_var = 0;
-	len_var = ft_strlen(var);
+	len_var = (ft_strlen(var) - 1);
 	i = 0;
 	while (current_env != NULL)
 	{
@@ -40,106 +40,99 @@ char	*get_dir(t_env *env_tesh, char *var)
 	return (NULL);
 }
 
-//ft to get var node
-t_env	*get_var_node(t_env *env_tesh, char *var)
-{
-	t_env	*current_env;
-	size_t	len_current_env_var;
-	
-	current_env = env_tesh;
-	len_current_env_var = 0;
-	
-	while (current_env != NULL)
-	{
-		len_current_env_var = get_var_len(current_env->var);
-		if (ft_strncmp(current_env->var, var, len_current_env_var) == 0
-			&& var[len_current_env_var + 1] == '\0')
-		{
-			return(current_env);
-		}
-		current_env = current_env->next;
-	}
-	return(NULL);
-}
-
-
-//ft to set pwd as oldpwd
-void	set_oldpwd(t_env *env_tesh)
+//ft to set pwd 9in form of tmp)  as oldpwd
+void	set_oldpwd(t_env *env_tesh, t_data *data, char *tmp_dir)
 {
 	t_env	*last_node;
 	char	*buffer;
-	
+
 	buffer = NULL;
-	ft_lstdel_env(env_tesh, get_var_node(env_tesh, "OLDPWD="));
+	var_exists_del("OLDPWD=", env_tesh, data);
 	ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
-	ft_lstlast_env(env_tesh)->var = malloc(sizeof(char) * (ft_strlen(getcwd(buffer, 0)) + 8));
-	ft_strncpy(ft_lstlast_env(env_tesh)->var, "OLDPWD=", ft_strlen(getcwd(buffer, 0)) + 8);
-	ft_lstlast_env(env_tesh)->var = ft_strjoin(ft_lstlast_env(env_tesh)->var, getcwd(buffer, 0));
+	ft_lstlast_env(env_tesh)->var = ft_strjoin("OLDPWD=", tmp_dir);
 	free(buffer);
 }
 
-void	set_pwd(t_env *env_tesh)
+void	set_pwd(t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
-	char	pwd_var[] = "PWD=";
-	int		len_new_pwd;
 	char	*buffer;
-	
+
 	buffer = NULL;
-	current_env = env_tesh;
-	len_new_pwd = ft_strlen(getcwd(NULL, 0)) + 4;
-	//rewrite pwd in env
-	while (current_env != NULL)
-	{
-		if (ft_strnstr(current_env->var, pwd_var, 4) != NULL)
-		{
-			free(current_env->var);
-			current_env->var = malloc(sizeof(char) * len_new_pwd);
-			ft_strlcpy(current_env->var, pwd_var, len_new_pwd);
-			ft_strlcat(current_env->var, getcwd(buffer, 0), len_new_pwd);
-			free(buffer);
-		}	
+	current_env = ft_lstfirst_env(&env_tesh);
+	if (current_env->var == NULL)
 		current_env = current_env->next;
-	}
+	var_exists_del("PWD=", env_tesh, data);
+	ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
+	ft_lstlast_env(env_tesh)->var = ft_strjoin("PWD=", getcwd(buffer, 0));
+	free(buffer);
 }
 
-void	ft_cd(char **cmd_args, t_env *env_tesh)
+int	ft_cd_flags(char flag, t_env *env_tesh, t_data *data, char *tmp_dir)
 {
 	char	*old_pwd;
 	char	*home_dir;
+	char	*buffer;
 
 	old_pwd = NULL;
 	home_dir = NULL;
-	
-	if (!cmd_args[1] || env_tesh == NULL )
-		return ;
-	//check for - 
-	if (ft_strncmp(cmd_args[1], "-", 1) == 0 &&
-		get_dir(env_tesh, "$OLDPWD") != NULL)
+	if (flag == '-' && get_dir(env_tesh, "$OLDPWD") != NULL)
 	{
-		old_pwd = get_dir(env_tesh, "$OLDPWD");
-		set_oldpwd(env_tesh);
-		chdir(old_pwd);
-		set_pwd(env_tesh);
-		return ;
+		old_pwd = malloc(sizeof(char) * ft_strlen(get_dir(env_tesh, "$OLDPWD") + 1));
+		ft_strncpy(old_pwd, get_dir(env_tesh, "$OLDPWD"), ft_strlen(get_dir(env_tesh, "$OLDPWD") + 1));
+		if (chdir(old_pwd) == 0)
+		{
+			set_oldpwd(env_tesh, data, tmp_dir);
+			set_pwd(env_tesh, data);
+			return (0);
+		}	
+		free(old_pwd);
 	}
-	if (ft_strncmp(cmd_args[1], "~", 1) == 0 &&
-		get_dir(env_tesh, "$HOME") != NULL)
+	else if (flag == '~' && get_dir(env_tesh, "$HOME") != NULL)
 	{
-		home_dir = get_dir(env_tesh, "$HOME");
-		set_oldpwd(env_tesh);
-		chdir(home_dir);
-		set_pwd(env_tesh);
-		return ;
+		home_dir = malloc(sizeof(char) * ft_strlen(get_dir(env_tesh, "$HOME") + 1));
+		ft_strncpy(home_dir, get_dir(env_tesh, "$HOME"), ft_strlen(get_dir(env_tesh, "$OLDPWD") + 1));
+		if (chdir(home_dir) == 0)
+		{
+			set_oldpwd(env_tesh, data, tmp_dir);
+			set_pwd(env_tesh, data);
+			free(home_dir);
+			return (0);
+		}
+		free(home_dir);
 	}
-	//set current as old pwd
-	set_oldpwd(env_tesh);
+	return (1);
+}
+
+void	ft_cd(char **cmd_args, t_env *env_tesh, t_data *data)
+{
+	char	*tmp_dir;
+	char	*buffer;
+
+	buffer = NULL;
+	tmp_dir = getcwd(buffer, 0);
+	if (!cmd_args[1])
+		return ;
+	if (cmd_args[1][0] == '-' || cmd_args[1][0] == '~')
+	{
+		if (ft_cd_flags(cmd_args[1][0], env_tesh, data, tmp_dir) == 0)
+			return ;
+		else
+		{
+			g_exit_status = OPEN_FILE_ERR;
+			ft_err_msg("cd: ");
+		}
+	}
 	if (chdir(cmd_args[1]) == -1)
 	{
 		g_exit_status = OPEN_FILE_ERR;
-		//also need to pass path string that has been tried to reach
 		ft_err_msg("cd: ");
 	}
+	//set old pwd tp tmp
+	set_oldpwd(env_tesh, data, tmp_dir);
 	//rewrite pwd
-	set_pwd(env_tesh);
+	set_pwd(env_tesh, data);
+	//add check for OLDPWD == PWD & remove OLDPWD?
+	free(tmp_dir);
+	free(buffer);
 }

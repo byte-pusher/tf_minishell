@@ -91,6 +91,8 @@ char	*get_value(t_data *data, char *var, bool *is_env_var)
 	size_t	len_var;
 	int		i;
 
+	if (ft_lstfirst_env(&data->env_tesh)->var == NULL)
+		return (NULL);
 	current_env = ft_lstfirst_env(&data->env_tesh);
 	len_var = ft_strlen(var);
 	i = 0;

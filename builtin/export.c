@@ -13,16 +13,20 @@
 #include "../includes/shell.h"
 
 //check if var already exists, if yes delete
-int	var_exists_del(char *cmd_arg, t_env *env_tesh)
+int	var_exists_del(char *cmd_arg, t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
 	int		var_len;
 
-	current_env = env_tesh;
+	if (data->env_exists == false)
+		return (1);
+	current_env = ft_lstfirst_env(&env_tesh);
+	if (current_env->var == NULL)
+		current_env = current_env->next;
 	var_len = comp_var_len(cmd_arg);
 	while (current_env != NULL)
 	{
-		if(current_env->hidden == false)
+		if (current_env->hidden == false)
 		{
 			if (ft_strncmp(current_env->var, cmd_arg, var_len + 1) == 0)
 			{
@@ -43,16 +47,20 @@ int	var_exists_del(char *cmd_arg, t_env *env_tesh)
 	return (1);
 }
 
-int	var_exists(char *cmd_arg, t_env *env_tesh)
+int	var_exists(char *cmd_arg, t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
 	int		var_len;
 
-	current_env = env_tesh;
+	if (data->env_exists == false)
+		return (1);
+	current_env = ft_lstfirst_env(&env_tesh);
+	if (current_env->var == NULL)
+		current_env = current_env->next;
 	var_len = comp_var_len(cmd_arg);
 	while (current_env != NULL)
 	{
-		if(current_env->hidden == false)
+		if (current_env->hidden == false)
 		{
 			if (ft_strncmp(current_env->var, cmd_arg, var_len + 1) == 0)
 				return (0);
@@ -67,24 +75,30 @@ int	var_exists(char *cmd_arg, t_env *env_tesh)
 	return (1);
 }
 
-void	print_declare_x(t_env *env_tesh)
+void	print_declare_x(t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
 	char	*modified_str;
 	int		current_var_len;
 
-	current_env = env_tesh;
+	if (data->env_exists == false)
+		return ;
+	current_env = ft_lstfirst_env(&env_tesh);
+	if (current_env->var == NULL)
+		current_env = current_env->next;
 	modified_str = NULL;
 	current_var_len = 0;
-	while(current_env != NULL)
+	while (current_env != NULL)
 	{
 		current_var_len = ft_strlen(current_env->var);
 		printf("declare -x ");
 		modified_str = malloc(sizeof(char) * current_var_len + 2);
-		ft_strlcpy(modified_str, current_env->var, comp_var_len(current_env->var) + 2);
+		ft_strlcpy(modified_str, current_env->var,
+			comp_var_len(current_env->var) + 2);
 		if (current_env->hidden == false)
 			ft_strlcat(modified_str, "\"", current_var_len + 2);
-		ft_strlcat(modified_str, current_env->var + (comp_var_len(current_env->var)+1), current_var_len + 2);
+		ft_strlcat(modified_str, current_env->var
+			+ (comp_var_len(current_env->var) + 1), current_var_len + 2);
 		if (current_env->hidden == false)
 			ft_strlcat(modified_str, "\"", current_var_len + 3);
 		printf("%s\n", modified_str);
@@ -107,19 +121,20 @@ int		is_valid_input(char *cmd_arg)
 			if (ft_isalpha(cmd_arg[i]) == 1 || cmd_arg[i] == '_')
 				i++;
 			else
-			return (1);
+				return (1);
 		}
 	}
 	while (cmd_arg[i] != '\0')
 	{
-		if (cmd_arg[i] == ')' || cmd_arg[i] == '(' || cmd_arg[i] == '&' || cmd_arg[i] == '+')
+		if (cmd_arg[i] == ')' || cmd_arg[i] == '('
+			|| cmd_arg[i] == '&' || cmd_arg[i] == '+')
 			return (1);
 		if (cmd_arg[i] == '!')
 		{
 			if (is_var_declaration(cmd_arg) == 1)
-				return(1);
+				return (1);
 			else if (is_var_declaration(cmd_arg) == 0 && cmd_arg[i + 1] != '\0')
-				return(1);
+				return (1);
 		}
 		i++;
 	}
@@ -139,17 +154,15 @@ void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 	i = 1;
 	tmp_trim = NULL;
 
-	if (env_tesh == NULL)
-		return ;
 	if (cmd_args[i] == NULL)
-		print_declare_x(env_tesh);
+		print_declare_x(env_tesh, data);
 	while (cmd_args[i] != NULL )
 	{
 		if (is_valid_input(cmd_args[i]) == 0)
 		{
 			//export a if a=xz exists already, nothing happens
-			if (is_var_declaration(cmd_args[i]) == 1 && var_exists(cmd_args[i], env_tesh) == 0)
-				dprintf(2, "\ngotcha");	
+			if (is_var_declaration(cmd_args[i]) == 1 && var_exists(cmd_args[i], env_tesh, data) == 0)
+				dprintf(2, "");
 			else
 			{
 				tmp_trim = ft_strtrim(cmd_args[i], "\"\'");
@@ -160,12 +173,13 @@ void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 						ft_strlen(tmp_trim));
 				if (is_var_declaration(cmd_args[i]) == 1)
 					ft_lstlast_env(env_tesh)->hidden = true;
+				data->env_exists = true;
 				free(tmp_trim);
 			}
 		}
 		else if (is_valid_input(cmd_args[i]) == 1)
 		{
-			g_exit_status = INVALID_IDENTIFIER;	
+			g_exit_status = INVALID_IDENTIFIER;
 			ft_err_msg(cmd_args[i]);
 		}
 		i++;

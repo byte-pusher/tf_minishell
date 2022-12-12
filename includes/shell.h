@@ -163,6 +163,8 @@ typedef struct s_exec
 typedef struct s_data
 {
 	char		*input;
+	bool		exit_in_err;
+	bool		env_exists;
 	bool		exit_shell;
 	bool		empty_input;
 	t_exec		*exec;
@@ -179,7 +181,7 @@ typedef struct s_heredoc
 
 void		ft_init_teshno(t_data *data);
 void		ft_get_env(char **env, t_data *data);
-void		print_env(t_env **lst);
+void		print_env(t_env **lst, t_data *data);
 bool		ft_is_empty(char *input);
 
 /* ************************************************************************** */
@@ -282,16 +284,18 @@ void		ft_exit(char **arg, t_cmd_table *cmd_table, t_data *data);
 void		ft_env(t_env *env_tesh);
 void		ft_echo(char **cmd_args);
 void		ft_export(char **cmd_args, t_env *env_tesh, t_data *data);
-void		ft_unset(char **cmd_args, t_env *env_tesh);
-void		ft_cd(char **cmd_args, t_env *env_tesh);
+void		ft_unset(char **cmd_args, t_env *env_tesh, t_data *data);
+void		ft_cd(char **cmd_args, t_env *env_tesh, t_data *data);
 void		ft_pwd(void);
 int			is_var_declaration(char *cmd_arg);
 int			comp_var_len(char *cmd_arg);
 int			valid_export(char *cmd_arg);
-int			var_exists(char *cmd_arg, t_env *env_tesh);
+int			var_exists(char *cmd_arg, t_env *env_tesh, t_data *data);
+int			var_exists_del(char *cmd_arg, t_env *env_tesh, t_data *data);
 int			is_var_declaration(char *cmd_arg);
 int			valid_export(char *cmd_arg);
 int			get_nr_of_vars(char *token_name);
+void		set_pwd(t_env *env_tesh, t_data *data);
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);

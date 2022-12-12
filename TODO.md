@@ -34,4 +34,4 @@
 	  	-> in bash this happens
 		echo hallo >out | <out wc -l >out2 | echo jo >out => cat out => jo\nlo
 			--> sometimes jo\nlo, but sometimes also only jo
-			--> so maybe I dont need to handle this
+uiltin_protection
