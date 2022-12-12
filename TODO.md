@@ -3,27 +3,15 @@
 - valgrind laufen lassen
 
 - norminette
-	-> comments löschen
-	-> #define Ding klären
 
-- exit after syntax error and cmd not found is returning 0. Should return the error nbr
+- export woco='wc -l'
+	-> cat Makefile | $woco
 
-- fix error msgs for imputs:
-	- alles was nicht /bin (. , /)
-	- bei ./ printen "is a directory"
-		-> (beim executor checken falls execve == -1 und strcp nicht /bin)
+- cd -
+	-> invalid read/write size etc
 
 ## ray
-~~- -> $ alone should not expand~~
-- SEGFAULT expansion: deletion of several non existing vars> e.g. echo $ghj $hj $ghj $ghj $ghj $Ghj
 - further error messages for builtins?
-- rewrite expansion functions
-- protection for missing environment in builtins
-
-
-
-
-
 
 ## evtl:
 - redir
@@ -34,4 +22,3 @@
 	  	-> in bash this happens
 		echo hallo >out | <out wc -l >out2 | echo jo >out => cat out => jo\nlo
 			--> sometimes jo\nlo, but sometimes also only jo
-uiltin_protection

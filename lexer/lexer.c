@@ -6,55 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/09 14:02:33 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 23:15:11 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
-
-bool	ft_is_file_name(t_token *new_token)
-{
-	if (new_token->prev != NULL
-		&& (new_token->prev->type == GREAT
-			|| new_token->prev->type == GREATGREAT
-			|| new_token->prev->type == LESS
-			|| new_token->prev->type == LESSLESS))
-		return (true);
-	return (false);
-}
-
-void	ft_cpy_string(t_data *data, t_token *new_token, int *i)
-{
-	int		start;
-	int		end;
-
-	start = *i;
-	if (new_token->type == FILE_NAME)
-	{
-		while (data->input[*i] != '\0'
-			&& ft_get_chartype(data->input, i) == GENERAL)
-		{
-			(*i)++;
-			end = *i;
-		}
-	}
-	else if (new_token->type == COMMAND)
-	{
-		while (data->input[*i] != '\0'
-			&& (ft_get_chartype(data->input, i) == GENERAL))
-				// || ft_get_chartype(data->input, i) == WHITE_SPACE))
-		{
-			(*i)++;
-			end = *i;
-		}
-	}
-	if (data->input[*i] == '\"' || data->input[*i] == '\'')
-		new_token->mixed_quotes = true;
-	(*i)--;
-	char *tmp_name = ft_substr(data->input, start, end - start);
-	new_token->name = ft_strtrim(tmp_name, "\t\n ");
-	free(tmp_name);
-}
 
 void	ft_handle_cmd(t_data *data, int *i, int type)
 {
@@ -90,27 +46,23 @@ void	ft_handle_heredoc_and_append(t_data *data, int *i, int type)
 	ft_lstadd_back_t(&data->tokens, new_token);
 }
 
-void	ft_handle_quotes(t_data *data, int *i, int type)
+void	ft_handle_quotes(t_data *data, int *i, int type, char c)
 {
 	int		start;
 	int		end;
-	char	c;
 	t_token	*new_token;
 
-	if (type == SQUOTE)
-		c = '\'';
-	else if (type == DQUOTE)
-		c = '\"';
-	start = *i;
 	new_token = ft_lstnew_t();
 	new_token->type = type;
+	start = *i;
 	while (data->input[*i] != '\0')
 	{
 		(*i)++;
 		end = *i;
 		if (data->input[*i] == c)
 		{
-			if (ft_is_space(data->input[(*i) + 1]) == false && ft_is_redir_token(data->input[(*i) + 1]) == false)
+			if (ft_is_space(data->input[(*i) + 1]) == false
+				&& ft_is_redir_token(data->input[(*i) + 1]) == false)
 				new_token->mixed_quotes = true;
 			break ;
 		}
@@ -152,10 +104,9 @@ void	ft_lexer(t_data *data)
 		else if (type == LESSLESS || type == GREATGREAT)
 			ft_handle_heredoc_and_append(data, &i, type);
 		else if (type == SQUOTE || type == DQUOTE)
-			ft_handle_quotes(data, &i, type);
+			ft_handle_quotes(data, &i, type, data->input[i]);
 		else if (type == PIPE || type == GREAT || type == LESS)
 			ft_handle_others(data, type, data->input[i]);
 		i++;
 	}
-	// ms_print_list(&data->tokens);
 }

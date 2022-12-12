@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 13:21:00 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/12 23:51:26 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,67 +59,6 @@ t_env	*ft_lstfirst_env(t_env **lst)
 	if (lst == NULL)
 		return (NULL);
 	return (*lst);
-}
-
-void	ft_lstdel_env(t_env *lst, t_env *node)
-{
-	t_env	*p;
-	t_env	*prev;
-
-	if (lst == NULL || node == NULL)
-		return ;
-	p = ft_lstfirst_env(&lst);
-	while (p != NULL)
-	{
-		if (p->var == node->var)
-		{
-			if (p->next != NULL)
-				p->next->prev = p->prev;
-			if (p->prev != NULL)
-				p->prev->next = p->next;
-			free(p->var);
-			free(p);
-			break ;
-		}
-		p = p->next;
-	}
-}
-
-// void	ft_free_list(t_token **lst, bool exit, bool exit_status)
-// {
-// 	t_token	*current;
-// 	t_token	*next;
-
-// 	current = *lst;
-// 	while (current)
-// 	{
-// 		next = current->next;
-// 		free(current);
-// 		current = next;
-// 	}
-// 	if (exit == true && g_exit_status == false)
-// 		ft_exit_print(g_exit_status, "Error\n", 2);
-// 	else if (exit == true && g_exit_status == true)
-// 		ft_exit_print(g_exit_status, "Error\n", 2);
-// 	*lst = NULL;
-// 	lst = NULL;
-// }
-
-void	ft_lstclear_env(t_env **lst)
-{
-	t_env	*current;
-	t_env	*next;
-
-	current = *lst;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current->var);
-		free(current);
-		current = next;
-	}
-	*lst = NULL;
-	lst = NULL;
 }
 
 int	ft_lstsize_env(t_env **lst)

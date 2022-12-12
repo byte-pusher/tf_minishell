@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:51:29 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/09 14:06:59 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 23:16:43 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@
 // 	trim_str[z] = '\0';
 // 	return (trim_str);
 // }
-
 
 static int	ft_charchr(char const *set, char c)
 {

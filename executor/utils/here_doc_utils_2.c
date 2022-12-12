@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:13:43 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 16:06:18 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 22:50:47 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@
 // 	}
 // }
 
+bool	ft_is_delimiter(char c)
+{
+	if (c == '\0' && c == ' ' && c == '$' && c == '\"' && c == '\'')
+		return (true);
+	else
+		return (false);
+}
+
 char	*get_value_hd(t_data *data, char *var, bool *is_env_var)
 {
 	t_env	*current_env;
@@ -92,9 +100,9 @@ char	*get_value_hd(t_data *data, char *var, bool *is_env_var)
 	return (NULL);
 }
 
-void	insert_value_hd(t_heredoc *heredoc, char *read_sub, char *value, int start)
+void	insert_value_hd(t_heredoc *heredoc, char *read_sub, char *value,
+						int start)
 {
-	// lens as variables to avoid multiple strlen calls
 	size_t	len_token_name;
 	size_t	len_value;
 	char	*new_read;
@@ -142,18 +150,6 @@ void	change_read_name(t_data *data, t_heredoc *heredoc, int start, int end)
 	free(variable);
 }
 
-bool	ft_no_var_left(char *s, int i)
-{
-	i++;
-	while (s[i])
-	{
-		if (s[i] == '$')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
 void	ft_expand_read(t_heredoc *heredoc, t_data *data)
 {
 	int		i;
@@ -169,9 +165,7 @@ void	ft_expand_read(t_heredoc *heredoc, t_data *data)
 		{
 			start = i;
 			i++;
-			while (heredoc->read[i] != '\0' && heredoc->read[i] != ' '
-				&& heredoc->read[i] != '$' && heredoc->read[i] != '\"'
-				&& heredoc->read[i] != '\'')
+			while (ft_is_delimiter(heredoc->read[i]) == false)
 				i++;
 			end = i;
 			change_read_name(data, heredoc, start, end);
