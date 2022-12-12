@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/12 16:52:49 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/12 17:39:41 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_dir(t_env *env_tesh, char *var)
 	size_t	len_var;
 	int		i;
 
-	current_env = env_tesh;
+	current_env = ft_lstfirst_env(&env_tesh);
 	if (current_env->var == NULL)
 		current_env = current_env->next;
 	len_current_env_var = 0;
@@ -78,20 +78,22 @@ int	ft_cd_flags(char flag, t_env *env_tesh, t_data *data, char *tmp_dir)
 	home_dir = NULL;
 	if (flag == '-' && get_dir(env_tesh, "$OLDPWD") != NULL)
 	{
-		old_pwd = malloc(sizeof(char) * ft_strlen(get_dir(env_tesh, "$OLDPWD") + 1));
-		ft_strncpy(old_pwd, get_dir(env_tesh, "$OLDPWD"), ft_strlen(get_dir(env_tesh, "$OLDPWD") + 1));
+		old_pwd = malloc(sizeof(char) * ft_strlen(get_dir(env_tesh, "$OLDPWD")));
+		ft_strncpy(old_pwd, get_dir(env_tesh, "$OLDPWD"), ft_strlen(get_dir(env_tesh, "$OLDPWD")));
 		if (chdir(old_pwd) == 0)
 		{
+			
 			set_oldpwd(env_tesh, data, tmp_dir);
 			set_pwd(env_tesh, data);
+			free(old_pwd);
 			return (0);
 		}	
 		free(old_pwd);
 	}
 	else if (flag == '~' && get_dir(env_tesh, "$HOME") != NULL)
 	{
-		home_dir = malloc(sizeof(char) * ft_strlen(get_dir(env_tesh, "$HOME") + 1));
-		ft_strncpy(home_dir, get_dir(env_tesh, "$HOME"), ft_strlen(get_dir(env_tesh, "$OLDPWD") + 1));
+		home_dir = malloc(sizeof(char) * ft_strlen(get_dir(env_tesh, "$HOME")));
+		ft_strncpy(home_dir, get_dir(env_tesh, "$HOME"), ft_strlen(get_dir(env_tesh, "$OLDPWD")));
 		if (chdir(home_dir) == 0)
 		{
 			set_oldpwd(env_tesh, data, tmp_dir);
@@ -123,7 +125,7 @@ void	ft_cd(char **cmd_args, t_env *env_tesh, t_data *data)
 			ft_err_msg("cd: ");
 		}
 	}
-	if (chdir(cmd_args[1]) == -1)
+	else if (chdir(cmd_args[1]) == -1)
 	{
 		g_exit_status = OPEN_FILE_ERR;
 		ft_err_msg("cd: ");

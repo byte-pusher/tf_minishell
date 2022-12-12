@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/12 17:08:19 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 17:34:09 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,16 +144,11 @@ int		is_valid_input(char *cmd_arg)
 
 void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 {
-	// t_env	*node;
-	// t_env	*last_node;
 	char	*tmp_trim;
 	int		i;
 
-	// node = NULL;
-	// last_node = NULL;
 	i = 1;
 	tmp_trim = NULL;
-
 	if (cmd_args[i] == NULL)
 		print_declare_x(env_tesh, data);
 	while (cmd_args[i] != NULL )
@@ -170,7 +165,7 @@ void	ft_export(char **cmd_args, t_env *env_tesh, t_data *data)
 				ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
 				ft_lstlast_env(env_tesh)->var = malloc(ft_strlen(cmd_args[i]) + 1);
 				ft_strncpy(ft_lstlast_env(env_tesh)->var, tmp_trim,
-						ft_strlen(tmp_trim));
+					ft_strlen(tmp_trim));
 				if (is_var_declaration(cmd_args[i]) == 1)
 					ft_lstlast_env(env_tesh)->hidden = true;
 				data->env_exists = true;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/12/11 17:59:10 by gjupy            ###   ########.fr        #
+#    Updated: 2022/12/12 17:37:50 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS  = main.c \
 		executor/utils/here_doc_utils.c executor/utils/here_doc_utils_2.c \
 		executor/route_stdin.c executor/route_stdout.c \
 		executor/utils/route_stdin_utils.c executor/utils/route_stdout_utils.c \
-		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/export_utils.c builtin/cd.c builtin/pwd.c  builtin/exit.c\
+		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/cd.c builtin/pwd.c  builtin/exit.c\
 
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
