@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:21:13 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 13:31:24 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 15:53:31 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ft_invalid_err(char *s)
 	write(STDERR_FILENO, "\n", 2);
 }
 
-
 void	ft_err_msg(char *s)
 {
 	write(2, "teshno: ", 8);
@@ -56,4 +55,5 @@ void	ft_err_msg(char *s)
 		ft_arg_req(s);
 	else
 		perror(s);
+	free(s);
 }
