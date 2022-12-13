@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:26:13 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/13 12:30:15 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 14:26:00 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	set_pwd(t_env *env_tesh, t_data *data)
 	t_env	*last_node;
 	t_env	*current_env;
 	char	*buffer;
+	char	*path_name;
 
 	buffer = NULL;
 	current_env = ft_lstfirst_env(&env_tesh);
@@ -66,6 +67,8 @@ void	set_pwd(t_env *env_tesh, t_data *data)
 	var_exists_del("PWD=", env_tesh, data);
 	ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
 	last_node = ft_lstlast_env(env_tesh);
-	last_node->var = ft_strjoin("PWD=", getcwd(buffer, 0));
+	path_name = getcwd(buffer, 0);
+	last_node->var = ft_strjoin("PWD=", path_name);
 	free(buffer);
+	free(path_name);
 }

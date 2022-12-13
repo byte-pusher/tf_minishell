@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:55:33 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 16:27:22 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void	ft_init_teshno(t_data *data)
 	while (true)
 	{
 		ft_init_structs(data);
+		ft_connect_signals();
 		ft_init_input(data);
+		ft_silence_signals();
 		if (data->exit_shell == true)
 			break ;
 		if (data->empty_input == true)

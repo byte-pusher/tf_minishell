@@ -39,8 +39,9 @@
 	- to is_cmd_or quotes included FILE_NAME
 
 ## ray
-- add path protections for all getcwd functions
+~~- add path protections for all getcwd functions~~
 - add dir creaion in makefile
+~~- add2nd signal handler for in between readline, to silence~~
 
 ## evtl:
 - redir
