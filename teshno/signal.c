@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 23:53:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:55:26 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 15:16:00 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,14 @@ void	signal_handler(int signum)
 	return ;
 }
 
-void	connect_signals(void)
+void	ft_connect_signals(void)
 {
 	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	ft_silence_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 }

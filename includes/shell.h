@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 15:55:44 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 16:30:40 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,8 @@ void		ft_insert_dollars(char *s);
 /* UTILS																	  */
 /* ************************************************************************** */
 /* SIGNALS*/
-void		connect_signals(void);
+void		ft_connect_signals(void);
+void		ft_silence_signals(void);
 
 /* LST */
 t_cmd_table	*ft_lstnew_ct(void);

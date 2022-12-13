@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 16:03:54 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 16:31:15 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	ft_init_teshno(t_data *data)
 	while (true)
 	{
 		ft_init_structs(data);
+		ft_connect_signals();
 		ft_init_input(data);
+		ft_silence_signals();
 		if (data->exit_shell == true)
 			break ;
 		if (data->empty_input == true || data->unclosed_quotes == true)

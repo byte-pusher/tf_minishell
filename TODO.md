@@ -10,8 +10,9 @@
 		-> cat Makefile | $woco
 
 ## ray
-- add path protections for all getcwd functions
+~~- add path protections for all getcwd functions~~
 - add dir creaion in makefile
+~~- add2nd signal handler for in between readline, to silence~~
 
 ## evtl:
 - redir
