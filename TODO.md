@@ -21,6 +21,8 @@
 
 -   > 'o'ut
 
+- unset ""
+
 - correction
 	- echo """"''""''""
 	- echo ""$PWD""
