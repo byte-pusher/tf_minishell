@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 15:46:27 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/08 19:12:37 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 18:20:07 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_exit(char **cmd_args, t_cmd_table *cmd_table, t_data *data)
 	}
 	if (cmd_args[1] != NULL)
 		ft_save_e_code(cmd_args[1]);
+	else
+		g_exit_status = data->prev_exit_code;
 	ft_free_all(data);
 	ft_lstclear_env(&data->env_tesh);
 	rl_clear_history();

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors_utils.c                                     :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:21:13 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 12:22:28 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:31:24 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_cmd_err(char *s)
 {
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd(": command not found", 2);
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n", 2);
 }
 
 void	ft_synt_err(char *s)
@@ -24,7 +24,14 @@ void	ft_synt_err(char *s)
 	ft_putstr_fd("syntax error near unexpected token `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd("'", 2);
-	write(STDERR_FILENO, "\n", 1);
+	write(STDERR_FILENO, "\n", 2);
+}
+
+void	ft_arg_req(char *s)
+{
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd(": filename argument required", 2);
+	write(STDERR_FILENO, "\n", 2);
 }
 
 void	ft_invalid_err(char *s)
@@ -32,7 +39,7 @@ void	ft_invalid_err(char *s)
 	ft_putstr_fd("`", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd("': not a valid identifier", 2);
-	write(STDERR_FILENO, "\n", 1);
+	write(STDERR_FILENO, "\n", 2);
 }
 
 
@@ -45,23 +52,8 @@ void	ft_err_msg(char *s)
 		ft_cmd_err(s);
 	else if (g_exit_status == INVALID_IDENTIFIER)
 		ft_invalid_err(s);
+	else if (g_exit_status == ARG_REQ)
+		ft_arg_req(s);
 	else
 		perror(s);
-}
-
-void	ft_err_exit(char *s, int e_status, t_data *data)
-{
-	g_exit_status = e_status;
-	ft_putstr_fd("teshno: exit: ", 2);
-	if (g_exit_status == NON_NUM_ARG)
-	{
-		ft_putstr_fd(s, 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
-		ft_free_all(data);
-		ft_lstclear_env(&data->env_tesh);
-		rl_clear_history();
-		exit(g_exit_status);
-	}
-	else if (g_exit_status == 1)
-		ft_putstr_fd("too many arguments\n", 2);
 }

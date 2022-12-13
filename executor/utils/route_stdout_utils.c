@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:44:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/11 18:20:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 22:51:03 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_close_outfiles(t_cmd_table *cmd_table)
 	}
 }
 
-static void	ft_open (t_redir *redir, int *ret)
+static void	ft_open(t_redir *redir, int *ret)
 {
 	if (redir->type == GREAT)
 	{

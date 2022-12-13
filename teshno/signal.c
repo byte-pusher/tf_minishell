@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 20:34:50 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/12 20:35:26 by rkoop            ###   ########.fr       */
+/*   Created: 2022/12/12 23:53:51 by gjupy             #+#    #+#             */
+/*   Updated: 2022/12/12 23:55:26 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../includes/shell.h"
 
 void	signal_handler(int signum)
 {

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:22:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/06 15:12:15 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 23:01:55 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,15 @@ int	ft_get_chartype(char *s, int *i)
 	if (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\n')
 		return (WHITE_SPACE);
 	return (GENERAL);
+}
+
+bool	ft_is_file_name(t_token *new_token)
+{
+	if (new_token->prev != NULL
+		&& (new_token->prev->type == GREAT
+			|| new_token->prev->type == GREATGREAT
+			|| new_token->prev->type == LESS
+			|| new_token->prev->type == LESSLESS))
+		return (true);
+	return (false);
 }

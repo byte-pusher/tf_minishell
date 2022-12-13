@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 12:35:10 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:29:58 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define RESET "\033[0m"
 # define COLOR_BOLD  "\e[1m"
 # define COLOR_OFF   "\e[m"
-# define TESHNO PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET
 
 # include "../libft/libft.h"
 # include <stdlib.h>
@@ -30,7 +29,7 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <signal.h>
-#include  <sys/wait.h>
+# include  <sys/wait.h>
 
 /* ************************************************************************** */
 /* READLINE MISSING PROTOTYPES												  */
@@ -62,6 +61,8 @@ enum e_ERROR_TYPE
 {
 	SUCCESS = 0,
 	OPEN_FILE_ERR = 1,
+	ARG_REQ = 2,
+	IS_DIR = 126,
 	CMD_NOT_FOUND = 127,
 	NON_NUM_ARG = 255,
 	SYNTAX_ERR = 258,
@@ -163,7 +164,7 @@ typedef struct s_exec
 typedef struct s_data
 {
 	char		*input;
-	bool		exit_in_err;
+	int			prev_exit_code;
 	bool		env_exists;
 	bool		exit_shell;
 	bool		empty_input;
@@ -204,16 +205,18 @@ void		free_var_arr(char **var_arr);
 bool		ft_is_space(char c);
 bool		ft_is_redir_token(char c);
 int			ft_get_chartype(char *s, int *i);
+bool		ft_is_file_name(t_token *new_token);
+void		ft_cpy_string(t_data *data, t_token *new_token, int *i);
 
 /* ************************************************************************** */
-/* EXPANSION																	*/
+/* EXPANSION																  */
 /* ************************************************************************** */
 void		expansion(t_data *data);
 
 /* UTILS */
-bool	ft_is_double_dollar(char *s);
-int		ft_get_next_var(char *s);
-void	ft_insert_dollars(char *s);
+bool		ft_is_double_dollar(char *s);
+int			ft_get_next_var(char *s);
+void		ft_insert_dollars(char *s);
 
 /* ************************************************************************** */
 /* UTILS																	  */
@@ -251,6 +254,7 @@ void		ft_lstdel_env(t_env *lst, t_env *node);
 
 /* ERRORS */
 void		ft_err_msg(char *s);
+bool		ft_is_path_cmd(char *s);
 void		ft_err_exit(char *s, int e_status, t_data *data);
 
 /* ************************************************************************** */
@@ -265,8 +269,10 @@ void		print_cmd_strings(t_cmd_table *cmd_table); // danach löschen
 bool		ft_check_redir_err(t_token *token);
 int			get_combined_len(t_token *current_token);
 bool		ft_is_cmd_or_quotes(t_token *token);
+
 bool		ft_check_quotes(char *str);
 bool		ft_check_pipe_sequence(t_token *token);
+bool		ft_check_others(t_token **token);
 
 /* CMD_PARSER */
 void		ft_command_parser(t_cmd_table *cmd_table, t_token **token,
@@ -334,7 +340,8 @@ bool		ft_is_outfile(t_redir **redir);
 void		ft_heredoc(t_exec *exec, t_cmd_table *cmd_table, t_data *data);
 bool		ft_is_heredoc(t_redir **redir);
 bool		ft_heredoc_after_infile(t_redir *redir);
-void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table, t_data *data);
+void		ft_open_heredocs(t_exec *exec, t_cmd_table **cmd_table,
+				t_data *data);
 void		ft_expand_read(t_heredoc *heredoc, t_data *data);
 bool		ft_is_var(char *s);
 
