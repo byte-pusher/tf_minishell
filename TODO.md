@@ -4,11 +4,37 @@
 
 - norminette
 
-- export woco='wc -l'
-	-> cat Makefile | $woco
+- export 
+	- export=42
+	- export ''=''
+	- export ""=""
+	- export ''=''
+	- export ""=""
+	- export =============123
+	- unset ""
+	- unset =
+	- unset "="
+	- unset ""=
+	- unset =""
+
+## redir
+
+-   > 'o'ut
+
+- correction
+	- echo """"''""''""
+	- echo ""$PWD""
+	- echo ''$PWD''
+	- echo $USE"R"$HOME
+
+- woco='wc -l'
+		-> cat Makefile | $woco
 
 - cd -
 	-> invalid read/write size etc
+
+- changed bis jetzt
+	- to is_cmd_or quotes included FILE_NAME
 
 ## ray
 - further error messages for builtins?

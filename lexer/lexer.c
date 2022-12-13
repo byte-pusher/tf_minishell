@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:25:44 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:15:11 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:16:07 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	ft_handle_cmd(t_data *data, int *i, int type)
 
 	new_token = ft_lstnew_t();
 	ft_lstadd_back_t(&data->tokens, new_token);
-	if (ft_is_file_name(new_token) == true)
+	if (ft_is_file_name(new_token) == true || ((new_token->prev)
+			&& ft_is_file_name(new_token->prev) == true
+			&& new_token->prev->mixed_quotes == true))
 		new_token->type = FILE_NAME;
 	else
 		new_token->type = COMMAND;
@@ -61,7 +63,8 @@ void	ft_handle_quotes(t_data *data, int *i, int type, char c)
 		end = *i;
 		if (data->input[*i] == c)
 		{
-			if (ft_is_space(data->input[(*i) + 1]) == false
+			if (data->input[(*i) + 1] != '\0'
+				&& ft_is_space(data->input[(*i) + 1]) == false
 				&& ft_is_redir_token(data->input[(*i) + 1]) == false)
 				new_token->mixed_quotes = true;
 			break ;

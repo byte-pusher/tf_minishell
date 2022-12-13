@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:59:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:44:22 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 12:22:27 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,22 @@ int	ft_count_args(t_token *token)
 
 void	ft_join_args(t_cmd_table *cmd_table, t_token **token, char **tmp, int i)
 {
-	if ((*token)->next != NULL)
+	if ((*token)->next != NULL && (*token)->next->name[0] != '\0')
 	{
-		*tmp = ft_strdup(cmd_table->cmd_args[i]);
-		free(cmd_table->cmd_args[i]);
-		cmd_table->cmd_args[i] = ft_strjoin(*tmp, (*token)->next->name);
-		free(*tmp);
+		if (cmd_table->cmd_args[i][0] == '\0')
+			cmd_table->cmd_args[i] = ft_strdup((*token)->next->name);
+		else
+		{
+			*tmp = ft_strdup(cmd_table->cmd_args[i]);
+			if (tmp == NULL)
+				exit(ENOMEM);
+			free(cmd_table->cmd_args[i]);
+			cmd_table->cmd_args[i] = ft_strjoin(*tmp, (*token)->next->name);
+			if (cmd_table->cmd_args[i] == NULL)
+				exit(ENOMEM);
+			free(*tmp);
+		}
 	}
-	if (cmd_table->cmd_args[i] == NULL)
-		exit(ENOMEM);
 	(*token) = (*token)->next;
 }
 
