@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 13:29:58 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 14:58:20 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,8 @@ void		ft_insert_dollars(char *s);
 /* UTILS																	  */
 /* ************************************************************************** */
 /* SIGNALS*/
-void		connect_signals(void);
+void		ft_connect_signals(void);
+void		ft_silence_signals(void);
 
 /* LST */
 t_cmd_table	*ft_lstnew_ct(void);

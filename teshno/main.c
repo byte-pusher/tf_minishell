@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:04 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:55:30 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 15:10:13 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	data.env_tesh = NULL;
-	connect_signals();
+	//ft_connect_signals();
 	data.env_exists = true;
 	ft_get_env(env, &data);
 	ft_init_teshno(&data);
