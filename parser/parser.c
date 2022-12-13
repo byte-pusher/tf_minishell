@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:01:14 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 12:15:18 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 15:58:33 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ void	ft_parser_errors(t_token **token, t_data *data)
 {
 	t_token	*current;
 
-	if (ft_check_others(token) == true)
-		return ;
 	current = *token;
 	while (current != NULL)
 	{
-		if (ft_check_quotes(data->input) == true)
-			return ;
 		if (ft_check_pipe_sequence(current) == true)
 			return ;
 		if (ft_is_redir(current->type) == true

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 14:58:20 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 16:30:40 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,12 @@ typedef struct s_exec
 typedef struct s_data
 {
 	char		*input;
+	char		*in;
 	int			prev_exit_code;
 	bool		env_exists;
 	bool		exit_shell;
 	bool		empty_input;
+	bool		unclosed_quotes;
 	t_exec		*exec;
 	t_env		*env_tesh;
 	t_token		*tokens;

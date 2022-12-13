@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:28:21 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/13 11:46:45 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 14:41:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ int	valid_unset_input(char *cmd_arg)
 	int	i;
 
 	i = 0;
+	if (cmd_arg[0] == '\0')
+	{
+		g_exit_status = INVALID_IDENTIFIER;
+		ft_err_msg(cmd_arg);
+		return (1);
+	}
 	while (cmd_arg[i] != '\0')
 	{
 		if (ft_isalpha(cmd_arg[i]) == 1 || cmd_arg[i] == '_')
@@ -53,9 +59,10 @@ void	ft_unset(char **cmd_args, t_env *env_tesh, t_data *data)
 		while (current_env != NULL)
 		{
 			next_env = current_env->next;
-			if (ft_strnstr(current_env->var, cmd_args[i],
+			if (cmd_args[i][0] != '\0' 
+				&& ft_strnstr(current_env->var, cmd_args[i],
 					ft_strlen(cmd_args[i])) != NULL)
-				ft_lstdel_env(env_tesh, current_env);
+					ft_lstdel_env(env_tesh, current_env);
 			current_env = next_env;
 		}
 		i++;

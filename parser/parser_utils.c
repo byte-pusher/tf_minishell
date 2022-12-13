@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:32:11 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 13:17:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 16:15:30 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	ft_check_redir_err(t_token *token)
 		ft_err_msg("newline");
 		return (true);
 	}
-	else if (token->next->type != FILE_NAME && token->type != LESSLESS)
+	else if (ft_is_redir(token->next->type) || token->next->type == PIPE)
 	{
 		g_exit_status = SYNTAX_ERR;
 		ft_err_msg(token->next->name);
