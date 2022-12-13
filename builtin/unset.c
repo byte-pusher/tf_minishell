@@ -6,11 +6,17 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:28:21 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/12 19:56:53 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 11:46:45 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+
+//tester
+//     - unset ""
+//     - unset "="
+//     - unset ""=
+//     - unset =""
 
 int	valid_unset_input(char *cmd_arg)
 {
@@ -48,7 +54,7 @@ void	ft_unset(char **cmd_args, t_env *env_tesh, t_data *data)
 		{
 			next_env = current_env->next;
 			if (ft_strnstr(current_env->var, cmd_args[i],
-					ft_strlen(current_env->var)) != NULL)
+					ft_strlen(cmd_args[i])) != NULL)
 				ft_lstdel_env(env_tesh, current_env);
 			current_env = next_env;
 		}

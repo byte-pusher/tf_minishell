@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:02:09 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/12 20:33:13 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/13 12:32:21 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	is_var_declaration(char *cmd_arg)
 	return (1);
 }
 
-//move to other file
 int	valid_export(char *cmd_arg)
 {
 	int	i;
