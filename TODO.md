@@ -37,7 +37,8 @@
 	- to is_cmd_or quotes included FILE_NAME
 
 ## ray
-- further error messages for builtins?
+- add path protections for all getcwd functions
+- add dir creaion in makefile
 
 ## evtl:
 - redir

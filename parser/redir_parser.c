@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:46:26 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 13:19:09 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:36:24 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-char	*ft_get_name(t_token **token, t_redir *new_redir)
+void	ft_get_name(t_token **token, t_redir *new_redir)
 {
 	if ((*token)->name[0] == '\0')
 		new_redir->file = "";
