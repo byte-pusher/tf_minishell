@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:49:02 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 00:48:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 21:52:13 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	ft_exec(t_cmd_table *cmd_table, t_env *env_tesh, t_data *data,
 		ft_err_msg(cmd_table->path_name);
 	}
 	else if (execve_ret == -1)
-		ft_err_msg(cmd_table->path_name);
+	{
+		if (ft_is_path_cmd(cmd_table->path_name) == false)
+			ft_err_msg(cmd_table->path_name);
+	}
 	exit (g_exit_status);
 }
 
@@ -101,7 +104,7 @@ void	ft_executor(t_data *data)
 	t_cmd_table	*current;
 	t_exec		*exec;
 
-	if (g_exit_status == SYNTAX_ERR)
+	if (g_exit_status == SYNTAX_ERR || g_exit_status == ARG_REQ)
 		return ;
 	current = ft_lstfirst_ct(&data->cmd_table);
 	if (ft_check_single_builtin(current) == true)

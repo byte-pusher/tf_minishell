@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/12/11 17:59:10 by gjupy            ###   ########.fr        #
+#    Updated: 2022/12/12 23:53:10 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,11 @@ LIBFT ?= $(LIBFTDIR)/libft.a
 LDFLAGS     = -L/Users/$(USER)/.brew/opt/readline/lib
 CPPFLAGS    = -I/Users/$(USER)/.brew/opt/readline/include
 
-SRCS  = main.c \
-		init.c \
-		signal.c \
+SRCS  = teshno/main.c teshno/init.c teshno/signal.c \
 		parser/parser.c parser/parser_utils.c parser/parser_utils_2.c parser/cmd_parser.c parser/redir_parser.c parser/cmd_parser_utils.c\
-		lexer/lexer.c lexer/lexer_utils.c lexer/expansion_short.c lexer/expansion_utils.c \
-		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
-		utils/errors/errors_utils.c utils/free/free.c \
+		lexer/lexer.c lexer/lexer_utils.c lexer/lexer_utils_2.c lexer/expansion_short.c lexer/expansion_utils.c \
+		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c  utils/lst/lst_utils_env_2.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
+		utils/errors/errors.c utils/errors/errors_2.c utils/free/free.c \
 		env/env.c \
 		executor/executor.c \
 		executor/utils/executor_utils.c executor/utils/executor_utils_2.c \

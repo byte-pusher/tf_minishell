@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/11 16:38:38 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 23:55:33 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/shell.h"
+#include "../includes/shell.h"
 
 bool	ft_is_empty(char *input)
 {
@@ -40,7 +40,7 @@ void	ft_init_input(t_data *data)
 {
 	char	*in;
 
-	in = readline(TESHNO);
+	in = readline(PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET);
 	if (in == NULL)
 	{
 		data->exit_shell = true;

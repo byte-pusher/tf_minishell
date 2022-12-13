@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:09:36 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/12 16:52:49 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/12 22:39:53 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,18 @@ void	set_pwd(t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
 	char	*buffer;
+	char	*path_name;
 
 	buffer = NULL;
+	path_name = getcwd(buffer, 0);
 	current_env = ft_lstfirst_env(&env_tesh);
 	if (current_env->var == NULL)
 		current_env = current_env->next;
 	var_exists_del("PWD=", env_tesh, data);
 	ft_lstadd_back_env(&env_tesh, ft_lstnew_env());
-	ft_lstlast_env(env_tesh)->var = ft_strjoin("PWD=", getcwd(buffer, 0));
+	ft_lstlast_env(env_tesh)->var = ft_strjoin("PWD=", path_name);
 	free(buffer);
+	free(path_name);
 }
 
 int	ft_cd_flags(char flag, t_env *env_tesh, t_data *data, char *tmp_dir)
@@ -111,8 +114,12 @@ void	ft_cd(char **cmd_args, t_env *env_tesh, t_data *data)
 
 	buffer = NULL;
 	tmp_dir = getcwd(buffer, 0);
+	// kann man das einfach nicht ganz am Anfang checken bevor man getcwd call ?
 	if (!cmd_args[1])
+	{
+		free(tmp_dir);
 		return ;
+	}
 	if (cmd_args[1][0] == '-' || cmd_args[1][0] == '~')
 	{
 		if (ft_cd_flags(cmd_args[1][0], env_tesh, data, tmp_dir) == 0)

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:32:11 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 13:33:24 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:17:01 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,45 +53,9 @@ void	ft_create_cmd_table_lst(t_data *data)
 
 bool	ft_is_cmd_or_quotes(t_token *token)
 {
-	if (token->type == COMMAND || token->type == SQUOTE || token->type == DQUOTE)
+	if (token->type == COMMAND || token->type == SQUOTE
+		|| token->type == DQUOTE)
 		return (true);
 	else
 		return (false);
 }
-
-// void	print_cmd_strings(t_cmd_table *cmd_table)
-// {
-// 	t_cmd_table	*current;
-// 	int			i;
-
-// 	current = ft_lstfirst_ct(&cmd_table);
-// 	while (current != NULL)
-// 	{
-// 		if (current->is_command == true)
-// 		{
-// 			i = 0;
-// 			while (current->cmd_args[i] != NULL)
-// 			{
-// 				printf("%s ", current->cmd_args[i]);
-// 				i++;
-// 			}
-// 			printf("\n");
-// 		}
-// 		current = current->next;
-// 	}
-// }
-
-// int		get_combined_len(t_token *current_token)
-// {
-// 	t_token	*tmp;
-// 	int 	len;
-
-// 	tmp = current_token->next;
-// 	len = ft_strlen(current_token->name);
-// 	while (tmp && (tmp->type == DQUOTE || tmp->type == SQUOTE))
-// 	{
-// 			len = len + ft_strlen(tmp->name);
-// 			tmp = tmp->next;	
-// 	}
-// 	return(len);
-// }

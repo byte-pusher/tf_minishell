@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:45:09 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/08 19:06:49 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 23:17:52 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_get_cmd(t_cmd_table *cmd_table, char **pathnames)
 		return (SUCCESS);
 	if (cmd_table->cmd_args[0][0] == '\0')
 		return (CMD_NOT_FOUND);
-	while (pathnames && pathnames[i]) // geht trotzdem rein, falls command mit '/' nicht existiert. evtl anders handeln.
+	while (pathnames && pathnames[i])
 	{
 		tmp = ft_strjoin(pathnames[i], "/");
 		if (pathnames != NULL && tmp == NULL)

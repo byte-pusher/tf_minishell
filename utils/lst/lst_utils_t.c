@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/05 20:02:08 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/12 23:52:21 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,6 @@ t_token	*ft_lstfirst_t(t_token **lst)
 	return (*lst);
 }
 
-// void	ft_free_list(t_token **lst, bool exit, bool g_exit_status)
-// {
-// 	t_token	*current;
-// 	t_token	*next;
-
-// 	current = *lst;
-// 	while (current)
-// 	{
-// 		next = current->next;
-// 		free(current);
-// 		current = next;
-// 	}
-// 	if (exit == true && g_exit_status == false)
-// 		ft_exit_print(g_exit_status, "Error\n", 2);
-// 	else if (exit == true && g_exit_status == true)
-// 		ft_exit_print(g_exit_status, "Error\n", 2);
-// 	*lst = NULL;
-// 	lst = NULL;
-// }
-
 void	ft_lst_clear_t(t_token **lst)
 {
 	t_token	*current;
@@ -97,19 +77,4 @@ void	ft_lst_clear_t(t_token **lst)
 	}
 	*lst = NULL;
 	lst = NULL;
-}
-
-void	ms_print_list(t_token **lst) // danach löschen
-{
-	t_token	*current;
-	t_token	*next;
-
-	current = *lst;
-	while (current)
-	{
-		next = current->next;
-		dprintf(2, "%s\n", current->name);
-		dprintf(2, "%d\n", current->type);
-		current = next;
-	}
 }

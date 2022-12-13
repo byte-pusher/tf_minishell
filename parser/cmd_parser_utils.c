@@ -6,18 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:59:51 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/09 13:14:16 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 12:22:27 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
-
-// 	{
-// 		cmd_table->cmd_args = ft_split(token->name, ' ');
-// 		if (cmd_table->cmd_args == NULL)
-// 			exit(ENOMEM);
-// 		cmd_table->is_command = true;
-// 	}
 
 int	ft_count_args(t_token *token)
 {
@@ -42,10 +35,26 @@ int	ft_count_args(t_token *token)
 	return (ret);
 }
 
-// if ((*token)->type == COMMAND)
-		// 	cmd_table->cmd_args[i] = ft_strtrim((*token)->name, "\t\n ");
-		// else
-		// 	cmd_table->cmd_args[i] = ft_strdup((*token)->name);
+void	ft_join_args(t_cmd_table *cmd_table, t_token **token, char **tmp, int i)
+{
+	if ((*token)->next != NULL && (*token)->next->name[0] != '\0')
+	{
+		if (cmd_table->cmd_args[i][0] == '\0')
+			cmd_table->cmd_args[i] = ft_strdup((*token)->next->name);
+		else
+		{
+			*tmp = ft_strdup(cmd_table->cmd_args[i]);
+			if (tmp == NULL)
+				exit(ENOMEM);
+			free(cmd_table->cmd_args[i]);
+			cmd_table->cmd_args[i] = ft_strjoin(*tmp, (*token)->next->name);
+			if (cmd_table->cmd_args[i] == NULL)
+				exit(ENOMEM);
+			free(*tmp);
+		}
+	}
+	(*token) = (*token)->next;
+}
 
 void	ft_create_cmd_args(t_cmd_table *cmd_table, t_token **token)
 {
@@ -64,19 +73,9 @@ void	ft_create_cmd_args(t_cmd_table *cmd_table, t_token **token)
 			cmd_table->cmd_args[i] = "";
 		else
 			cmd_table->cmd_args[i] = ft_strdup((*token)->name);
-		while ((*token) != NULL && (*token)->mixed_quotes == true && ft_is_cmd_or_quotes(*token) == true)
-		{
-			if ((*token)->next != NULL)
-			{
-				tmp = ft_strdup(cmd_table->cmd_args[i]);
-				free(cmd_table->cmd_args[i]);
-				cmd_table->cmd_args[i] = ft_strjoin(tmp, (*token)->next->name);
-				free(tmp);
-			}
-			if (cmd_table->cmd_args[i] == NULL)
-				exit(ENOMEM);
-			(*token) = (*token)->next;
-		}
+		while ((*token) != NULL && (*token)->mixed_quotes == true
+			&& ft_is_cmd_or_quotes(*token) == true)
+			ft_join_args(cmd_table, token, &tmp, i);
 		if (*token != NULL)
 			*token = (*token)->next;
 		i++;
