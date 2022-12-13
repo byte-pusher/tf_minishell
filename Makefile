@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/12/12 23:53:10 by gjupy            ###   ########.fr        #
+#    Updated: 2022/12/13 13:25:52 by rkoop            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CPPFLAGS    = -I/Users/$(USER)/.brew/opt/readline/include
 
 SRCS  = teshno/main.c teshno/init.c teshno/signal.c \
 		parser/parser.c parser/parser_utils.c parser/parser_utils_2.c parser/cmd_parser.c parser/redir_parser.c parser/cmd_parser_utils.c\
-		lexer/lexer.c lexer/lexer_utils.c lexer/lexer_utils_2.c lexer/expansion_short.c lexer/expansion_utils.c \
+		lexer/lexer.c lexer/lexer_utils.c lexer/lexer_utils_2.c lexer/expansion_short.c lexer/expansion_utils.c lexer/expansion_utils_2.c lexer/expansion_utils_3.c \
 		utils/lst/lst_utils_ct.c utils/lst/lst_utils_env.c  utils/lst/lst_utils_env_2.c utils/lst/lst_utils_rd.c utils/lst/lst_utils_t.c \
 		utils/errors/errors.c utils/errors/errors_2.c utils/free/free.c \
 		env/env.c \
@@ -36,7 +36,7 @@ SRCS  = teshno/main.c teshno/init.c teshno/signal.c \
 		executor/utils/here_doc_utils.c executor/utils/here_doc_utils_2.c \
 		executor/route_stdin.c executor/route_stdout.c \
 		executor/utils/route_stdin_utils.c executor/utils/route_stdout_utils.c \
-		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/export_utils.c builtin/cd.c builtin/pwd.c  builtin/exit.c\
+		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/export_utils.c builtin/cd.c builtin/cd_utils.c  builtin/pwd.c  builtin/exit.c\
 
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)

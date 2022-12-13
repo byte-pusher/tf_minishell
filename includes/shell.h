@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 11:35:20 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:29:58 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,7 +301,13 @@ int			var_exists_del(char *cmd_arg, t_env *env_tesh, t_data *data);
 int			is_var_declaration(char *cmd_arg);
 int			valid_export(char *cmd_arg);
 int			get_nr_of_vars(char *token_name);
+char		*get_dir(t_env *env_tesh, char *var);
 void		set_pwd(t_env *env_tesh, t_data *data);
+void		set_oldpwd(t_env *env_tesh, t_data *data, char *tmp_dir);
+t_env		*ft_set_head(t_env *env_tesh);
+char		*get_value(t_data *data, char *var, bool *is_env_var);
+void		insert_value(t_token *token, char *var, char *value, int start);
+void		change_token_name(t_data *data, t_token *token, int start, int end);
 
 /* UTILS */
 bool		ft_is_flag(char **cmd_args);

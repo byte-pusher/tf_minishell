@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:21:13 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:50:14 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:31:24 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_invalid_err(char *s)
 	ft_putstr_fd("': not a valid identifier", 2);
 	write(STDERR_FILENO, "\n", 2);
 }
+
 
 void	ft_err_msg(char *s)
 {
