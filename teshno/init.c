@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:55:33 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/13 16:03:54 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_init_structs(t_data *data)
 {
 	data->tokens = NULL;
 	data->cmd_table = NULL;
+	data->unclosed_quotes = false;
 	data->exec = NULL;
 	data->input = NULL;
 	data->empty_input = false;
@@ -39,8 +40,11 @@ void	ft_init_structs(t_data *data)
 void	ft_init_input(t_data *data)
 {
 	char	*in;
+	char	*tmp;
 
-	in = readline(PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET);
+	tmp = ft_strdup(PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET);
+	in = readline(tmp);
+	free(tmp);
 	if (in == NULL)
 	{
 		data->exit_shell = true;
@@ -54,6 +58,11 @@ void	ft_init_input(t_data *data)
 		data->input = ft_strtrim(in, " \t\n");
 		if (data->input == NULL)
 			exit(ENOMEM);
+		if (ft_check_quotes(data->input) == true)
+		{
+			free(data->input);
+			data->unclosed_quotes = true;
+		}
 	}
 	free(in);
 }
@@ -66,7 +75,7 @@ void	ft_init_teshno(t_data *data)
 		ft_init_input(data);
 		if (data->exit_shell == true)
 			break ;
-		if (data->empty_input == true)
+		if (data->empty_input == true || data->unclosed_quotes == true)
 			continue ;
 		add_history(data->input);
 		if (ft_is_empty(data->input) == false)
