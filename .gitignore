@@ -44,5 +44,6 @@ dkms.conf
 
 #OTHER
 *.pdf
+./42-minishell
 
 # End 

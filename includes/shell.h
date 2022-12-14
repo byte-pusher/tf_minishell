@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
 /*   Updated: 2022/12/14 12:35:31 by rkoop            ###   ########.fr       */
@@ -66,7 +66,7 @@ enum e_ERROR_TYPE
 	CMD_NOT_FOUND = 127,
 	NON_NUM_ARG = 255,
 	SYNTAX_ERR = 258,
-	INVALID_IDENTIFIER = 260,
+	INVALID_IDENTIFIER = 257,
 	ABORT
 };
 
@@ -164,10 +164,12 @@ typedef struct s_exec
 typedef struct s_data
 {
 	char		*input;
+	char		*in;
 	int			prev_exit_code;
 	bool		env_exists;
 	bool		exit_shell;
 	bool		empty_input;
+	bool		unclosed_quotes;
 	t_exec		*exec;
 	t_env		*env_tesh;
 	t_token		*tokens;

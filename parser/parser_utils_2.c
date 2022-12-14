@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:56:52 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:46:37 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 11:37:20 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ bool	ft_check_quotes(char *str)
 	{
 		check_dquotes(str, &i, &status);
 		check_squotes(str, &i, &status);
-		i++;
+		if (i < ft_strlen(str))
+			i++;
 	}
 	if (status == SINGLE_OPEN || status == DOUBLE_OPEN)
 	{

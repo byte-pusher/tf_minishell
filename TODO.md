@@ -4,42 +4,12 @@
 
 - norminette
 
-- export 
-	- export=42
-	- export ''=''
-	- export ""=""
-	- export ''=''
-	- export ""=""
-	- export =============123
-	- unset ""
-	- unset =
-	- unset "="
-	- unset ""=
-	- unset =""
-
-## redir
-
--   > 'o'ut
-
-- correction
-	- echo """"''""''""
-	- echo ""$PWD""
-	- echo ''$PWD''
-	- echo $USE"R"$HOME
-
 - woco='wc -l'
 		-> cat Makefile | $woco
 
-- cd -
-	-> invalid read/write size etc
-
-- changed bis jetzt
-	- to is_cmd_or quotes included FILE_NAME
-
 ## ray
-~~- add path protections for all getcwd functions~~
-- add dir creaion in makefile
-~~- add2nd signal handler for in between readline, to silence~~
+- STRG+\ wenn etwas schon eingegeben soll quiten
+- nach cat STRG+C soll new prompt anezeigen
 
 ## evtl:
 - redir
