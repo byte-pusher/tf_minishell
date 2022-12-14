@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/13 12:04:38 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/14 12:23:45 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-// //tester
-// 		 [x]- export=42
-//     - export ''=''
-//     - export ""=""
-// 		- export ''=''
-// 		- export ""=""
-// 		[x]	- export =============123
 void	print_declare_x(t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
@@ -32,9 +25,9 @@ void	print_declare_x(t_env *env_tesh, t_data *data)
 	while (current_env != NULL)
 	{
 		printf("declare -x ");
-		modified_str = malloc(sizeof(char) * ft_strlen(current_env->var) + 2);
+		modified_str = malloc((ft_strlen(current_env->var) + 2) + 1);
 		ft_strlcpy(modified_str, current_env->var,
-			comp_var_len(current_env->var) + 2);
+			(comp_var_len(current_env->var) + 2) + 1);
 		if (current_env->hidden == false)
 			ft_strlcat(modified_str, "\"", ft_strlen(current_env->var) + 2);
 		ft_strlcat(modified_str, current_env->var

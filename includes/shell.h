@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 16:30:40 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 12:04:00 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ enum e_ERROR_TYPE
 	CMD_NOT_FOUND = 127,
 	NON_NUM_ARG = 255,
 	SYNTAX_ERR = 258,
-	INVALID_IDENTIFIER = 260,
+	INVALID_IDENTIFIER = 257,
 	ABORT
 };
 

@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_short.c                                  :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:30:17 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/13 12:43:07 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/14 12:40:13 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-int	i_else(t_token *token, int i)
+int	i_else(t_token *token, int i, int *start)
 {
+	*start = i;
 	i++;
 	while (token->name[i] != '\0' && token->name[i] != ' '
 		&& token->name[i] != '\"' && token->name[i] != '$'
@@ -22,8 +23,10 @@ int	i_else(t_token *token, int i)
 	return (i);
 }
 
-int	i_if(t_token *token, int i)
+int	i_if(t_token *token, int i, int *start)
 {
+	i++;
+	*start = i;
 	while (token->name[i] != '\0' && token->name[i] != '\''
 		&& token->name[i] != ' ')
 	{
@@ -32,36 +35,6 @@ int	i_if(t_token *token, int i)
 			break ;
 	}
 	return (i);
-}
-
-void	expand_tokens_loop(t_data *data, t_token *token, int i,
-	int start, int end)
-{
-	while (token->name[i] != '\0')
-	{
-		if (token->name[i] == '$' || ((token->name[i] == '\''
-					&& token->name[i + 1] == '$')))
-		{
-			if (token->name[i] == '\'' && token->name[i + 1] == '$')
-			{
-				i++;
-				start = i;
-				i = i_if(token, i);
-			}
-			else
-			{
-				start = i;
-				i = i_else(token, i);
-			}
-			end = i;
-			change_token_name(data, token, start, end);
-			i = ft_get_next_var(token->name);
-			if (i == -1)
-				break ;
-			continue ;
-		}
-		i++;
-	}
 }
 
 void	expand_tokens(t_data *data, t_token *token)
@@ -73,7 +46,20 @@ void	expand_tokens(t_data *data, t_token *token)
 	i = 0;
 	start = 0;
 	end = 0;
-	expand_tokens_loop(data, token, i, start, end);
+	while (token->name[i] != '\0')
+	{
+		if (token->name[i] == '\'' && token->name[i + 1] == '$')
+			i = i_if(token, i, &start);
+		else if (token->name[i] == '$')
+			i = i_else(token, i, &start);
+		end = i;
+		change_token_name(data, token, start, end);
+		i = ft_get_next_var(token->name);
+		if (i == -1)
+			break ;
+		continue ;
+		i++;
+	}
 	ft_insert_dollars(token->name);
 }
 

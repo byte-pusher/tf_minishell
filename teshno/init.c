@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/13 16:31:15 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 12:52:26 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,8 @@ void	ft_init_structs(t_data *data)
 void	ft_init_input(t_data *data)
 {
 	char	*in;
-	char	*tmp;
 
-	tmp = ft_strdup(PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET);
-	in = readline(tmp);
-	free(tmp);
+	in = readline(PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET);
 	if (in == NULL)
 	{
 		data->exit_shell = true;
