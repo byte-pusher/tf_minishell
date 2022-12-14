@@ -5,7 +5,7 @@
 *.pdf
 minishell
 Dockerfile
-supp
+.vscode
 
 # MAC
 .DS_Store
