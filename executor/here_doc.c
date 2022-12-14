@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 20:15:24 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/11 18:01:01 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 12:51:10 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_heredoc_loop(t_redir *redir, t_exec *exec, t_cmd_table *cmd_table,
 	while (true)
 	{
 		heredoc.read = readline("> ");
-		if (heredoc.read == NULL)
+		if (heredoc.read == NULL || g_exit_status == 1)
 			break ;
 		if (len_delimiter == ft_strlen(heredoc.read)
 			&& ft_strncmp(heredoc.read, redir->file, len_delimiter) == 0)
@@ -52,7 +52,10 @@ void	ft_heredoc(t_exec *exec, t_cmd_table *cmd_table, t_data *data)
 		if (current->type == LESSLESS)
 		{
 			pipe(exec->here_fd);
+			g_exit_status = 0;
+			ft_change_signals();
 			ft_heredoc_loop(current, exec, cmd_table, data);
+			ft_silence_signals();
 		}
 		current = current->next;
 	}
