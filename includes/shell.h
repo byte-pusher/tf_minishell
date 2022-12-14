@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/14 12:35:31 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/14 12:59:15 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,10 @@ void		ft_insert_dollars(char *s);
 void		ft_connect_signals(void);
 void		ft_change_signals(void);
 void		ft_silence_signals(void);
+
+void		signal_handler(int signum);
+void		signal_handler_inside(int signum);
+void		signal_handler_silence(int signum);
 
 /* LST */
 t_cmd_table	*ft_lstnew_ct(void);
