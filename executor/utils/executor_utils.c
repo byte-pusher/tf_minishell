@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:29:58 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/11 18:20:30 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 16:33:39 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	**ft_get_env_arr(t_env *env_tesh)
 	t_env	*current;
 	char	**env_arr;
 
+	if (env_tesh && env_tesh->var == NULL)
+		return (NULL);
 	current = ft_lstfirst_env(&env_tesh);
 	env_arr = malloc(sizeof(char *) * (ft_lstsize_env(&env_tesh) + 1));
 	if (env_arr == NULL)

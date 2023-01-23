@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:51:11 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/14 12:23:45 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 15:25:46 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	print_declare_x(t_env *env_tesh, t_data *data)
 	while (current_env != NULL)
 	{
 		printf("declare -x ");
-		modified_str = malloc((ft_strlen(current_env->var) + 2) + 1);
+		modified_str = malloc((ft_strlen(current_env->var) + 3));
 		ft_strlcpy(modified_str, current_env->var,
-			(comp_var_len(current_env->var) + 2) + 1);
+			(comp_var_len(current_env->var) + 2));
 		if (current_env->hidden == false)
 			ft_strlcat(modified_str, "\"", ft_strlen(current_env->var) + 2);
 		ft_strlcat(modified_str, current_env->var

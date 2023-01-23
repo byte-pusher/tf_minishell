@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 15:28:21 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/14 12:24:34 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 16:00:33 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ int	valid_unset_input(char *cmd_arg)
 	return (0);
 }
 
+int	ft_get_var_len(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '=')
+		i++;
+	return (i);
+}
+
 void	ft_unset(char **cmd_args, t_env *env_tesh, t_data *data)
 {
 	t_env	*current_env;
@@ -60,9 +70,9 @@ void	ft_unset(char **cmd_args, t_env *env_tesh, t_data *data)
 		{
 			next_env = current_env->next;
 			if (cmd_args[i][0] != '\0'
-				&& ft_strnstr(current_env->var, cmd_args[i],
-					ft_strlen(cmd_args[i])) != NULL)
-				ft_lstdel_env(env_tesh, current_env);
+				&& ft_strncmp(current_env->var, cmd_args[i],
+					comp_var_len(current_env->var)) == 0)
+				ft_lstdel_env(data, current_env);
 			current_env = next_env;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:23:50 by gjupy             #+#    #+#             */
-/*   Updated: 2022/11/30 21:52:41 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/23 16:27:06 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,6 @@ t_redir	*ft_lstfirst_rd(t_redir **lst)
 	return (*lst);
 }
 
-// void	ft_free_list(t_token **lst, bool exit, bool g_exit_status)
-// {
-// 	t_token	*current;
-// 	t_token	*next;
-
-// 	current = *lst;
-// 	while (current)
-// 	{
-// 		next = current->next;
-// 		free(current);
-// 		current = next;
-// 	}
-// 	if (exit == true && g_exit_status == false)
-// 		ft_exit_print(g_exit_status, "Error\n", 2);
-// 	else if (exit == true && g_exit_status == true)
-// 		ft_exit_print(g_exit_status, "Error\n", 2);
-// 	*lst = NULL;
-// 	lst = NULL;
-// }
-
 void	ft_lstclear_rd(t_redir **lst)
 {
 	t_redir	*current;
@@ -93,7 +73,8 @@ void	ft_lstclear_rd(t_redir **lst)
 	while (current != NULL)
 	{
 		next = current->next;
-		free(current->file);
+		if (current->file[0] != '\0')
+			free(current->file);
 		free(current);
 		current = next;
 	}

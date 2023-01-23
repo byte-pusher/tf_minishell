@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:29:25 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 19:50:20 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/14 16:51:43 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,50 +35,6 @@ bool	ft_is_builtin(t_cmd_table *cmd_table, char *builtin)
 		return (false);
 	cmd_table->is_builtin = true;
 	return (true);
-}
-
-bool	ft_is_flag(char **cmd_args)
-{
-	int	j;
-
-	if (cmd_args[1][1] != '\0' && cmd_args[1][0] == '-'
-		&& cmd_args[1][1] == 'n')
-	{
-		j = 2;
-		while (cmd_args[1][j])
-		{
-			if (cmd_args[1][j] != 'n')
-				return (false);
-			j++;
-		}
-	}
-	else
-		return (false);
-	return (true);
-}
-
-void	ft_skip_flags(char **cmd_args, int *i)
-{
-	int	j;
-
-	*i = 2;
-	while (cmd_args[*i] != NULL)
-	{
-		if (cmd_args[*i][1] != '\0' && cmd_args[*i][0] == '-'
-			&& cmd_args[*i][1] == 'n')
-		{
-			j = 2;
-			while (cmd_args[*i][j])
-			{
-				if (cmd_args[*i][j] != 'n')
-					return ;
-				j++;
-			}
-		}
-		else
-			return ;
-		(*i)++;
-	}
 }
 
 t_env	*ft_set_head(t_env *env_tesh)

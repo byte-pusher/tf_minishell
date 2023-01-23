@@ -6,13 +6,13 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 15:26:00 by gjupy             #+#    #+#              #
-#    Updated: 2022/12/14 12:57:57 by gjupy            ###   ########.fr        #
+#    Updated: 2022/12/14 16:52:03 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME  = minishell
 CC    = gcc
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -Wall -Werror -Wextra
 GREEN = \033[1;32m
 RED = \033[1;31m
 YEL = \033[1;33m
@@ -24,7 +24,7 @@ LIBFT ?= $(LIBFTDIR)/libft.a
 LDFLAGS     = -L/Users/$(USER)/.brew/opt/readline/lib
 CPPFLAGS    = -I/Users/$(USER)/.brew/opt/readline/include
 
-SRCS  = teshno/main.c teshno/init.c teshno/signal.c teshno/signal_2.c\
+SRCS  = teshno/main.c teshno/init.c teshno/signal.c teshno/signal_2.c \
 		env/env.c \
 		parser/parser.c parser/parser_utils.c parser/parser_utils_2.c parser/cmd_parser.c parser/redir_parser.c parser/cmd_parser_utils.c\
 		lexer/lexer.c lexer/lexer_utils.c lexer/lexer_utils_2.c lexer/expansion.c lexer/expansion_utils.c lexer/expansion_utils_2.c lexer/expansion_utils_3.c \
@@ -32,7 +32,7 @@ SRCS  = teshno/main.c teshno/init.c teshno/signal.c teshno/signal_2.c\
 		utils/errors/errors.c utils/errors/errors_2.c utils/free/free.c \
 		executor/executor.c executor/utils/executor_utils.c executor/utils/executor_utils_2.c executor/here_doc.c executor/utils/here_doc_utils.c \
 		executor/utils/here_doc_utils_2.c executor/route_stdin.c executor/route_stdout.c executor/utils/route_stdin_utils.c executor/utils/route_stdout_utils.c \
-		builtin/builtin.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/export_utils.c builtin/cd.c builtin/cd_utils.c  builtin/pwd.c  builtin/exit.c\
+		builtin/echo.c builtin/builtin_utils.c builtin/unset.c builtin/export.c builtin/export_utils.c builtin/cd.c builtin/cd_utils.c  builtin/pwd.c  builtin/exit.c\
 
 OBJ_DIR = ./objs/
 OBJFILES := $(SRCS:.c=.o)
@@ -73,10 +73,7 @@ test:
 	@./minishell
 	@rm minishell
 
-inside: $(OBJS) $(LIBFT)
-	ar -t $(NAME)
-
 valgrind: re
 	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
-.PHONY: all clean fclean re git lib valgrind		
+.PHONY: all clean fclean re git lib valgrind

@@ -6,7 +6,7 @@
 /*   By: rkoop <rkoop@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:03:04 by rkoop             #+#    #+#             */
-/*   Updated: 2022/12/13 12:04:44 by rkoop            ###   ########.fr       */
+/*   Updated: 2022/12/14 16:02:57 by rkoop            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	var_exists_del(char *cmd_arg, t_env *env_tesh, t_data *data)
 		if (current_env->hidden == false
 			&& ft_strncmp(current_env->var, cmd_arg, var_len + 1) == 0)
 		{
-			ft_lstdel_env(env_tesh, current_env);
+			ft_lstdel_env(data, current_env);
 			return (0);
 		}
 		else if (current_env->hidden == true
 			&& ft_strncmp(current_env->var, cmd_arg, var_len) == 0)
 		{
-			ft_lstdel_env(env_tesh, current_env);
+			ft_lstdel_env(data, current_env);
 			return (0);
 		}
 		current_env = current_env->next;

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:56:46 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/14 12:52:26 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 13:30:54 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_init_input(t_data *data)
 	in = readline(PURPLE COLOR_BOLD "teshno-1.0$ " COLOR_OFF RESET);
 	if (in == NULL)
 	{
+		printf("exit\n");
 		data->exit_shell = true;
 		ft_lstclear_env(&data->env_tesh);
 		rl_clear_history();

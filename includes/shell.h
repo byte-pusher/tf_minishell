@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:36:57 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/14 12:59:15 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 16:12:48 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <signal.h>
-# include  <sys/wait.h>
+# include <sys/wait.h>
+# include <sys/ioctl.h>
 
 /* ************************************************************************** */
 /* READLINE MISSING PROTOTYPES												  */
@@ -258,7 +259,7 @@ t_env		*ft_lstnew_env(void);
 t_env		*ft_lstfirst_env(t_env **lst);
 void		ft_lstclear_env(t_env **lst);
 int			ft_lstsize_env(t_env **lst);
-void		ft_lstdel_env(t_env *lst, t_env *node);
+void		ft_lstdel_env(t_data *data, t_env *node);
 
 /* ERRORS */
 void		ft_err_msg(char *s);

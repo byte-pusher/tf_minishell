@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:45:09 by gjupy             #+#    #+#             */
-/*   Updated: 2022/12/12 23:17:52 by gjupy            ###   ########.fr       */
+/*   Updated: 2022/12/14 16:42:09 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	*ft_find_path_str(t_env **env_tesh)
 	while (current && ft_strncmp("PATH", current->var, 4))
 		current = current->next;
 	if (current == NULL)
+	{
 		return (NULL);
+	}
 	return (current->var + 5);
 }
 
@@ -72,7 +74,7 @@ int	ft_get_cmd(t_cmd_table *cmd_table, char **pathnames)
 	i = 0;
 	if (ft_check_for_input_with_path(cmd_table, pathnames) == true)
 		return (SUCCESS);
-	if (cmd_table->cmd_args[0][0] == '\0')
+	if (cmd_table->cmd_args[0][0] == '\0' || pathnames == NULL)
 		return (CMD_NOT_FOUND);
 	while (pathnames && pathnames[i])
 	{
